@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - gorl
+  - coin
+  - scaffold
+  - hammer
+  - dangerousObj
+  - player
   layers:
   - Default
   - TransparentFX
