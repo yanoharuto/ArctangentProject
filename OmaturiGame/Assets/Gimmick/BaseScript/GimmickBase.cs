@@ -7,15 +7,24 @@ using UnityEngine;
 /// </summary>
 public class GimmickBase : MonoBehaviour
 {
-    private const float RotateAngle = 90.0f;
+    [SerializeField] [Header("回転させる物体")] private GameObject m_RotateObj;
+    private const float m_RotateAngle = 90.0f; //回転角
+    protected bool m_IsAfterDeployment = false;//設置したかどうか
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
 
+    /// <summary>
+    /// プレイヤーが設置したら呼んでもらう
+    /// </summary>
+    public void SetUp()
+    {
+        m_IsAfterDeployment = true;
+    }
     /// <summary>
     /// z軸で回転する
     /// </summary>
     public void PitchRotate()
     {
-        transform.Rotate(new Vector3(0, 0, RotateAngle));
+       m_RotateObj.transform.Rotate(new Vector3(0, 0, m_RotateAngle));
     }
     /// <summary>
     /// ハンマーにぶつかったら破壊する
@@ -35,4 +44,12 @@ public class GimmickBase : MonoBehaviour
     {
 
     }
+    /// <summary>
+    /// メインシーン終了時に元に戻しておきたいことを書く
+    /// </summary>
+    protected virtual void ResetState()
+    {
+
+    }
+
 }
