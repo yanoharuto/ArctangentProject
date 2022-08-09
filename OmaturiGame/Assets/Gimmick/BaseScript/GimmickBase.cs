@@ -9,16 +9,9 @@ public class GimmickBase : MonoBehaviour
 {
     [SerializeField] [Header("回転させる物体")] private GameObject m_RotateObj;
     private const float m_RotateAngle = 90.0f; //回転角
-    protected bool m_IsAfterDeployment = false;//設置したかどうか
+    private GimmickState m_GimmickState = GimmickState.BeforePlacement;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
 
-    /// <summary>
-    /// プレイヤーが設置したら呼んでもらう
-    /// </summary>
-    public void SetUp()
-    {
-        m_IsAfterDeployment = true;
-    }
     /// <summary>
     /// z軸で回転する
     /// </summary>
@@ -44,12 +37,56 @@ public class GimmickBase : MonoBehaviour
     {
 
     }
+
     /// <summary>
-    /// メインシーン終了時に元に戻しておきたいことを書く
+    /// プレイヤーが設置したら呼んでもらう
     /// </summary>
-    protected virtual void ResetState()
+    protected virtual void SetUp()
     {
-
     }
-
+    /// <summary>
+    /// アクションシーンが終了したら呼んで
+    /// </summary>
+    protected virtual void Standby()
+    {
+    }
+    /// <summary>
+    /// 呼ぶとギミックの状態が変わる
+    /// </summary>
+    public void ChangeGimmickState()
+    {
+        switch (m_GimmickState)
+        {
+            case GimmickState.BeforePlacement:
+                //配置前の状態で呼ぶとスタンバイ
+                m_GimmickState = GimmickState.Standby;
+                break;
+            case GimmickState.Standby:
+                //スタンバイ状態で呼ぶと動く
+                m_GimmickState = GimmickState.Run;
+                break;
+            case GimmickState.Run:
+                //動いてる状態で呼ぶとスタンバイ
+                m_GimmickState = GimmickState.Standby;
+                break;
+        }
+    }
+    /// <summary>
+    /// ギミックの状態によって更新内容変更
+    /// </summary>
+    private void Update()
+    {
+        switch(m_GimmickState)
+        {
+            case GimmickState.BeforePlacement:
+                SetUp();
+                break;
+            case GimmickState.Standby:
+                Standby();
+                break;
+            case GimmickState.Run:
+                Run();
+                break;
+        }
+    }
 }

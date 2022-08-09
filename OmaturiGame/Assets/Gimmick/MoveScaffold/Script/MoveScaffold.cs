@@ -13,7 +13,6 @@ public class MoveScaffold : GimmickBase
     [SerializeField] [Header("動く床のRigidBody")] private Rigidbody2D m_RigidBody2D;
     private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.Wait;   //移動床の状態
     private Vector3 m_StartPosition;                                          //初期位置
-    private bool m_IsStart = false;                                           //ゲーム開始フラグ
     
     /// <summary>
     /// 設置したときの位置
@@ -52,12 +51,19 @@ public class MoveScaffold : GimmickBase
                 m_MoveScaffoldState = MoveScaffoldState.Wait;
             }
         }
-
     }
+    /// <summary>
+    /// ゲーム開始時に呼んでもらう
+    /// </summary>
+    protected override void SetUp()
+    {
+        SetStartPos();
+    }
+
     /// <summary>
     /// 設置したときの最初の状態にする
     /// </summary>
-    protected override void ResetState()
+    protected override void Standby()
     {
         transform.position = m_StartPosition;
         m_MoveScaffoldState = MoveScaffoldState.Stop;
@@ -65,13 +71,8 @@ public class MoveScaffold : GimmickBase
     /// <summary>
     /// プレイヤーが乗ったらLastPositionに向かって移動し,し終わったら戻る
     /// </summary>
-    override protected void Run()
+    protected override  void Run()
     {
-        if (!m_IsStart)
-        {
-            SetStartPos();
-            m_IsStart = true;
-        }
         //移動
         if (m_MoveScaffoldState == MoveScaffoldState.Move ||
             m_MoveScaffoldState == MoveScaffoldState.Return)
@@ -84,10 +85,6 @@ public class MoveScaffold : GimmickBase
             StartCoroutine("StopScaffold");
         }
         Debug.Log(m_MoveScaffoldState);
-    }
-    private void Update()
-    {
-        Run();
     }
     /// <summary>
     /// プレイヤーが乗って待機中なら移動

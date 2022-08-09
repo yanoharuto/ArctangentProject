@@ -11,4 +11,15 @@ public class Scaffold : GimmickBase
     {
         DestroyByHummer(collision.transform.tag);
     }
+
+    protected override void SetUp()
+    {
+    }
+    protected override void Standby()
+    {
+    }
+    protected override void Run()
+    {
+
+    }
 }
