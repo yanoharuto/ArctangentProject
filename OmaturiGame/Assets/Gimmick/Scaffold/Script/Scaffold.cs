@@ -7,11 +7,6 @@ using UnityEngine;
 /// </summary>
 public class Scaffold : GimmickBase
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-        DestroyByHummer(collision.transform.tag);
-    }
-
     protected override void SetUp()
     {
     }
