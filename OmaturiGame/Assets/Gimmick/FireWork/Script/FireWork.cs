@@ -31,4 +31,11 @@ public class FireWork : MonoBehaviour
             Destroy(this);
         }
     }
+    /// <summary>
+    /// 見えなくなったら消す
+    /// </summary>
+    private void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
+    }
 }
