@@ -9,7 +9,7 @@ public class GimmickBase : MonoBehaviour
 {
     [SerializeField] [Header("回転させる物体")] private GameObject m_RotateObj;
     private const float m_RotateAngle = 90.0f; //回転角
-    private GimmickState m_GimmickState = GimmickState.BeforePlacement;
+    [SerializeField] [Header("ギミックの状態")]private GimmickState m_GimmickState = GimmickState.BeforePlacement;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
 
     /// <summary>
