@@ -8,22 +8,13 @@ using UnityEngine;
 public class GimmickBase : MonoBehaviour
 {
     [SerializeField] [Header("回転させる物体")] private GameObject m_RotateObj;
-    [SerializeField] [Header("ギミックの状態")]private GimmickState m_GimmickState = GimmickState.BeforePlacement;
+    [SerializeField] [Header("ギミックの状態")] protected GimmickState m_GimmickState = GimmickState.BeforePlacement;
     private const float m_RotateAngle = 90.0f; //回転角
     private bool m_IsOverlap = false;
+    private bool m_IsDestroy = false;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
 
-   /* /// <summary>
-    /// ハンマーにぶつかったら破壊する
-    /// </summary>
-    /// <param name="_ObjTagName">ぶつかった物体のタグ名</param>
-    private void DestroyByHummer(string _ObjTagName)
-    {
-        if (_ObjTagName == "hammer")
-        {
-            Destroy(this);
-        }
-    }*/
+
 
     /// <summary>
     /// z軸で回転する
@@ -45,6 +36,9 @@ public class GimmickBase : MonoBehaviour
                 break;
             case GimmickState.Standby:
                 //スタンバイ状態で呼ぶと動く
+                m_GimmickState = GimmickState.Hammer;
+                break;
+            case GimmickState.Hammer:
                 m_GimmickState = GimmickState.Run;
                 break;
             case GimmickState.Run:
@@ -61,13 +55,12 @@ public class GimmickBase : MonoBehaviour
     {
         return m_IsOverlap;
     }
-
     /// <summary>
-    /// 子クラスはこの関数をoverrideして動作する
+    /// ハンマーが起動する前に破壊されるかどうか所得
     /// </summary>
-    protected virtual void Run() 
+    public bool IsDestroy()
     {
-
+        return m_IsDestroy;
     }
 
     /// <summary>
@@ -82,7 +75,12 @@ public class GimmickBase : MonoBehaviour
     protected virtual void Standby()
     {
     }
-
+    /// <summary>
+    /// 子クラスはこの関数をoverrideして動作する
+    /// </summary>
+    protected virtual void Run()
+    {
+    }
     /// <summary>
     /// ギミックの状態によって更新内容変更
     /// </summary>
@@ -108,11 +106,16 @@ public class GimmickBase : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag=="scaffold"||
-            collision.gameObject.tag=="dangerousObj"||
-            collision.gameObject.tag=="coin")
+        if(collision.gameObject.CompareTag("scaffold") ||
+            collision.gameObject.CompareTag("dangerousObj") ||
+            collision.gameObject.CompareTag("coin"))
         {
             m_IsOverlap = true;
+        }
+        if (m_GimmickState == GimmickState.Standby &&
+            collision.gameObject.CompareTag("hammer")) 
+        {
+            m_IsDestroy = true;
         }
     }
     /// <summary>
@@ -128,15 +131,4 @@ public class GimmickBase : MonoBehaviour
             m_IsOverlap = false;
         }
     }
-   /* /// <summary>
-    /// ゲーム開始前にハンマーと重なってたら破壊
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(m_GimmickState==GimmickState.Standby)
-        {
-            DestroyByHummer(collision.tag);
-        }
-    }*/
 }
