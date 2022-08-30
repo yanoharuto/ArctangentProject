@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f41b7fb1b0685414ba0099b49415e7ca, type: 3}
-  m_Name: New Player Data
+  m_Name: Player Data
   m_EditorClassIdentifier: 
-  speed: 0
-  maxSpeed: 0
-  dashcount: 0
-  dashSpeed: 0
-  maxdashSpeed: 0
-  jumpPower: 0
-  jumpMax: 0
+  speed: 1
+  maxSpeed: 3
+  dashcount: 1
+  dashSpeed: 1
+  maxdashSpeed: 6
+  jumpPower: 50
+  jumpMax: 7
