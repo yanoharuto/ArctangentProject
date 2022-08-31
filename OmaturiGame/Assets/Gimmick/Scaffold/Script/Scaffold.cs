@@ -15,6 +15,9 @@ public class Scaffold : GimmickBase
     }
     protected override void Run()
     {
-
+        if (m_IsDestroy)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

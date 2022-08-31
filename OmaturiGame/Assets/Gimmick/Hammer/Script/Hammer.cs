@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// 設置すると他のオブジェクトを破壊するよ
+/// hammerのタグが付いたオブジェクトに大きめの当たり判定をつければ
+/// その当たり判定に当たったギミックはDestroy
+/// こいつも消える
 /// </summary>
 public class Hammer : GimmickBase
 {
-    protected override void Run()
-    {
-        Destroy(this.gameObject);
-    }
     protected override void SetUp()
     { 
     }
     protected override void Standby()
-    {
+    {      
+        m_IsDestroy = true;
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    protected override void HammerRun()
     {
-        if (m_GimmickState == GimmickState.Hammer)
+        //後でアニメーションとか入れるかもね
+    }  
+    protected override void Run()
+    {
+        if(m_IsDestroy)
         {
-            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

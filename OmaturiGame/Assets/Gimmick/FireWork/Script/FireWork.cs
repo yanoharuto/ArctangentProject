@@ -12,7 +12,7 @@ public class FireWork : MonoBehaviour
     public void Rotate(Vector3 _Rotation)
     {
        transform.Rotate(_Rotation);
-        Debug.Log(transform.rotation.eulerAngles);
+       Debug.Log(transform.rotation.eulerAngles);
     }
     private void Move()
     {

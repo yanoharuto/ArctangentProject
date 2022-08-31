@@ -22,6 +22,10 @@ public class FireWorkLauncher : GimmickBase
     /// </summary>
     protected override void Run()
     {
+        if(m_IsDestroy)
+        {
+            Destroy(this.gameObject);
+        }
         m_Time += Time.deltaTime;
         if (m_FireSpan - m_Time < 0)
         {

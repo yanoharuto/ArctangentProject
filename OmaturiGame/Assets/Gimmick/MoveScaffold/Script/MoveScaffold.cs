@@ -22,7 +22,7 @@ public class MoveScaffold : GimmickBase
         m_StartPosition = transform.position;
     }
     /// <summary>
-    /// 停止状態になってからStopTimeまで待って戻る
+    /// 停止状態になってからStopTimeまで待って戻るコルーチン
     /// </summary>
     IEnumerator StopScaffold()
     {
@@ -73,6 +73,10 @@ public class MoveScaffold : GimmickBase
     /// </summary>
     protected override  void Run()
     {
+        if(m_IsDestroy)
+        {
+            Destroy(this.gameObject);
+        }
         //移動
         if (m_MoveScaffoldState == MoveScaffoldState.Move ||
             m_MoveScaffoldState == MoveScaffoldState.Return)

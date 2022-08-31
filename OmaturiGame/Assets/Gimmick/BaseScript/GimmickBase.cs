@@ -7,15 +7,24 @@ using UnityEngine;
 /// </summary>
 public class GimmickBase : MonoBehaviour
 {
+    [SerializeField] [Header("表示するときにMinとMaxの間の数字が出ると表示")]private float m_ElectionMax, m_ElectionMin;
     [SerializeField] [Header("回転させる物体")] private GameObject m_RotateObj;
     [SerializeField] [Header("ギミックの状態")] protected GimmickState m_GimmickState = GimmickState.BeforePlacement;
     private const float m_RotateAngle = 90.0f; //回転角
-    private bool m_IsOverlap = false;
-    private bool m_IsDestroy = false;
+    private ElectionData m_ElectionData;
+    protected bool m_IsOverlap = false;
+    protected bool m_IsDestroy = false;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
 
-
-
+    private void Start()
+    {
+        m_ElectionData.m_Max = m_ElectionMax;
+        m_ElectionData.m_Min = m_ElectionMin;
+    }
+    public ElectionData ShowElectionData()
+    {
+        return m_ElectionData;
+    }
     /// <summary>
     /// z軸で回転する
     /// </summary>
@@ -23,10 +32,14 @@ public class GimmickBase : MonoBehaviour
     {
        m_RotateObj.transform.Rotate(new Vector3(0, 0, m_RotateAngle));
     }
+    public void SetPos(Vector3 _Pos)
+    {
+        gameObject.transform.position = _Pos;
+    }
     /// <summary>
     /// 呼ぶとギミックの状態が変わる
     /// </summary>
-    public void ChangeGimmickState()
+    public void ChangeState()
     {
         switch (m_GimmickState)
         {
@@ -36,9 +49,9 @@ public class GimmickBase : MonoBehaviour
                 break;
             case GimmickState.Standby:
                 //スタンバイ状態で呼ぶと動く
-                m_GimmickState = GimmickState.Hammer;
+                m_GimmickState = GimmickState.HammerRun;
                 break;
-            case GimmickState.Hammer:
+            case GimmickState.HammerRun:
                 m_GimmickState = GimmickState.Run;
                 break;
             case GimmickState.Run:
@@ -62,17 +75,10 @@ public class GimmickBase : MonoBehaviour
     {
         return m_IsDestroy;
     }
-
     /// <summary>
-    /// プレイヤーが設置したら呼んでもらう
+    /// プレイヤーが設置する前の最初の処理
     /// </summary>
     protected virtual void SetUp()
-    {
-    }
-    /// <summary>
-    /// アクションシーンが終了したら呼んで
-    /// </summary>
-    protected virtual void Standby()
     {
     }
     /// <summary>
@@ -81,6 +87,20 @@ public class GimmickBase : MonoBehaviour
     protected virtual void Run()
     {
     }
+    /// <summary>
+    /// ハンマーの処理
+    /// </summary>
+    protected virtual void HammerRun()
+    {
+
+    }
+    /// <summary>
+    /// アクションシーンが終了したら呼んで
+    /// </summary>
+    protected virtual void Standby()
+    {
+    }
+
     /// <summary>
     /// ギミックの状態によって更新内容変更
     /// </summary>
@@ -93,6 +113,9 @@ public class GimmickBase : MonoBehaviour
                 break;
             case GimmickState.Standby:
                 Standby();
+                break;
+            case GimmickState.HammerRun:
+                HammerRun();
                 break;
             case GimmickState.Run:
                 Run();
@@ -112,7 +135,7 @@ public class GimmickBase : MonoBehaviour
         {
             m_IsOverlap = true;
         }
-        if (m_GimmickState == GimmickState.Standby &&
+        if (m_GimmickState == GimmickState.HammerRun &&
             collision.gameObject.CompareTag("hammer")) 
         {
             m_IsDestroy = true;
@@ -121,14 +144,15 @@ public class GimmickBase : MonoBehaviour
     /// <summary>
     /// 重なりから外れたら
     /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionExit2D(Collision2D collision)
+    /// 
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "scaffold" ||
-            collision.gameObject.tag == "dangerousObj"||
+            collision.gameObject.tag == "dangerousObj" ||
             collision.gameObject.tag == "coin")
         {
             m_IsOverlap = false;
         }
     }
+
 }

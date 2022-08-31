@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// コイン
+/// </summary>
 public class Coin : GimmickBase
 {
-    private void OnCollisionEnter(Collision collision)
+    protected override void Run()
     {
-        if (collision.gameObject.tag == "player") 
+        if(m_IsDestroy)
         {
-            
+            Destroy(this.gameObject);
         }
     }
 }
