@@ -1,28 +1,33 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒMƒ~ƒbƒN‚ğ‘Io‚µUI‚É•\¦@
-/// Mouse‚ÉG‚ê‚ç‚ê‚é‚æ‚¤‚É‚·‚é
+/// ã‚®ãƒŸãƒƒã‚¯ã‚’é¸å‡ºã—UIã«è¡¨ç¤ºã€€
 /// </summary>
 public class GimmickElection: MonoBehaviour
 {
-    [SerializeField] [Header("gimmick•\¦ˆÊ’u")]
+    [SerializeField] [Header("gimmickè¡¨ç¤ºä½ç½®")]
     private List<Transform> m_DisplayPositions = new List<Transform>();
-    [SerializeField] [Header("À‘•‚·‚éGimmick")]
+    [SerializeField] [Header("å®Ÿè£…ã™ã‚‹Gimmick")]
     private List<GimmickBase> m_GimmickList = new List<GimmickBase>();
+    /// <summary>
+    /// Gimmickã‚’è¡¨ç¤ºã™ã‚‹
+    /// </summary>
     public void Election()
     {
         foreach (Transform pos in m_DisplayPositions)
         {
-            foreach(GimmickBase gimmick in m_GimmickList)
+            float num = Random.Range(1.0f, 101.0f);
+            Debug.Log(num);
+            //numã«è©²å½“ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¤œç´¢
+            foreach (GimmickBase gimmick in m_GimmickList)
             {
                 ElectionData Data = gimmick.ShowElectionData();
-                float num = Random.Range(1.0f, 101.0f);
                 if (Data.m_Min < num && Data.m_Max > num)
                 {
-                    gimmick.SetPos(pos.position);
+                    GameObject Gimmick = Instantiate(gimmick.gameObject);
+                    Gimmick.transform.position = pos.position;
                 }
             }
         }

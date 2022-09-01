@@ -5,103 +5,91 @@ using UnityEngine;
 /// <summary>
 /// 移動床
 /// </summary>
-public class MoveScaffold : GimmickBase
+public class MoveScaffold : MonoBehaviour
 {
-    [SerializeField] [Header("移動速度")] private float m_MoveSpeed;
-    [SerializeField] [Header("終着点")] private Transform m_LastPosObj;
-    [SerializeField] [Header("終着点で止まってから何秒経って動くか")] private float m_StopTime;
-    [SerializeField] [Header("動く床のRigidBody")] private Rigidbody2D m_RigidBody2D;
-    private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.Wait;   //移動床の状態
-    private Vector3 m_StartPosition;                                          //初期位置
-    
-    /// <summary>
-    /// 設置したときの位置
-    /// </summary>
-    private void SetStartPos()
+    [SerializeField] [Header("移動床の状態")] private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.Wait;
+    private GameObject m_Destination;
+    private Vector3 m_MoveValue;
+    private float m_StopTime;
+
+    public void Standby(Vector3 _startPos)
     {
-        m_StartPosition = transform.position;
+        transform.position = _startPos;
+        m_MoveScaffoldState = MoveScaffoldState.Wait;
+    }
+    public void Run()
+    {
+        switch (m_MoveScaffoldState)
+        {
+            case MoveScaffoldState.Wait:
+                break;
+            case MoveScaffoldState.Move:
+                Move(m_MoveValue);
+                break;
+            case MoveScaffoldState.Return:
+
+                Move(-m_MoveValue);
+                break;
+            case MoveScaffoldState.Stop:
+
+                break;
+        }
     }
     /// <summary>
     /// 停止状態になってからStopTimeまで待って戻るコルーチン
     /// </summary>
-    IEnumerator StopScaffold()
+    IEnumerator StopScaffold(float _stopTime)
     {
         m_MoveScaffoldState = MoveScaffoldState.Stop;
-        yield return new WaitForSeconds(m_StopTime);
-        m_MoveScaffoldState = MoveScaffoldState.Return;
+        yield return new WaitForSeconds(_stopTime);
+        m_MoveScaffoldState = MoveScaffoldState.Return; 
+        Debug.Log("Return");
+        yield break;
+    }
+    /// <summary>
+    /// 移動や止まるときに必要なパラメーターをもらう
+    /// </summary>
+    /// <param name="_stopTime"></param>
+    /// <param name="_moveSpeed"></param>
+    /// <param name="_destination"></param>
+    public void SetMoveParameter(float _stopTime, float _moveSpeed, GameObject _destination)
+    {
+        m_StopTime = _stopTime;
+        m_Destination = _destination;
+        m_MoveValue = (_destination.transform.position - transform.position).normalized * _moveSpeed ;
     }
     /// <summary>
     /// 移動
     /// </summary>
-    private void Move()
+    /// <param name="_moveValue">移動量</param>
+    private void Move(Vector3 _moveValue)
     {
-        if (m_MoveScaffoldState == MoveScaffoldState.Move)
-        {
-            transform.position += (m_LastPosObj.position - transform.position).normalized * m_MoveSpeed ;
-            if (transform.position == m_LastPosObj.position) 
-            {
-                m_MoveScaffoldState = MoveScaffoldState.Stop;
-            }
-        }
-        else if (m_MoveScaffoldState == MoveScaffoldState.Return)
-        {
-            transform.position += (m_StartPosition - transform.position).normalized * m_MoveSpeed;
-            if (transform.position == m_StartPosition) 
-            {
-                m_MoveScaffoldState = MoveScaffoldState.Wait;
-            }
-        }
+        transform.position += _moveValue;
     }
-    /// <summary>
-    /// ゲーム開始時に呼んでもらう
-    /// </summary>
-    protected override void SetUp()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        SetStartPos();
-    }
-
-    /// <summary>
-    /// 設置したときの最初の状態にする
-    /// </summary>
-    protected override void Standby()
-    {
-        transform.position = m_StartPosition;
-        m_MoveScaffoldState = MoveScaffoldState.Stop;
-    }
-    /// <summary>
-    /// プレイヤーが乗ったらLastPositionに向かって移動し,し終わったら戻る
-    /// </summary>
-    protected override  void Run()
-    {
-        if(m_IsDestroy)
-        {
-            Destroy(this.gameObject);
-        }
-        //移動
-        if (m_MoveScaffoldState == MoveScaffoldState.Move ||
-            m_MoveScaffoldState == MoveScaffoldState.Return)
-        {
-            Move();
-        }
-        //停止
-        else if (m_MoveScaffoldState == MoveScaffoldState.Stop) 
-        {
-            StartCoroutine("StopScaffold");
-        }
-        Debug.Log(m_MoveScaffoldState);
-    }
-    /// <summary>
-    /// プレイヤーが乗って待機中なら移動
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player") 
+        if (collision.gameObject.tag == "Player")
         {
             if (m_MoveScaffoldState == MoveScaffoldState.Wait)
             {
                 m_MoveScaffoldState = MoveScaffoldState.Move;
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((collision.gameObject == m_Destination &&
+            m_MoveScaffoldState == MoveScaffoldState.Move))
+        {
+            m_MoveScaffoldState = MoveScaffoldState.Stop;
+            StartCoroutine("StopScaffold", m_StopTime);
+        }
+        else if (collision.gameObject == transform.parent.gameObject &&
+             m_MoveScaffoldState == MoveScaffoldState.Return)
+        {
+            Debug.Log("Moveend");
+            m_MoveScaffoldState = MoveScaffoldState.Wait;
         }
     }
 }

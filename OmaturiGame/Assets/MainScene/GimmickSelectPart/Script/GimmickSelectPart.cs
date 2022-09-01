@@ -1,19 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ã‚®ãƒŸãƒƒã‚¯ã‚’é¸å‡ºã™ã‚‹
+/// </summary>
 public class GimmickSelectPart : MonoBehaviour
 {   
     [SerializeField] private GimmickElection m_GElection;
-    private int m_SelectGimmickNum = 0;
     private GimmickManager m_GManager;
+    private int m_SelectGimmickNum = 0;
+    private bool m_IsElection = false;
 
-    private void Start()
-    {
-        m_GManager = this.gameObject.AddComponent<GimmickManager>();
-    }
+
     /// <summary>
-    /// İ’u‚·‚éƒMƒ~ƒbƒN‚ğƒ}ƒl[ƒWƒƒ[‚ÌƒŠƒXƒg‚É’Ç‰Á
+    /// è¨­ç½®ã™ã‚‹ã‚®ãƒŸãƒƒã‚¯ã‚’ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ãƒªã‚¹ãƒˆã«è¿½åŠ 
     /// </summary>
     /// <param name="AddGimmick"></param>
     public void RecieveGimmick(GimmickBase AddGimmick)
@@ -22,27 +23,39 @@ public class GimmickSelectPart : MonoBehaviour
         m_GManager.AddGimmick(AddGimmick);
     }
     /// <summary>
-    /// ƒMƒ~ƒbƒN‚ğ“ñ‚Âİ’u‚µ‚½‚©‚Ç‚¤‚©
+    /// ã‚®ãƒŸãƒƒã‚¯ã‚’äºŒã¤è¨­ç½®ã—ãŸã‹ã©ã†ã‹
     /// </summary>
     /// <returns></returns>
-    public bool IsGimmickSelect()
+    public bool IsSelectGimmickEnd()
     {
         if (m_SelectGimmickNum == 2)
         {
             m_SelectGimmickNum = 0;
+            m_IsElection = false;
             return true;
         }
         return false;
     }
+    /// <summary>
+    /// å‘¼ã¶ãŸã³ã«ã‚®ãƒŸãƒƒã‚¯ã®çŠ¶æ…‹ã‚’é·ç§»
+    /// </summary>
     public void ChangeGimmicksState()
     {
         m_GManager.ChangeProcess();
     }
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª‘I‘ğ‚·‚éƒMƒ~ƒbƒN‚ğ‘Io
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸æŠã™ã‚‹ã‚®ãƒŸãƒƒã‚¯ã‚’é¸å‡º
     /// </summary>
-    public void ElectionBeforePlacementGimmick()
+    public void ElectionGimmick()
     {
-        m_GElection.Election();
+        if (!m_IsElection)
+        {
+            m_GElection.Election();
+            m_IsElection = true;
+        }
+    }
+    public void InitGimmickManager(GimmickManager _gimmickManager)
+    {
+        m_GManager = _gimmickManager;
     }
 }

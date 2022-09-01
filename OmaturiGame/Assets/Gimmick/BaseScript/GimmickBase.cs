@@ -15,14 +15,10 @@ public class GimmickBase : MonoBehaviour
     protected bool m_IsOverlap = false;
     protected bool m_IsDestroy = false;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
-
-    private void Start()
+    public ElectionData ShowElectionData()
     {
         m_ElectionData.m_Max = m_ElectionMax;
         m_ElectionData.m_Min = m_ElectionMin;
-    }
-    public ElectionData ShowElectionData()
-    {
         return m_ElectionData;
     }
     /// <summary>

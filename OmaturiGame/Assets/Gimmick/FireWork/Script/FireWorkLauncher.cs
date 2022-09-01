@@ -12,11 +12,18 @@ public class FireWorkLauncher : GimmickBase
     /// </summary>
     private void Fire()
     {
-        Debug.Log("Fire");
         FireWork fireWork = Instantiate(m_FireWork).GetComponent<FireWork>();
-        fireWork.Rotate(transform.rotation.eulerAngles);
+        fireWork.SetRotateAndPosition(transform.position,transform.rotation.eulerAngles);
     }
-
+    private void PrepareFire()
+    {
+        m_Time += Time.deltaTime;
+        if (m_FireSpan - m_Time < 0)
+        {
+            Fire();
+            m_Time = 0.0f;
+        }
+    }
     /// <summary>
     /// スパン過ぎたら花火発射
     /// </summary>
@@ -26,22 +33,21 @@ public class FireWorkLauncher : GimmickBase
         {
             Destroy(this.gameObject);
         }
-        m_Time += Time.deltaTime;
-        if (m_FireSpan - m_Time < 0)
-        {
-            Fire();
-            m_Time = 0.0f;
-        }
+        PrepareFire();
     }
     /// <summary>
     /// 準備
     /// </summary>
     protected override void Standby()
     {
+
+    }
+    protected override void HammerRun()
+    {
         m_Time = 0.0f;
     }
-
     protected override void SetUp()
     {
+        PrepareFire();
     }
 }

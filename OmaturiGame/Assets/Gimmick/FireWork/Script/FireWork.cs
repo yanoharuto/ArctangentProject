@@ -9,10 +9,10 @@ public class FireWork : MonoBehaviour
 {
     [SerializeField] [Header("移動速度")][Range(0.0f,1.0f)] private float m_MoveSpeed;
     
-    public void Rotate(Vector3 _Rotation)
+    public void SetRotateAndPosition(Vector3 _Position,Vector3 _Rotation)
     {
-       transform.Rotate(_Rotation);
-       Debug.Log(transform.rotation.eulerAngles);
+        transform.Rotate(_Rotation);
+        transform.position = _Position;
     }
     private void Move()
     {
