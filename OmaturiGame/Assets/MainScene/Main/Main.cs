@@ -4,22 +4,35 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
+    //ラウンド数
     [SerializeField] private int m_MaxRound;
-    [SerializeField] private PlayPart m_PlayPart;
+    //ギミック選択部分
     [SerializeField] private GimmickSelectPart m_GSelectPart;
+    //プレイヤーが遊ぶ部分
+    [SerializeField] private PlayPart m_PlayPart;
+    //最初は選ぶパートからスターと
     [SerializeField] private MainState m_State = MainState.SelectGimmickPart;
+    
+    //パートごとにギミックの動きを変える
     private GimmickManager m_GManager;
+    //プレイヤーパートが始まったか
     private bool m_IsStartPlayPart;
-    private void PlayLoop()
+    
+    private void PlayLoop()//実質メインループ
     {
+        //状態によって処理の分岐
         switch (m_State)
         {
+            //ギミックを選択するぱート
             case MainState.SelectGimmickPart:
                 //ギミック選出
                 m_GSelectPart.ElectionGimmick();
+
+
                 //ギミックを二つ選んだなら
                 if (m_GSelectPart.IsSelectGimmickEnd())
                 {
+                    
                     m_State = MainState.PlayPart;
                     //ギミックをHammerRunに
                     m_GSelectPart.ChangeGimmicksState();

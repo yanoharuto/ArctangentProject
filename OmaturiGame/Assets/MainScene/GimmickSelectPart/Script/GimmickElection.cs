@@ -18,14 +18,18 @@ public class GimmickElection: MonoBehaviour
     {
         foreach (Transform pos in m_DisplayPositions)
         {
+            //ギミックに設定されたキーをランダムに生成
             float num = Random.Range(1.0f, 101.0f);
             Debug.Log(num);
             //numに該当するオブジェクトを検索
             foreach (GimmickBase gimmick in m_GimmickList)
             {
+                //ギミックに設定された数値を参照
                 ElectionData Data = gimmick.ShowElectionData();
+           
                 if (Data.m_Min < num && Data.m_Max > num)
                 {
+                    //数値ないなら真、ギミックを生成してポジションに置く
                     GameObject Gimmick = Instantiate(gimmick.gameObject);
                     Gimmick.transform.position = pos.position;
                 }

@@ -21,6 +21,10 @@ public class GimmickBase : MonoBehaviour
         m_ElectionData.m_Min = m_ElectionMin;
         return m_ElectionData;
     }
+    public void OnMouseEnter()
+    {
+        Debug.Log("あたった");
+    }
     /// <summary>
     /// z軸で回転する
     /// </summary>
