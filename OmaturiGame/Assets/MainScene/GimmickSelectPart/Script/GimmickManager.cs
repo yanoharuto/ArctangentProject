@@ -30,6 +30,7 @@ public class GimmickManager : MonoBehaviour
     public void AddGimmick(GimmickBase gimmickBase)
     {
         m_GimmickBases.Add(gimmickBase);
+        Debug.Log(gimmickBase.name);
         //設置後状態にする
         gimmickBase.ChangeState();
     }
