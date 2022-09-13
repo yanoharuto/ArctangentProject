@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class ScoreController : MonoBehaviour
 {
     [SerializeField]  [Header("コインスコア")]private int CoinScore;
     [SerializeField][Header("ゴールスコア")] private int GoalScore;
+    [SerializeField][Header("ゴールスコア")] private int DieScore;
+
     public int Point = 0;
  
     void Start()
@@ -27,9 +29,10 @@ public class PlayerController : MonoBehaviour
             transform.Translate(2, 0, 0); // 右に「3」動かす
         }
     }
-    public void ReSporn()
+
+    public void ResetScore()
     {
-   
+        Point = 0;
     }
 
     void OnTriggerEnter2D(Collider2D collision)               //衝突したオブジェクトのタグをcollisionに代入
@@ -44,20 +47,17 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);          //衝突したコインを消す
         }
 
-        if (collision.CompareTag("flag"))            //衝突したオブジェクトのタグがcoinなら
+        if (collision.CompareTag("object"))            //衝突したオブジェクトのタグがobjectなら
         {
-            //  スタート地点に戻る
-            Transform myTransform = this.transform;         //transformを取得
+            Point -= DieScore;
+            Debug.Log("死亡");                       //ゲットと表示
+            Debug.Log(Point);
+        }
 
-            Vector3 pos = myTransform.position;             //座標を取得
-            Debug.Log("ゴール");                    //ゴールと表示
-            pos.x = 0f;                                 //x初期位置
-            pos.y = -3.6f;                              //y初期位置
-            pos.z = 0f;                                  //z初期位置
-
-            myTransform.position = pos;                     //座標を設定
-
-            Point += GoalScore;
+        if (collision.CompareTag("Re"))            //衝突したオブジェクトのタグがobjectなら
+        {
+            Point -= DieScore;
+            Debug.Log("死亡");                       //ゲットと表示
             Debug.Log(Point);
         }
     }
