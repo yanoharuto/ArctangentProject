@@ -20,7 +20,6 @@ public class GimmickElection: MonoBehaviour
         {
             //ギミックに設定されたキーをランダムに生成
             float num = Random.Range(1.0f, 101.0f);
-            Debug.Log(num);
             //numに該当するオブジェクトを検索
             foreach (GimmickBase gimmick in m_GimmickList)
             {

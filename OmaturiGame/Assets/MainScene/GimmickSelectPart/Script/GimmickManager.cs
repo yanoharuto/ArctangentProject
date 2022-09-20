@@ -26,7 +26,11 @@ public class GimmickManager : MonoBehaviour
         //受け渡し。渡されなかったギミックは起動時に破壊される
         m_GimmickBases = NonDestroyGimmick;
     }
- 
+    /// <summary>
+    /// ギミックを設置するときに呼んでもらう
+    /// ギミックのリストに追加するよ
+    /// </summary>
+    /// <param name="gimmickBase"></param>
     public void AddGimmick(GimmickBase gimmickBase)
     {
         m_GimmickBases.Add(gimmickBase);

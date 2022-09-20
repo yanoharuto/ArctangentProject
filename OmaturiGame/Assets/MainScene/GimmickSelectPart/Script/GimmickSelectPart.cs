@@ -9,7 +9,6 @@ public class GimmickSelectPart : MonoBehaviour
 {   
     //ポジション
     [SerializeField] private GimmickElection m_GElection;
-    //
     private GimmickManager m_GManager;
     private int m_SelectGimmickNum = 0;
     private bool m_IsElection = false;
@@ -19,7 +18,6 @@ public class GimmickSelectPart : MonoBehaviour
     /// <param name="AddGimmick"></param>
     public void RecieveGimmick(GameObject AddGimmick)
     {
-        
         m_SelectGimmickNum++;
         m_GManager.AddGimmick(AddGimmick.GetComponent<GimmickBase>());
     }

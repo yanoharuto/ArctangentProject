@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ public class GroundCheckPlayer : MonoBehaviour
 {
     private bool isGround = false;
     private bool isGroundEnter, isGroundStay, isGroundExit;
-    //–ˆƒtƒŒ[ƒ€ŒÄ‚Ô
+    //æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã¶
     public bool IsGround()
     {
         if (isGroundEnter || isGroundStay)
@@ -26,18 +26,18 @@ public class GroundCheckPlayer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isGroundEnter = true;
-        //Debug.Log("‰½‚©‚ª”»’è‚É“ü‚è‚Ü‚µ‚½");
+        //Debug.Log("ä½•ã‹ãŒåˆ¤å®šã«å…¥ã‚Šã¾ã—ãŸ");
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         isGroundStay = true;
-        //Debug.Log("‰½‚©‚ª”»’è‚É“ü‚è‘±‚¯‚Ä‚¢‚Ü‚·");
+        //Debug.Log("ä½•ã‹ãŒåˆ¤å®šã«å…¥ã‚Šç¶šã‘ã¦ã„ã¾ã™");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         isGroundExit = true;
-        //Debug.Log("‰½‚©‚ª”»’è‚ğ‚Å‚Ü‚µ‚½");
+        //Debug.Log("ä½•ã‹ãŒåˆ¤å®šã‚’ã§ã¾ã—ãŸ");
     }
 }

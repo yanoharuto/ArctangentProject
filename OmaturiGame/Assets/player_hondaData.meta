@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:OmaturiGame/Assets/player_hondaData.meta
 guid: 6be37f231dd5f134d9061f47534795e4
+========
+guid: ab67da5759af82045afc24eba9ae06b3
+>>>>>>>> main:OmaturiGame/Assets/player_hondaData/motion.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

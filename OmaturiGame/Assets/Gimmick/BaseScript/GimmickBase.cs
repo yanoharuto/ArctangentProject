@@ -12,6 +12,7 @@ public class GimmickBase : MonoBehaviour
     [SerializeField] [Header("ギミックの状態")] protected GimmickState m_GimmickState = GimmickState.BeforePlacement;
     private const float m_RotateAngle = 90.0f; //回転角
     private ElectionData m_ElectionData;
+
     protected bool m_IsOverlap = false;
     protected bool m_IsDestroy = false;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
@@ -69,11 +70,16 @@ public class GimmickBase : MonoBehaviour
         return m_IsOverlap;
     }
     /// <summary>
-    /// ハンマーが起動する前に破壊されるかどうか所得
+    /// ハンマーが起動する前に
+    /// このギミックが破壊されるかどうか所得
     /// </summary>
     public bool IsDestroy()
     {
         return m_IsDestroy;
+    }
+    public void SetParent()
+    {
+        
     }
     /// <summary>
     /// プレイヤーが設置する前の最初の処理
