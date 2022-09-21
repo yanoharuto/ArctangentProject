@@ -7,9 +7,10 @@ public class ResultPart : MonoBehaviour
     [SerializeField] [Header("1pのスコア")] private TestScore m_PlayerScore1;
     [SerializeField] [Header("2pのスコア")] private TestScore m_PlayerScore2;
     [SerializeField] [Header("優勝するために必要なスコア")] private int m_FinalsScore;
-    [SerializeField] [Header("スコアを表示する棒グラフの画像")] private GameObject m_BarGraph;
+    [SerializeField] [Header("スコアを表示する棒グラフの画像")] private Image m_BarGraph;
     [SerializeField] [Header("このオブジェクトを起点にUIを表示する")] private GameObject m_P1BarGraphObj;
     [SerializeField]  private GameObject m_P2BarGraphObj;
+    [SerializeField] private Vector3 m_Between;
     [SerializeField] [Header("スコアの色の種類")] private List<Color> ColorList = new List<Color>();
     [SerializeField] [Header("スコアの表示にかかる時間")] private float m_ElectionTime;
     private bool m_IsEnd;//リザルトを表示し終えたかどうか
@@ -40,16 +41,16 @@ public class ResultPart : MonoBehaviour
         switch(i)
         {
             case 0:
-                m_P1ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_GoalScore, ColorList[i]);
-                m_P2ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_GoalScore, ColorList[i]);
+                m_P1ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_GoalScore, m_Between, ColorList[i]);
+                m_P2ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore2.ShowScore().m_GoalScore, m_Between, ColorList[i]);
                 break;
             case 1:
-                m_P1ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_CoinScore, ColorList[i]);
-                m_P2ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_CoinScore, ColorList[i]);
+                m_P1ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_CoinScore, m_Between, ColorList[i]);
+                m_P2ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore2.ShowScore().m_CoinScore, m_Between, ColorList[i]);
                 break;
             case 2:
-                m_P1ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_PlayerKillScore, ColorList[i]);
-                m_P2ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_PlayerKillScore, ColorList[i]);
+                m_P1ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore1.ShowScore().m_PlayerKillScore, m_Between, ColorList[i]);
+                m_P2ScoreElection.InstantiateBarGraph(m_BarGraph, m_PlayerScore2.ShowScore().m_PlayerKillScore, m_Between, ColorList[i]);
                 break;
         }
     }
