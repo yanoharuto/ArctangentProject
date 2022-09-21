@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ResultPart : MonoBehaviour
 {
-    [SerializeField] [Header("1pのスコア")] private PlayerScore m_PlayerScore1;
-    [SerializeField] [Header("2pのスコア")] private PlayerScore m_PlayerScore2;
+    [SerializeField] [Header("1pのスコア")] private TestScore m_PlayerScore1;
+    [SerializeField] [Header("2pのスコア")] private TestScore m_PlayerScore2;
     [SerializeField] [Header("優勝するために必要なスコア")] private int m_FinalsScore;
-    [SerializeField] [Header("スコアを表示する棒グラフの画像")] private Image m_BarGraph;
+    [SerializeField] [Header("スコアを表示する棒グラフの画像")] private GameObject m_BarGraph;
     [SerializeField] [Header("このオブジェクトを起点にUIを表示する")] private GameObject m_P1BarGraphObj;
     [SerializeField]  private GameObject m_P2BarGraphObj;
     [SerializeField] [Header("スコアの色の種類")] private List<Color> ColorList = new List<Color>();
@@ -58,7 +58,7 @@ public class ResultPart : MonoBehaviour
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    private bool IsFinalisedPlayer(PlayerScore player)
+    private bool IsFinalisedPlayer(TestScore player)
     {
         PlayerScoreStruct score = player.ShowScore();
         int totalScore = score.m_CoinScore + score.m_GoalScore + score.m_PlayerKillScore;
@@ -68,6 +68,7 @@ public class ResultPart : MonoBehaviour
     {
         m_P1ScoreElection = m_P1BarGraphObj.AddComponent<ScoreElection>();
         m_P2ScoreElection = m_P2BarGraphObj.AddComponent<ScoreElection>();
+        Run();
     }    
     /// <summary>
     /// スコアを表示　コルーチン起動
