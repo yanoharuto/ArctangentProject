@@ -8,36 +8,35 @@ using UnityEngine;
 /// </summary>
 public class PlayerScore : MonoBehaviour
 {
+    [SerializeField] [Header("Debug用")] private float m_Coin, m_Kill, m_Goal;
+    [SerializeField] private ScoreElection m_ScoreElection;
     PlayerScoreStruct m_ScoreStruct;
+    private void Awake()
+    {
+        m_ScoreStruct.m_CoinScore = m_Coin;
+        m_ScoreStruct.m_GoalScore = m_Goal;
+        m_ScoreStruct.m_PlayerKillScore = m_Kill;
+    }
+    /// <summary>
+    /// このスクリプトが持っているスコアを表示
+    /// </summary>
+    public void ElectionScore(bool first)
+    {
+        m_ScoreElection.Display(m_ScoreStruct,first);
+    }
     /// <summary>
     /// プレイヤーのスコアを見せる
     /// </summary>
-    public PlayerScoreStruct ShowScore()
+    public PlayerScoreStruct GetPlayerScore()
     {
         return m_ScoreStruct;
     }
     /// <summary>
-    /// 相手のプレイヤーを殺したときのスコアを加算
+    /// スコアの合計値を出す
     /// </summary>
-    /// <param name="addScore"></param>
-    public void AddPlayerKillScore(int addScore)
+    /// <returns></returns>
+    public float GetTotalScore()
     {
-        m_ScoreStruct.m_PlayerKillScore += addScore;
-    }
-    /// <summary>
-    /// ゴールした時のスコアを加算
-    /// </summary>
-    /// <param name="addScore"></param>
-    public void AddGorlScore(int addScore)
-    {
-        m_ScoreStruct.m_GoalScore += addScore;
-    }
-    /// <summary>
-    /// コインを所得したときのスコアを加算
-    /// </summary>
-    /// <param name="addScore"></param>
-    public void AddCoinScore(int addScore)
-    {
-        m_ScoreStruct.m_CoinScore += addScore;
+        return m_ScoreStruct.m_CoinScore + m_ScoreStruct.m_GoalScore + m_ScoreStruct.m_PlayerKillScore;
     }
 }

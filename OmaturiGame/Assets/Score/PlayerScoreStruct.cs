@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public struct PlayerScoreStruct
 {
-    public int m_CoinScore;
-    public int m_PlayerKillScore;
-    public int m_GoalScore;
+    public float m_CoinScore;
+    public float m_PlayerKillScore;
+    public float m_GoalScore;
 }
