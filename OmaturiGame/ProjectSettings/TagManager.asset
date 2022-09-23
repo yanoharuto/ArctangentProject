@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - gorl
   - coin
   - scaffold
   - hammer
   - dangerousObj
   - player
+  - goal
   layers:
   - Default
   - TransparentFX
