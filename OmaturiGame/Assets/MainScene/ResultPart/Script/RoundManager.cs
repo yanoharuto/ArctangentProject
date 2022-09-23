@@ -17,7 +17,5 @@ public class RoundManager : MonoBehaviour
     {
         m_NowRoundNum++;
         m_NowText.text = m_NowRoundNum.ToString();
-
     }
-
 }

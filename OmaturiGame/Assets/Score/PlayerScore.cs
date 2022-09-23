@@ -8,28 +8,19 @@ using UnityEngine;
 /// </summary>
 public class PlayerScore : MonoBehaviour
 {
-    [SerializeField] [Header("Debug用")] private float m_Coin, m_Kill, m_Goal;
-    [SerializeField] private ScoreElection m_ScoreElection;
+   [SerializeField] NowRoundPlayerScore m_ScoreStocker;
     PlayerScoreStruct m_ScoreStruct;
-    private void Awake()
-    {
-        m_ScoreStruct.m_CoinScore = m_Coin;
-        m_ScoreStruct.m_GoalScore = m_Goal;
-        m_ScoreStruct.m_PlayerKillScore = m_Kill;
-    }
-    /// <summary>
-    /// このスクリプトが持っているスコアを表示
-    /// </summary>
-    public void ElectionScore(bool first)
-    {
-        m_ScoreElection.Display(m_ScoreStruct,first);
-    }
+
     /// <summary>
     /// プレイヤーのスコアを見せる
     /// </summary>
-    public PlayerScoreStruct GetPlayerScore()
+    public PlayerScoreStruct GetNowRoundScore()
     {
-        return m_ScoreStruct;
+        PlayerScoreStruct getNowRoundScore = m_ScoreStocker.GetNowRoundScore();
+        m_ScoreStruct.m_GoalScore += getNowRoundScore.m_GoalScore;
+        m_ScoreStruct.m_PlayerKillScore += getNowRoundScore.m_PlayerKillScore;
+        m_ScoreStruct.m_CoinScore += getNowRoundScore.m_CoinScore;
+        return getNowRoundScore;
     }
     /// <summary>
     /// スコアの合計値を出す
@@ -39,4 +30,5 @@ public class PlayerScore : MonoBehaviour
     {
         return m_ScoreStruct.m_CoinScore + m_ScoreStruct.m_GoalScore + m_ScoreStruct.m_PlayerKillScore;
     }
+
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2841386152420673373}
   - component: {fileID: 7092777596634164850}
+  - component: {fileID: 7237042048079114466}
   m_Layer: 0
   m_Name: TestPlayerScore
   m_TagString: Untagged
@@ -40,9 +41,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3869752366742624582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c0fb654f51ded4abfb205880102f50, type: 3}
+  m_Script: {fileID: 11500000, guid: ba930b6439727eb499968e0290e9fbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Coin: 2
-  m_Kill: 2
-  m_Goal: 2
+  m_ScoreStocker: {fileID: 7237042048079114466}
+--- !u!114 &7237042048079114466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869752366742624582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3613547ddb0c33045bad134b0c1e121b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Coin: 0
+  m_Kill: 0
+  m_Goal: 0

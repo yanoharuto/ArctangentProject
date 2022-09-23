@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &98673609 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9044693665410450571, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
-  m_PrefabInstance: {fileID: 9044693665341351746}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c259b147d54a3c4408dc1c45d692aa22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &171343727
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,40 +272,31 @@ PrefabInstance:
       propertyPath: m_Kill
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7237042048079114466, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+      propertyPath: m_Coin
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237042048079114466, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+      propertyPath: m_Goal
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237042048079114466, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+      propertyPath: m_Kill
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
---- !u!114 &667395970 stripped
+--- !u!114 &670564047 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9044693665982841024, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
-  m_PrefabInstance: {fileID: 9044693665341351746}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c259b147d54a3c4408dc1c45d692aa22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &670564045 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3869752366742624582, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7092777596634164850, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
   m_PrefabInstance: {fileID: 647340386}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &670564046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670564045}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba930b6439727eb499968e0290e9fbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Coin: 12
-  m_Kill: 3
-  m_Goal: 2
-  m_ScoreElection: {fileID: 667395970}
 --- !u!1 &1037921473
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,8 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b90f385d8b4a664dbbc3669442db33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerScore1: {fileID: 670564046}
-  m_PlayerScore2: {fileID: 1761438780}
+  m_ScoreBarMana: {fileID: 2051649096}
   m_ChampScore: 50
   m_RoundManager: {fileID: 1407243769}
 --- !u!4 &1407243768
@@ -592,29 +571,31 @@ PrefabInstance:
       propertyPath: m_Kill
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7237042048079114466, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+      propertyPath: m_Coin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237042048079114466, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+      propertyPath: m_Goal
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237042048079114466, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+      propertyPath: m_Kill
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
---- !u!1 &1761438779 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3869752366742624582, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
+--- !u!114 &1761438781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7092777596634164850, guid: 1b911bdec2f380a41aeb3c74b0154e6a, type: 3}
   m_PrefabInstance: {fileID: 1454052222}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1761438780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761438779}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba930b6439727eb499968e0290e9fbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Coin: 2
-  m_Kill: 2
-  m_Goal: 2
-  m_ScoreElection: {fileID: 98673609}
 --- !u!114 &1819065838 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9044693664999742124, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
@@ -637,6 +618,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2051649096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5185475234036123685, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
+  m_PrefabInstance: {fileID: 9044693665341351746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8da838022186e47a7e33aa19e6957c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9044693665341351746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -644,6 +636,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1765906843869786467, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765906843869786467, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1765906844845341455, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -668,6 +668,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5185475234036123685, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
+      propertyPath: m_PlayerScore1
+      value: 
+      objectReference: {fileID: 670564047}
+    - target: {fileID: 5185475234036123685, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
+      propertyPath: m_PlayerScore2
+      value: 
+      objectReference: {fileID: 1761438781}
     - target: {fileID: 9044693666301145357, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
       propertyPath: m_Name
       value: Canvas
