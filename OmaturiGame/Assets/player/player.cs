@@ -37,6 +37,7 @@ public class player : MonoBehaviour
     const string m_inputVecNameY = "Vertical";
     const string m_InputJump = "Xbox_A";
     //-----------------------------------------------------
+    Vector3 DefaultScale;
 
 
     //アニメーション関係-----------------------------------
@@ -46,6 +47,7 @@ public class player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DefaultScale = transform.localScale;
         //アニメーション関係-----------------------------------
         animator = GetComponent<Animator>(); //animetor変数にAnimetorを読み込む
         //------------------------------------
@@ -121,14 +123,14 @@ public class player : MonoBehaviour
         //        dashFlag = true; //動きがダッシュに変化する
         //        walkFlag = false;
         //    }
-        //    //振り向き---------------------------
+        //    //振り向き---------------------------47
         if (InputVecX > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1); //Xの大きさを反転する。(振り向き)
+            transform.localScale = Vector3.Scale(DefaultScale,new Vector3(1, 1, 1)); //Xの大きさを反転する。(振り向き)
         }
         else if (InputVecX < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1); //Xの大きさを反転する。(振り向き)
+            transform.localScale = Vector3.Scale(DefaultScale, new Vector3(-1, 1, 1)); ; //Xの大きさを反転する。(振り向き)
         }
         //    //-----------------------------
         //}

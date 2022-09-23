@@ -5,6 +5,7 @@ using UnityEngine;
 public enum MainState
 {
     SelectGimmickPart,
+    PutGimmickPart,
     PlayPart,
     ResultPart
 }

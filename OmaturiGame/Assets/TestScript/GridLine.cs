@@ -56,6 +56,7 @@ public class GridLine : MonoBehaviour
             objects.Add(obj);
             Debug.Log(i);
         }
+        UnSetAllActive();
     }
 
 
@@ -63,4 +64,21 @@ public class GridLine : MonoBehaviour
     {
         
     }
+    public void UnSetAllActive()
+    {
+        foreach(var obj in objects)
+        {
+            obj.SetActive(false);
+            Debug.Log(obj);
+        }
+    }
+    public void SetAllActive()
+    {
+        foreach (var obj in objects)
+        {
+            obj.SetActive(true);
+        }
+
+    }
+
 }

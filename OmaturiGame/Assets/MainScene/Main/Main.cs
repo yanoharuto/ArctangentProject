@@ -20,6 +20,8 @@ public class Main : MonoBehaviour
     
     private void PlayLoop()//実質メインループ
     {
+      
+        
         //状態によって処理の分岐
         switch (m_State)
         {
@@ -39,6 +41,7 @@ public class Main : MonoBehaviour
                 }
                 break;
             case MainState.PlayPart:
+                Debug.Log("Playpart");
                 if(!m_IsStartPlayPart)
                 {
                     m_IsStartPlayPart = true;

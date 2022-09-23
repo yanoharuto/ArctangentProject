@@ -19,6 +19,7 @@ public class GimmickSelectPart : MonoBehaviour
     public void RecieveGimmick(GameObject AddGimmick)
     {
         m_SelectGimmickNum++;
+        Debug.Log(AddGimmick.gameObject.name);
         m_GManager.AddGimmick(AddGimmick.GetComponent<GimmickBase>());
     }
     /// <summary>
