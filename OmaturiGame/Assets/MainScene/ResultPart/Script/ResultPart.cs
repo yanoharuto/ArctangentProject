@@ -7,6 +7,7 @@ public class ResultPart : MonoBehaviour
     [SerializeField] [Header("1pのスコア")] private PlayerScore m_PlayerScore1;
     [SerializeField] [Header("2pのスコア")] private PlayerScore m_PlayerScore2;
     [SerializeField] [Header("優勝するために必要なスコア")] private float m_ChampScore;
+    [SerializeField] private RoundManager m_RoundManager;
     private bool m_IsEnd;//リザルトを表示し終えたかどうか
     private bool m_IsFinals;//優勝フラグ
     private void Start()
@@ -28,6 +29,7 @@ public class ResultPart : MonoBehaviour
     /// </summary>
     public void Run(int roundNum)
     {
+        m_RoundManager.CountRound();
         m_PlayerScore1.ElectionScore(roundNum == 1) ;
         m_PlayerScore2.ElectionScore(roundNum == 1);
         if (IsFinalisedPlayer(m_PlayerScore1))

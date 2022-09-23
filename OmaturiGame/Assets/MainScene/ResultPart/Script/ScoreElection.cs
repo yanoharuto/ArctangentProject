@@ -10,10 +10,12 @@ public class ScoreElection : MonoBehaviour
 {
     [SerializeField] [Header("スコアゲージ用のマスク")] private GameObject m_ImgMask;
     [SerializeField] [Header("スコアを表示する棒グラフのsprite")] private GameObject m_BarImg;
+    [SerializeField] private Transform m_MaskT;
+    [SerializeField] private Transform m_BarT;
+    [SerializeField] private float m_BarSizeY;
     [SerializeField] [Header("BarImgの表示にかかる時間")] private float m_DisplayTime;
     [SerializeField] [Header("マスクの数")] private int m_MaskNum;
     [SerializeField] [Header("スコアの色の種類")] private List<Color> m_ColorList = new List<Color>();
-    private RectTransform m_Rect;
     private PlayerScoreStruct m_DisplayScore;//表示した分はここに
     private void Start()
     {
@@ -32,32 +34,22 @@ public class ScoreElection : MonoBehaviour
         m_DisplayScore.m_CoinScore = coin;
         m_DisplayScore.m_PlayerKillScore = kill;
     }
-    /// <summary>
-    /// MaskとスコアUIの共通部分
-    /// </summary>
-    /// <param name="UIT"></param>
-    /// <param name="location"></param>
-    /// <param name="parent"></param>
-    /// <returns>一つ下の子オブジェクトのtransform</returns>
-    private Transform SettingUI(Transform UIT,Transform parent,Vector3 location)
-    {
-        //親子付けしてキャンバスの下に置く
-        UIT.SetParent(parent);
-        UIT.position = location;
 
-        return UIT.GetChild(0);
-    }
     /// <summary>
     /// Maskを付くる
     /// </summary>
     private void SettingMask()
     {
-        Transform nextLocation = transform;
+        
         for (int i = 0; i < m_MaskNum; i++)
         {
             GameObject Img = Instantiate(m_ImgMask);
 
-            nextLocation = SettingUI(Img.transform, transform, nextLocation.position) ;
+            Transform ImgT = Img.transform;
+            ImgT.position = m_MaskT.position ;
+            //親子付けしてキャンバスの下に置く
+            ImgT.SetParent(m_MaskT);
+
         }
     }
     /// <summary>
@@ -68,17 +60,10 @@ public class ScoreElection : MonoBehaviour
     private void DisplayScore(float score,Color color)
     {
         GameObject imgObj = Instantiate(m_BarImg);
-        m_Rect = imgObj.GetComponent<RectTransform>();
-        m_Rect.sizeDelta()
-        Image image = imgObj.GetComponent<Image>();
+        imgObj.transform.SetParent(m_BarT);
+        imgObj.transform.localScale = new Vector3(score, m_BarSizeY);
+        SpriteRenderer image = imgObj.GetComponent<SpriteRenderer>();
         image.color = color;
-        ////サイズ変え
-        //scoreObj.transform.localScale += new Vector3(score, 0, 0);
-        ////色変え
-        //SpriteRenderer Img = childObjT.GetComponent<SpriteRenderer>();
-        //Img.color = color;
-        ////次のスコアはscoreObjの孫から始まる
-        //m_BarLocation = childObjT.GetChild(0);
     }
     /// <summary>
     /// コルーチン　ちょっとずつスコアが出るよ

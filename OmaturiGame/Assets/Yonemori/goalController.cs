@@ -1,4 +1,4 @@
-//using System.Collections;
+ï»¿//using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
 
@@ -15,9 +15,9 @@
 //    {
 
 //    }
-//    void OnTriggerEnter2D(Collider2D collision)               //Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ğcollision‚É‘ã“ü
+//    void OnTriggerEnter2D(Collider2D collision)               //è¡çªã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã‚’collisionã«ä»£å…¥
 //    {
-//        Debug.Log(collision.gameObject.name);              //Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O‚ğ•\¦
+//        Debug.Log(collision.gameObject.name);              //è¡çªã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰ã‚’è¡¨ç¤º
 
         
 //    }
