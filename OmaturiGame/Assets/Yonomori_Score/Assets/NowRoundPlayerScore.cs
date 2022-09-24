@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 1ラウンド毎のスコアを集めた場所
+/// </summary>
 public class NowRoundPlayerScore : MonoBehaviour
 {
     private PlayerScoreStruct m_Score;
-    [SerializeField] [Header("Debug用")] private float m_Coin, m_Kill, m_Goal;
+    [SerializeField] [Header("Debug用、本番時は0")] private float m_Coin, m_Kill, m_Goal;
     private void Awake()
     {
         m_Score.m_CoinScore = m_Coin;

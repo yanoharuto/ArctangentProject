@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Go2GameScene : MonoBehaviour
 {
-    [SerializeField] string gameScene;
+    [SerializeField] string m_NextScene;
 
     public void OnClickGo2GameSceneButton()
     {
-        SceneManager.LoadScene(gameScene);
+        SceneManager.LoadScene(m_NextScene);
     }
 }
