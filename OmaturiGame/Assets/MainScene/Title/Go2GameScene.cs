@@ -7,14 +7,15 @@ public class Go2GameScene : MonoBehaviour
 {
     [SerializeField] string m_NextScene;
     [SerializeField] GameObject m_TutorialObj;
-    [SerializeField] AudioSource m_Audio;
+    [SerializeField] [Header("チュートリアルとPlayGameのSE")] List<AudioSource> m_Audios = new List<AudioSource>();
     public void OnClickGo2GameSceneButton()
     {
-        m_Audio.Play();
+        m_Audios[0].Play();
         SceneManager.LoadScene(m_NextScene);
     }
     public void OnPlayTutorial()
     {
+        m_Audios[1].Play();
         Instantiate(m_TutorialObj);
     }
 }

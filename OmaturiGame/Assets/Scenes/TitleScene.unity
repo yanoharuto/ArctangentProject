@@ -279,6 +279,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1874647177237087840, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1316071086}
+    - target: {fileID: 1874647177237087840, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1874647177237087841, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -367,5 +375,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002486611771817503, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7172982932581417641, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
