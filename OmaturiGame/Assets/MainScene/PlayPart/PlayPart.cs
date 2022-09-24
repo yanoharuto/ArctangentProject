@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayPart : MonoBehaviour
 {
-    [SerializeField] [Header("ÉSÅ[Éã")] private Gorl m_Gorl;
+    [SerializeField] [Header("ÉSÅ[Éã")] private Goal m_Gorl;
     [SerializeField] private List<player> m_Players = new List<player>();
 
     /// <summary>

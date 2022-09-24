@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gorl : MonoBehaviour
+public class Goal : MonoBehaviour
 {
-    private int m_GorlPlayerNum = 0;
+    private int m_GoalPlayerNum = 0;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("player"))
         {
-            m_GorlPlayerNum++;
+            Debug.Log("Goal");
+            m_GoalPlayerNum++;
         }
     }
     /// <summary>
@@ -19,13 +20,13 @@ public class Gorl : MonoBehaviour
     /// <returns></returns>
     public int ShowGorlNum()
     {
-        return m_GorlPlayerNum;
+        return m_GoalPlayerNum;
     }
     /// <summary>
     /// PlayPartが終了したらクリア人数を0に
     /// </summary>
     public void Clear()
     {
-        m_GorlPlayerNum = 0;
+        m_GoalPlayerNum = 0;
     }
 }

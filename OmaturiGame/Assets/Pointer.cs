@@ -1,21 +1,21 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
-    //ƒ{ƒ^ƒ“‚Ì–¼‘O‚ğŒŸõ‚µ‚â‚·‚¢‚æ‚¤’è‹`-----------------------------------
+    //ãƒœã‚¿ãƒ³ã®åå‰ã‚’æ¤œç´¢ã—ã‚„ã™ã„ã‚ˆã†å®šç¾©-----------------------------------
     const string m_inputVecNameX = "Horizontal";
     const string m_inputVecNameY = "Vertical";
     const string m_InputButtonA = "Xbox_A";
     //-----------------------------------------------------
-    [SerializeField] [Header("ˆÚ“®ŒÀŠE")] private float LimmitX;
-    [SerializeField] [Header("ˆÚ“®ŒÀŠE")] private float LimmitY;
-    [SerializeField] [Header("ƒJƒƒ‰")]@private Camera camera;
-    //‘€ì—pƒ|ƒCƒ“ƒ^
+    [SerializeField] [Header("ç§»å‹•é™ç•Œ")] private float LimmitX;
+    [SerializeField] [Header("ç§»å‹•é™ç•Œ")] private float LimmitY;
+    [SerializeField] [Header("ã‚«ãƒ¡ãƒ©")]ã€€private Camera camera;
+    //æ“ä½œç”¨ãƒã‚¤ãƒ³ã‚¿
     Vector3 m_TruePointerPosition;
 
-    //‰¼‘€ì—pŒ“•`‰æƒ|ƒCƒ“ƒ^
+    //ä»®æ“ä½œç”¨å…¼æç”»ãƒã‚¤ãƒ³ã‚¿
     Vector3 m_PointerPosition;
 
     bool IsPut;
@@ -32,11 +32,11 @@ public class Pointer : MonoBehaviour
     }
      void Update()
     {
-        //ƒ|ƒCƒ“ƒ^‘€ì
+        //ãƒã‚¤ãƒ³ã‚¿æ“ä½œ
         var InputVec = new Vector3(Input.GetAxis(m_inputVecNameX) * 0.01f, Input.GetAxis(m_inputVecNameY) * 0.01f,0.0f);
         m_TruePointerPosition += InputVec;
         //transform.position = new Vector3(
-        // //ƒGƒŠƒAw’è‚µ‚ÄˆÚ“®‚·‚é
+        // //ã‚¨ãƒªã‚¢æŒ‡å®šã—ã¦ç§»å‹•ã™ã‚‹
         // Mathf.Clamp(transform.position.x+InputVec.x, -1*LimmitX, LimmitX),
         // Mathf.Clamp(transform.position.y + InputVec.y, -1 * LimmitY, LimmitY)
         // ,0);
@@ -47,13 +47,13 @@ public class Pointer : MonoBehaviour
 
 
     /// <summary>
-    ///‘I‘ğ‚ÉƒvƒŒƒCƒ„[‚Ì‘€ì‚ğŠÇŠ‚·‚éƒNƒ‰ƒX‚ÉŒÄ‚Î‚ê‚é 
+    ///é¸æŠæ™‚ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ“ä½œã‚’ç®¡è½„ã™ã‚‹ã‚¯ãƒ©ã‚¹ã«å‘¼ã°ã‚Œã‚‹ 
     /// </summary>
     public void SelectMove()
     {
 
        
-        //ƒŒƒC‚ğ”ò‚Î‚µ‚ÄƒMƒ~ƒbƒN‘I‘ğ
+        //ãƒ¬ã‚¤ã‚’é£›ã°ã—ã¦ã‚®ãƒŸãƒƒã‚¯é¸æŠ
         Ray ray = Camera.main.ScreenPointToRay(camera.WorldToScreenPoint(m_TruePointerPosition));
 
         RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction);
@@ -64,11 +64,11 @@ public class Pointer : MonoBehaviour
             if (Input.GetButtonDown(m_InputButtonA))
             {
 
-                //ƒMƒ~ƒbƒNƒx[ƒX‚©‚Ç‚¤‚©‚Ì”»’è
+                //ã‚®ãƒŸãƒƒã‚¯ãƒ™ãƒ¼ã‚¹ã‹ã©ã†ã‹ã®åˆ¤å®š
                 var GimmickBase = hit2d.transform.gameObject.GetComponent<GimmickBase>();
                 if (GimmickBase)
                 {
-                    //^‚È‚çæ“¾
+                    //çœŸãªã‚‰å–å¾—
                     m_gimmickObj = GimmickBase.gameObject;
 
                 }
@@ -76,7 +76,7 @@ public class Pointer : MonoBehaviour
 
         }
     }
-    //’u‚­ó‘Ô
+    //ç½®ãçŠ¶æ…‹
     public void PutUpdate()
     {
         
@@ -85,7 +85,7 @@ public class Pointer : MonoBehaviour
         var TmpCursol = camera.WorldToScreenPoint(m_TruePointerPosition);
         m_PointerPosition = TmpCursol;
 
-        //ƒOƒŠƒbƒhü‚Ì”ÍˆÍ“à‚Éƒ}ƒEƒXƒ|ƒCƒ“ƒ^‚ª‘¶İ‚µ‚Ä‚¢‚éê‡
+        //ã‚°ãƒªãƒƒãƒ‰ç·šã®ç¯„å›²å†…ã«ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ãŒå­˜åœ¨ã—ã¦ã„ã‚‹å ´åˆ
         if (640 < TmpCursol.x && 1280 > TmpCursol.x)
         {
 
@@ -96,7 +96,7 @@ public class Pointer : MonoBehaviour
 
             if (Input.GetButtonDown(m_InputButtonA))
             {
-                Debug.Log("¶ƒ|ƒCƒ“ƒ^[‚ª‰Ÿ‚³‚ê‚Ü‚µ‚½B");
+                Debug.Log("å·¦ãƒã‚¤ãƒ³ã‚¿ãƒ¼ãŒæŠ¼ã•ã‚Œã¾ã—ãŸã€‚");
                 IsPut = true;
             }
 

@@ -1,16 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class GridLine : MonoBehaviour
 {
 
-    //c‚Ìƒ|ƒCƒ“ƒg”1080/64
+    //ç¸¦ã®ãƒã‚¤ãƒ³ãƒˆæ•°1080/64
     private const int HightGridNumber = 17;
-    //‰¡‚Ìƒ|ƒCƒ“ƒg”1920/64
+    //æ¨ªã®ãƒã‚¤ãƒ³ãƒˆæ•°1920/64
     private const int WidthGridNumber =11;
 
-    //À•Wƒf[ƒ^
+    //åº§æ¨™ãƒ‡ãƒ¼ã‚¿
     List<GameObject> objects = new List<GameObject>();
 
     private Camera mainCamera;
@@ -18,19 +18,19 @@ public class GridLine : MonoBehaviour
     {
         mainCamera = Camera.main;
         //Debug.Log(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)));
-        //cƒ‰ƒCƒ“
+        //ç¸¦ãƒ©ã‚¤ãƒ³
         for (int i = 0; i < HightGridNumber; i++)
         {
             GameObject obj = new GameObject();
             obj.name = "LineY" + i;
             LineRenderer renderer = obj.AddComponent<LineRenderer>();
-            // ü‚Ì•
+            // ç·šã®å¹…
             renderer.SetWidth(0.02f, 0.02f);
-            // ’¸“_‚Ì”
+            // é ‚ç‚¹ã®æ•°
             renderer.SetVertexCount(2);
 
             
-            // ’¸“_‚ğİ’è
+            // é ‚ç‚¹ã‚’è¨­å®š
             renderer.SetPosition(0,mainCamera.ScreenToWorldPoint(new Vector3(640, i*64, 1)));
             renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(1280, i * 64, 1)));
             objects.Add(obj);
@@ -38,21 +38,21 @@ public class GridLine : MonoBehaviour
         }
 
 
-        //‰¡ƒ‰ƒCƒ“
+        //æ¨ªãƒ©ã‚¤ãƒ³
         for (int i = 0; i < WidthGridNumber; i++)
         {
             GameObject obj = new GameObject();
             obj.name = "LineX" + i;
             LineRenderer renderer = obj.AddComponent<LineRenderer>();
-            // ü‚Ì•
+            // ç·šã®å¹…
             renderer.SetWidth(0.02f, 0.02f);
-            // ’¸“_‚Ì”
+            // é ‚ç‚¹ã®æ•°
             renderer.SetVertexCount(2);
 
 
-            // ’¸“_‚ğİ’è
-            renderer.SetPosition(0, mainCamera.ScreenToWorldPoint(new Vector3(i * 64@+@640   ,0   , 1)));
-            renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(i * 64@+@640@,1080, 1)));
+            // é ‚ç‚¹ã‚’è¨­å®š
+            renderer.SetPosition(0, mainCamera.ScreenToWorldPoint(new Vector3(i * 64ã€€+ã€€640   ,0   , 1)));
+            renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(i * 64ã€€+ã€€640ã€€,1080, 1)));
             objects.Add(obj);
             Debug.Log(i);
         }

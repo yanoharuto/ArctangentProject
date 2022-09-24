@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 712554243414496711}
   - component: {fileID: 5403353736261146071}
   m_Layer: 0
-  m_Name: Circle
-  m_TagString: Untagged
+  m_Name: FireWork
+  m_TagString: dangerousObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

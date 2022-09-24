@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7824679369560424611}
   m_Layer: 0
   m_Name: MoveScaffold
-  m_TagString: Untagged
+  m_TagString: scaffold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

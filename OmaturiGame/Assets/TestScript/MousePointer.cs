@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MousePointer : MonoBehaviour
 {
     
-    private@GimmickBase m_obj;
-    //[SerializeField] [Header("GimmickSelectPartŒ^‚ÌƒIƒuƒWƒFƒNƒg‚ğİ’è")] private GameObject m_selectPart;
+    privateã€€GimmickBase m_obj;
+    //[SerializeField] [Header("GimmickSelectPartå‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®š")] private GameObject m_selectPart;
     private MainState m_state=MainState.SelectGimmickPart;
-    //ƒMƒ~ƒbƒN‚Í³í‚ÉƒZƒbƒg‚³‚ê‚Ä‚¢‚é‚©
+    //ã‚®ãƒŸãƒƒã‚¯ã¯æ­£å¸¸ã«ã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹ã‹
     bool m_SetGimmikBase=false;
     GameObject createObj;
     GimmickSelectPart gimmickSelectPart;
@@ -25,14 +25,14 @@ public class MousePointer : MonoBehaviour
 
         //if(m_obj.GetComponent<GimmickBase>())
         //{
-        //    Debug.Log("GB1@³í");
+        //    Debug.Log("GB1ã€€æ­£å¸¸");
         //    m_SetGimmikBase = true;
         //    createObj= Instantiate(m_obj.gameObject, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
-        //    createObj.name = "ƒMƒ~ƒbƒN‚Å‚·";
+        //    createObj.name = "ã‚®ãƒŸãƒƒã‚¯ã§ã™";
         //}
         //else
         //{
-        //    Debug.Log("GB1  ˆÙí");
+        //    Debug.Log("GB1  ç•°å¸¸");
         //}
 
 
@@ -44,7 +44,7 @@ public class MousePointer : MonoBehaviour
         mousePosition = Input.mousePosition;
         switch (m_state)
         {
-            //ƒMƒ~ƒbƒN‚ğ‘I‘ğ‚·‚é‚Ï[ƒg
+            //ã‚®ãƒŸãƒƒã‚¯ã‚’é¸æŠã™ã‚‹ã±ãƒ¼ãƒˆ
             case MainState.SelectGimmickPart:
                 UpdateGimmick();
                 break;
@@ -66,7 +66,7 @@ public class MousePointer : MonoBehaviour
 
     void UpdateGimmick()
     {
-        //ƒŒƒC‚ğ”ò‚Î‚µ‚ÄƒMƒ~ƒbƒN‘I‘ğ
+        //ãƒ¬ã‚¤ã‚’é£›ã°ã—ã¦ã‚®ãƒŸãƒƒã‚¯é¸æŠ
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction);
         if (hit2d)
@@ -90,7 +90,7 @@ public class MousePointer : MonoBehaviour
 
     void UpdatePutGimmick()
     {
-        //ƒOƒŠƒbƒhü‚Ì”ÍˆÍ“à‚Éƒ}ƒEƒXƒ|ƒCƒ“ƒ^‚ª‘¶İ‚µ‚Ä‚¢‚éê‡
+        //ã‚°ãƒªãƒƒãƒ‰ç·šã®ç¯„å›²å†…ã«ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ãŒå­˜åœ¨ã—ã¦ã„ã‚‹å ´åˆ
         if (640 < mousePosition.x && 1280 > mousePosition.x)
         {
 
@@ -106,7 +106,7 @@ public class MousePointer : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("¶ƒ|ƒCƒ“ƒ^[‚ª‰Ÿ‚³‚ê‚Ü‚µ‚½B");
+                Debug.Log("å·¦ãƒã‚¤ãƒ³ã‚¿ãƒ¼ãŒæŠ¼ã•ã‚Œã¾ã—ãŸã€‚");
                 Debug.Log(mousePosition.x);
                 m_SetGimmikBase = false;
 

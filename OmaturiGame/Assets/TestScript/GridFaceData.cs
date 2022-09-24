@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//ƒOƒŠƒbƒhüƒf[ƒ^
+//ã‚°ãƒªãƒƒãƒ‰ç·šãƒ‡ãƒ¼ã‚¿
 public struct GridFaceData
 {
-    //‰¡
+    //æ¨ª
     float PotisionX;
-    //c
+    //ç¸¦
     float PotisionY;
 };

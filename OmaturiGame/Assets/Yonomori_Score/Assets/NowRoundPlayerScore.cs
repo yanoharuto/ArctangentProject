@@ -33,21 +33,17 @@ public class NowRoundPlayerScore : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)               //衝突したオブジェクトのタグをcollisionに代入
     {
-        Debug.Log(collision.gameObject.name);              //衝突したオブジェクトの名前を表示
-
-        if (collision.CompareTag("coin"))            //衝突したオブジェクトのタグがcoinなら
+        switch (collision.tag)            //衝突したオブジェクトのタグによってスコアが増えたり減ったり
         {
+            case "coin":
             m_Score.m_CoinScore++;
-        }
-
-        if (collision.CompareTag("dangerousObject"))            //衝突したオブジェクトのタグがobjectなら
-        {
-            ResetNowRoundScore();
-        }
-
-        if (collision.CompareTag("goal"))            //衝突したオブジェクトのタグがobjectなら
-        {
-            m_Score.m_GoalScore++;
+                break;
+            case "dangerousObject":
+                ResetNowRoundScore();
+                break;
+            case "goal":
+                m_Score.m_GoalScore++;
+                break;
         }
     }
 }

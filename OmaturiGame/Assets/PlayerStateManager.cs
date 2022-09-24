@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    [SerializeField] [Header("‚PP ƒ}ƒEƒXƒ|ƒCƒ“ƒ^[")] private GameObject m_mousePointer;
-    [SerializeField] [Header("‘€ì‚Å‚«‚éƒvƒŒƒCƒ„[(¶¬Ï‚İ”ñ•\¦‚Ì‚à‚Ì)")] private GameObject m_player;
-    private GameObject m_selectGimmick;//‘I‚ñ‚¾ƒMƒ~ƒbƒN‚Ì•Û
+    [SerializeField] [Header("ï¼‘P ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ãƒ¼")] private GameObject m_mousePointer;
+    [SerializeField] [Header("æ“ä½œã§ãã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(ç”Ÿæˆæ¸ˆã¿éè¡¨ç¤ºã®ã‚‚ã®)")] private GameObject m_player;
+    private GameObject m_selectGimmick;//é¸ã‚“ã ã‚®ãƒŸãƒƒã‚¯ã®ä¿æŒ
     
     bool IsSelect;
     Pointer m_mouse;
@@ -48,6 +48,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void SelectUpdate()
     {
+        m_mouse.gameObject.SetActive(true);
         m_mouse.SelectMove();
         
 
@@ -55,7 +56,7 @@ public class PlayerStateManager : MonoBehaviour
         {
             m_selectGimmick = m_mouse.GetSelectGimmick();
             IsSelect = true;
-            Debug.Log(m_selectGimmick.name);
+            m_mouse.gameObject.SetActive(false);
         }
     }
     public void PutUpdate()

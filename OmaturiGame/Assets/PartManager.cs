@@ -1,25 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class PartManager : MonoBehaviour
 {
-    [SerializeField][Header("Player‚ÌƒRƒ“ƒgƒ[ƒ‹ƒNƒ‰ƒX")] private GameObject m_player;
+    [SerializeField][Header("Playerã®ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã‚¯ãƒ©ã‚¹")] private GameObject m_player;
+    [SerializeField] [Header("ã‚®ãƒŸãƒƒã‚¯ã‚’è¡¨ç¤ºã™ã‚‹å¥´")] GimmickSelectPart m_gimmickSelect;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
     [SerializeField] [Header("Grid")] private GameObject m_grid;
     [SerializeField] [Header("text")] private Text text;
-    private MainState m_state = MainState.SelectGimmickPart;//‘€ì‚Å‚«‚é•”•ª‚ğØ‚è‘Ö‚¦‚é‚½‚ß‚É•K—v
+    private MainState m_state = MainState.SelectGimmickPart;//æ“ä½œã§ãã‚‹éƒ¨åˆ†ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãŸã‚ã«å¿…è¦
     PlayerStateManager playerStateManager;
     GridLine gridLine;
     // Start is called before the first frame update
     void Start()
     {
-        //Å‰‚©‚çg—p
+        //æœ€åˆã‹ã‚‰ä½¿ç”¨
         text.text = "select";
         playerStateManager=m_player.GetComponent<PlayerStateManager>();
        
 
-        //PutPart‚©‚ç•`‰æ
+        //PutPartã‹ã‚‰æç”»
         m_stage.SetActive(false);
         //m_grid.SetActive(false);
         gridLine=m_grid.GetComponent<GridLine>();
@@ -33,7 +34,8 @@ public class PartManager : MonoBehaviour
         {
             case MainState.SelectGimmickPart:
                 playerStateManager.SelectUpdate();
-                //ƒvƒŒƒCƒ„[‚ª‘I‘ğ‚µ‚½‚©‚Ìæ“¾
+                m_gimmickSelect.ElectionGimmick();
+                //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸æŠã—ãŸã‹ã®å–å¾—
                 if (playerStateManager.IsSelectGimmick())
                 {
                     m_state = MainState.PutGimmickPart;

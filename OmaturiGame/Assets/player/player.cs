@@ -28,7 +28,7 @@ public class player : MonoBehaviour
     bool leftJampFlag;　//左に壁ジャンプできるフラグ
     bool jumpFlag; //ジャンプキーを押したかを判定
     bool IsFly; //ジャンプ時の上昇が終了したかの判定
-    
+    bool jumpEndFlag;
     float InputVecX;
     float InputVecY;
 
@@ -199,37 +199,37 @@ public class player : MonoBehaviour
             jumpFlag = true;
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 10);
         }
-        
-        
 
 
-        //if (InputVecX < 0 && playerRigidbody.velocity.x > -0.1f) //壁ジャンプ(左)
-        //{
-        //    leftJampFlag = true;
-        //    rightJampFlag = false;
-        //}
-        //if (InputVecX > 0 && playerRigidbody.velocity.x < 0.1f) //壁ジャンプ(右)
-        //{
-        //    rightJampFlag = true;
-        //    leftJampFlag = false;
-        //}
-        //if (jampEndFlag == false ) //ジャンプが終わっていないと
-        //{
-        //    playerRigidbody.velocity += new Vector2(0, playerJampPower * Time.deltaTime); //普通のジャンプ
-        //    if(leftJampFlag == true && InputVecX != 0)
-        //    {
-        //        playerRigidbody.velocity += new Vector2(playerDashSpeed * Time.deltaTime * 9, 0); //壁ジャンプ(左)
-        //    }
-        //    if (rightJampFlag == true && InputVecX != 0)
-        //    {
-        //        playerRigidbody.velocity += new Vector2(-1 * playerDashSpeed * Time.deltaTime * 9, 0); //壁ジャンプ(右)
-        //    }
-        //    if (playerRigidbody.velocity.y > playerJampMax)
-        //    {
-        //        jampEndFlag = true; //ジャンプが終わったフラグ
-        //    }
 
-        //}
+
+        if (InputVecX < 0 && playerRigidbody.velocity.x > -0.1f) //壁ジャンプ(左)
+        {
+            leftJampFlag = true;
+            rightJampFlag = false;
+        }
+        if (InputVecX > 0 && playerRigidbody.velocity.x < 0.1f) //壁ジャンプ(右)
+        {
+            rightJampFlag = true;
+            leftJampFlag = false;
+        }
+        if (jumpEndFlag == false) //ジャンプが終わっていないと
+        {
+            playerRigidbody.velocity += new Vector2(0, playerJampPower * Time.deltaTime); //普通のジャンプ
+            if (leftJampFlag == true && InputVecX != 0)
+            {
+                playerRigidbody.velocity += new Vector2(playerDashSpeed * Time.deltaTime * 9, 0); //壁ジャンプ(左)
+            }
+            if (rightJampFlag == true && InputVecX != 0)
+            {
+                playerRigidbody.velocity += new Vector2(-1 * playerDashSpeed * Time.deltaTime * 9, 0); //壁ジャンプ(右)
+            }
+            if (playerRigidbody.velocity.y > playerJampMax)
+            {
+                jumpEndFlag = true; //ジャンプが終わったフラグ
+            }
+
+        }
     }
 
     private bool IsMove()
