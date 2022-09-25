@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayPart : MonoBehaviour
 {
     [SerializeField] [Header("ゴール")] private Goal m_Gorl;
-    [SerializeField] private List<player> m_Players = new List<player>();
+    [SerializeField] private int m_PlayersNum ;
 
     /// <summary>
     /// ゴールした数と死んだ人の数がplayerの数と同じならレース終了
@@ -13,7 +13,7 @@ public class PlayPart : MonoBehaviour
     /// <returns></returns>
     public bool IsEnd()
     {
-        if (m_Gorl.ShowGorlNum() == m_Players.Count)
+        if (m_Gorl.ShowGorlNum() == m_PlayersNum)
         {
             m_Gorl.Clear();
             return true;

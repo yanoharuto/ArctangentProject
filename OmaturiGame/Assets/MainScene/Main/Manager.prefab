@@ -273,8 +273,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7147264585278421726}
   - component: {fileID: 7147264585278421727}
-  - component: {fileID: 5550513540141670284}
-  - component: {fileID: 6814184020842393366}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -317,42 +315,6 @@ MonoBehaviour:
   m_stage: {fileID: 2968317912027439775}
   m_grid: {fileID: 7147264584374596285}
   text: {fileID: 0}
---- !u!114 &5550513540141670284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7147264585278421724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d895733868898164ba2da298cc51af78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GElection: {fileID: 6814184020842393366}
---- !u!114 &6814184020842393366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7147264585278421724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534522463a522234b804e6f828aa7291, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_DisplayPositions:
-  - {fileID: 5575038918724781305}
-  - {fileID: 6754992764406862198}
-  - {fileID: 5238141274822627451}
-  - {fileID: 6713215968581397420}
-  m_GimmickList:
-  - {fileID: 1639882073813748016, guid: e63f147195a4a4f4b851e2f52fc133ca, type: 3}
-  - {fileID: 1046447098521726891, guid: 162d62a302ebc2d4eac79bd1dcca1f0d, type: 3}
-  - {fileID: -7935815916984519774, guid: 8ffbbad524982a948b7845c146859e80, type: 3}
-  - {fileID: 5370782443480727278, guid: 01720c474b23e7e418653a04b346b8f8, type: 3}
-  - {fileID: 5091259835604128268, guid: 2a127b4f76c736843b4fb680587373c8, type: 3}
 --- !u!1 &8360395746040773350
 GameObject:
   m_ObjectHideFlags: 0

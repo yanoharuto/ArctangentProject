@@ -12,9 +12,7 @@ public class Main : MonoBehaviour
     [SerializeField] private PlayPart m_PlayPart;
     //最初は選ぶパートからスターと
     [SerializeField] private MainState m_State = MainState.SelectGimmickPart;
-    
-    //パートごとにギミックの動きを変える
-    private GimmickManager m_GManager;
+
     //プレイヤーパートが始まったか
     private bool m_IsStartPlayPart;
     
@@ -64,12 +62,6 @@ public class Main : MonoBehaviour
     }
     private void Update()
     {
-
         PlayLoop();
-    }
-    private void Start()
-    {
-        m_GManager = this.gameObject.AddComponent<GimmickManager>();
-        m_GSelectPart.InitGimmickManager(m_GManager);
     }
 }

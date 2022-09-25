@@ -6,6 +6,8 @@ public class PartManager : MonoBehaviour
 {
     [SerializeField][Header("Playerのコントロールクラス")] private GameObject m_player;
     [SerializeField] [Header("ギミックを表示する奴")] GimmickSelectPart m_gimmickSelect;
+    [SerializeField] [Header("Result")] private ResultPart m_resultPart;
+    [SerializeField] [Header("Play")] private PlayPart m_playePart;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
     [SerializeField] [Header("Grid")] private GameObject m_grid;
     [SerializeField] [Header("text")] private Text text;
@@ -29,11 +31,11 @@ public class PartManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         switch (m_state)
         {
             case MainState.SelectGimmickPart:
-                playerStateManager.SelectUpdate();
+                
                 m_gimmickSelect.ElectionGimmick();
                 //プレイヤーが選択したかの取得
                 if (playerStateManager.IsSelectGimmick())
@@ -46,8 +48,7 @@ public class PartManager : MonoBehaviour
 
                 break;
             case MainState.PutGimmickPart:
-
-                playerStateManager.PutUpdate();
+                
                 if(playerStateManager.IsPutGimmick())
                 {
                     m_state = MainState.PlayPart;
@@ -58,11 +59,20 @@ public class PartManager : MonoBehaviour
 
                 break;
             case MainState.PlayPart:
-                playerStateManager.PlayUpdate();
+                
+                if(m_playePart.IsEnd())
+                {
+                    m_state = MainState.ResultPart;
+                }
                 break;
             case MainState.ResultPart:
+                m_resultPart.Run();
+                if(m_resultPart.IsDisplayEnd())
+                {
+                    m_state = MainState.SelectGimmickPart;
+                }
                 break;
         }
-
+        playerStateManager.Run(m_state);
     }
 }

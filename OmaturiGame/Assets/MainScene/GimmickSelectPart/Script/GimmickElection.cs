@@ -11,6 +11,7 @@ public class GimmickElection: MonoBehaviour
     private List<Transform> m_DisplayPositions = new List<Transform>();
     [SerializeField] [Header("実装するGimmick")]
     private List<GimmickBase> m_GimmickList = new List<GimmickBase>();
+    [SerializeField] [Header("ギミック保管庫")] private GimmickManager m_GimmickManager;
     /// <summary>
     /// Gimmickを表示する
     /// </summary>
@@ -28,7 +29,7 @@ public class GimmickElection: MonoBehaviour
            
                 if (Data.m_Min < num && Data.m_Max > num)
                 {
-                    //数値ないなら真、ギミックを生成してポジションに置く
+                    //数値内なら真、ギミックを生成してポジションに置く
                     GameObject Gimmick = Instantiate(gimmick.gameObject);
                     Gimmick.transform.position = pos.position;
                 }

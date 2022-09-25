@@ -11,6 +11,7 @@ public class Pointer : MonoBehaviour
     //-----------------------------------------------------
     [SerializeField] [Header("移動限界")] private float LimmitX;
     [SerializeField] [Header("移動限界")] private float LimmitY;
+    [SerializeField] [Header("gimmick管理場")] private GimmickSelectPart m_GimmickSelectPart;
     [SerializeField] [Header("カメラ")]　private Camera camera;
     //操作用ポインタ
     Vector3 m_TruePointerPosition;
@@ -70,7 +71,7 @@ public class Pointer : MonoBehaviour
                 {
                     //真なら取得
                     m_gimmickObj = GimmickBase.gameObject;
-
+                    m_GimmickSelectPart.RecieveGimmick(GimmickBase);
                 }
             }
 

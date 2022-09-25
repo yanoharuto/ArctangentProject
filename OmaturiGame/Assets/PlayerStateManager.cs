@@ -13,15 +13,6 @@ public class PlayerStateManager : MonoBehaviour
 
     bool PlayPartFirst;
 
-
-
-
-
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -46,20 +37,20 @@ public class PlayerStateManager : MonoBehaviour
     }
 
 
-    public void SelectUpdate()
+    private void SelectUpdate()
     {
         m_mouse.gameObject.SetActive(true);
         m_mouse.SelectMove();
-        
 
-        if (m_mouse.GetSelectGimmick()&&!IsSelect)
+        Debug.Log(IsSelect);
+        if (m_mouse.GetSelectGimmick() != null &&!IsSelect)
         {
             m_selectGimmick = m_mouse.GetSelectGimmick();
             IsSelect = true;
-            m_mouse.gameObject.SetActive(false);
         }
+        
     }
-    public void PutUpdate()
+    private void PutUpdate()
     {
         m_mouse.PutUpdate();
         
@@ -68,17 +59,37 @@ public class PlayerStateManager : MonoBehaviour
 
 
 
-    public void PlayUpdate()
+    private void PlayUpdate()
     {
         if(!PlayPartFirst)
         {
             m_player.SetActive(true);
             PlayPartFirst = true;
+            m_mouse.gameObject.SetActive(false);
             Debug.Log("testtesteesttest");
+
         }
     }
-    public void ResultUpdate()
+    private void ResultUpdate()
     {
 
+    }
+    public void Run(MainState mainState)
+    {
+        switch(mainState)
+        {
+            case MainState.SelectGimmickPart:
+                SelectUpdate();
+                break;
+            case MainState.PutGimmickPart:
+                PutUpdate();
+                break;
+            case MainState.PlayPart:
+                PlayUpdate();
+                break;
+            case MainState.ResultPart:
+                ResultUpdate();
+                break;
+        }
     }
 }

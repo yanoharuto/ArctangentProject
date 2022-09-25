@@ -7,7 +7,7 @@ using UnityEngine;
 public enum MoveScaffoldState
 {
     Move,//移動中
-    Wait,//乗り込み待ち
+    PlayerWait,//乗り込み待ち
     Stop,//停止中
     Return//元の位置に戻ってる
 }

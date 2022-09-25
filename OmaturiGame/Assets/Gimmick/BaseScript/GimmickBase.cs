@@ -33,10 +33,6 @@ public class GimmickBase : MonoBehaviour
     {
        m_RotateObj.transform.Rotate(new Vector3(0, 0, m_RotateAngle));
     }
-    public void SetPos(Vector3 _Pos)
-    {
-        gameObject.transform.position = _Pos;
-    }
     /// <summary>
     /// 呼ぶとギミックの状態が変わる
     /// </summary>
@@ -49,10 +45,11 @@ public class GimmickBase : MonoBehaviour
                 m_GimmickState = GimmickState.Standby;
                 break;
             case GimmickState.Standby:
-                //スタンバイ状態で呼ぶと動く
+                //スタンバイ状態で呼ぶとハンマーに破壊されるかチェック
                 m_GimmickState = GimmickState.HammerRun;
                 break;
             case GimmickState.HammerRun:
+                //破壊されなかったらそのまま動く
                 m_GimmickState = GimmickState.Run;
                 break;
             case GimmickState.Run:

@@ -9,18 +9,17 @@ public class GimmickSelectPart : MonoBehaviour
 {   
     //ポジション
     [SerializeField] private GimmickElection m_GElection;
-    private GimmickManager m_GManager;
+    [SerializeField] private GimmickManager m_GManager;
     private int m_SelectGimmickNum = 0;
     private bool m_IsElection = false;
     /// <summary>
     /// 設置するギミックをマネージャーのリストに追加
     /// </summary>
-    /// <param name="AddGimmick"></param>
-    public void RecieveGimmick(GameObject AddGimmick)
+    /// <param name="addGimmick"></param>
+    public void RecieveGimmick(GimmickBase addGimmick)
     {
         m_SelectGimmickNum++;
-        Debug.Log(AddGimmick.gameObject.name);
-        m_GManager.AddGimmick(AddGimmick.GetComponent<GimmickBase>());
+        m_GManager.SearchPutGimmick(addGimmick);
     }
     /// <summary>
     /// ギミックを二つ設置したかどうか
@@ -31,7 +30,6 @@ public class GimmickSelectPart : MonoBehaviour
         if (m_SelectGimmickNum == 2)
         {
             m_SelectGimmickNum = 0;
-            m_IsElection = false;
             return true;
         }
         return false;
@@ -48,14 +46,9 @@ public class GimmickSelectPart : MonoBehaviour
     /// </summary>
     public void ElectionGimmick()
     {
-        if (!m_IsElection)
-        {
-            m_GElection.Election();
-            m_IsElection = true;
-        }
+
+        m_GElection.Election();
+
     }
-    public void InitGimmickManager(GimmickManager _gimmickManager)
-    {
-        m_GManager = _gimmickManager;
-    }
+
 }

@@ -7,89 +7,97 @@ using UnityEngine;
 /// </summary>
 public class MoveScaffold : MonoBehaviour
 {
-    [SerializeField] [Header("移動床の状態")] private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.Wait;
-    private GameObject m_Destination;
-    private Vector3 m_MoveValue;
-    private float m_StopTime;
-
-    public void Standby(Vector3 _startPos)
-    {
-        transform.position = _startPos;
-        m_MoveScaffoldState = MoveScaffoldState.Wait;
-    }
-    public void Run()
-    {
-        switch (m_MoveScaffoldState)
-        {
-            case MoveScaffoldState.Wait:
-                break;
-            case MoveScaffoldState.Move:
-                Move(m_MoveValue);
-                break;
-            case MoveScaffoldState.Return:
-
-                Move(-m_MoveValue);
-                break;
-            case MoveScaffoldState.Stop:
-
-                break;
-        }
-    }
+    [SerializeField] [Header("終着点で止まってから何秒経って動くか")] private float m_StopTime;
+    [SerializeField] [Header("移動時間")] private float m_MoveTime;
+    private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
+    private float m_RemainingMoveTime = 0;
     /// <summary>
     /// 停止状態になってからStopTimeまで待って戻るコルーチン
     /// </summary>
-    IEnumerator StopScaffold(float _stopTime)
+    IEnumerator Stop(float _stopTime)
     {
         m_MoveScaffoldState = MoveScaffoldState.Stop;
         yield return new WaitForSeconds(_stopTime);
-        m_MoveScaffoldState = MoveScaffoldState.Return; 
-        Debug.Log("Return");
+        m_MoveScaffoldState = MoveScaffoldState.Return;
         yield break;
     }
     /// <summary>
-    /// 移動や止まるときに必要なパラメーターをもらう
+    /// 移動するよ　移動時間過ぎたら止まるよ
     /// </summary>
-    /// <param name="_stopTime"></param>
-    /// <param name="_moveSpeed"></param>
-    /// <param name="_destination"></param>
-    public void SetMoveParameter(float _stopTime, float _moveSpeed, GameObject _destination)
+    private void Move(Vector3 moveVec)
     {
-        m_StopTime = _stopTime;
-        m_Destination = _destination;
-        m_MoveValue = (_destination.transform.position - transform.position).normalized * _moveSpeed ;
+        transform.position += moveVec;
+        m_RemainingMoveTime -= Time.deltaTime;
+        if (m_RemainingMoveTime < 0) 
+        {
+            switch(m_MoveScaffoldState)
+            {
+                case MoveScaffoldState.Move:
+                    m_MoveScaffoldState = MoveScaffoldState.Stop;
+                    break;
+
+                case MoveScaffoldState.Return:
+                    m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
+                    break;
+            }
+        }
     }
-    /// <summary>
-    /// 移動
-    /// </summary>
-    /// <param name="_moveValue">移動量</param>
-    private void Move(Vector3 _moveValue)
-    {
-        transform.position += _moveValue;
-    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (m_MoveScaffoldState == MoveScaffoldState.Wait)
+            if (m_MoveScaffoldState == MoveScaffoldState.PlayerWait)
             {
                 m_MoveScaffoldState = MoveScaffoldState.Move;
             }
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    /// <summary>
+    /// 現在の移動床の状態
+    /// </summary>
+    /// <returns></returns>
+    public MoveScaffoldState GetMoveState()
     {
-        if ((collision.gameObject == m_Destination &&
-            m_MoveScaffoldState == MoveScaffoldState.Move))
+        return m_MoveScaffoldState;
+    }
+    /// <summary>
+    /// ラウンドが終わったら戻してね
+    /// </summary>
+    /// <param name="_startPos"></param>
+    public void Standby(Vector3 _startPos)
+    {
+        transform.position = _startPos;
+        m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
+    }
+    /// <summary>
+    /// 足場の状態によってやることが変わる
+    /// </summary>
+    /// <param name="destination">移動量</param>
+    /// <param name="stopTime">動いた後この時間分止まる</param>
+    /// <param name="moveTime">この時間分動く</param>
+    public void Run(Vector3 destination)
+    {
+        Vector3 moveVec = destination - transform.position;
+        moveVec = moveVec.normalized;
+        switch (m_MoveScaffoldState)
         {
-            m_MoveScaffoldState = MoveScaffoldState.Stop;
-            StartCoroutine("StopScaffold", m_StopTime);
-        }
-        else if (collision.gameObject == transform.parent.gameObject &&
-             m_MoveScaffoldState == MoveScaffoldState.Return)
-        {
-            Debug.Log("Moveend");
-            m_MoveScaffoldState = MoveScaffoldState.Wait;
+            case MoveScaffoldState.PlayerWait:
+                m_RemainingMoveTime = m_MoveTime;
+                break;
+            case MoveScaffoldState.Move:
+                Move(moveVec);
+                break;
+
+            case MoveScaffoldState.Stop:
+                StartCoroutine("Stop",m_StopTime);
+                m_RemainingMoveTime = m_MoveTime;
+                break;
+            case MoveScaffoldState.Return:
+                Move(moveVec);
+                break;
         }
     }
+
+
 }
