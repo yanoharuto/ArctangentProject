@@ -30,6 +30,7 @@ public class GimmickSelectPart : MonoBehaviour
         if (m_SelectGimmickNum == 2)
         {
             m_SelectGimmickNum = 0;
+            m_IsElection = false;
             return true;
         }
         return false;
@@ -42,13 +43,15 @@ public class GimmickSelectPart : MonoBehaviour
         m_GManager.ChangeProcess();
     }
     /// <summary>
-    /// プレイヤーが選択するギミックを選出
+    /// プレイヤーが選択するギミックを選出して実体化
     /// </summary>
     public void ElectionGimmick()
     {
-
-        m_GElection.Election();
-
+        if (!m_IsElection)
+        {
+            m_GElection.Election();
+            m_IsElection = true;
+        }
     }
 
 }

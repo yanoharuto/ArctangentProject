@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class RoundManager : MonoBehaviour
+public class RoundTextUpdater : MonoBehaviour
 {
     [SerializeField] [Header("現在のroundの表記してあるテキスト")] private Text m_NowText;
     [SerializeField] [Header("最大のroundの表記してあるテキスト")] private Text m_MaxText;

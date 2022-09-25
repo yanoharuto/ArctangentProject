@@ -9,7 +9,7 @@ public class MoveScaffold : MonoBehaviour
 {
     [SerializeField] [Header("終着点で止まってから何秒経って動くか")] private float m_StopTime;
     [SerializeField] [Header("移動時間")] private float m_MoveTime;
-    private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
+    [SerializeField] private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
     private float m_RemainingMoveTime = 0;
     /// <summary>
     /// 停止状態になってからStopTimeまで待って戻るコルーチン
@@ -45,6 +45,7 @@ public class MoveScaffold : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("atatta");
         if (collision.gameObject.tag == "Player")
         {
             if (m_MoveScaffoldState == MoveScaffoldState.PlayerWait)
