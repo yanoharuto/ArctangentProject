@@ -7,7 +7,7 @@ public class ResultPart : MonoBehaviour
 
     [SerializeField] [Header("ScoreBarを表示するスクリプト")] private ScoreBarManager m_ScoreBarMana;
     [SerializeField] [Header("優勝するために必要なスコア")] private float m_ChampScore;
-    [SerializeField] private RoundTextUpdater m_RoundTextUpdater;
+    [SerializeField] private RoundUpdater m_RoundTextUpdater;
     [SerializeField] private InputPlyer1 m_Player1Controller;
     [SerializeField] private GameObject m_ScoreBord;
     [SerializeField] private GoNextScene m_GoNextScene1;
@@ -45,25 +45,39 @@ public class ResultPart : MonoBehaviour
         }
         return false;
     }
+    /// <summary>
+    /// どっちが勝ちましたか
+    /// </summary>
+    /// <returns></returns>
     public int OnGetWinnerNum()
     {
-        return m_ScoreBarMana.OnGetWinnerNum(m_ChampScore);
+        int winnerNum = m_ScoreBarMana.OnGetCloseWinnerNum(m_ChampScore);
+        if (m_RoundTextUpdater.IsMainEnd()) 
+        {
+            winnerNum /= 2;
+        }
+        else
+        {
+            winnerNum = 0;
+        }
+        return winnerNum;
     }
-    public void OnNextSceneChange(int playerNum)
+    /// <summary>
+    /// 勝った方のリザルト画面に行く
+    /// </summary>
+    /// <param name="winnerNum"></param>
+    public void OnNextSceneChange(int winnerNum)
     {
-        switch(playerNum)
+        Debug.Log(winnerNum);
+        switch (winnerNum)
         {
             case 1:
-                if (m_Player1Controller.GetInputParam().m_BButton)
-                {
-                    m_GoNextScene1.OnRun();
-                }
+                m_GoNextScene1.OnRun();
                 break;
             case 2:
-                if (m_Player1Controller.GetInputParam().m_BButton)
-                {
-                    m_GoNextScene2.OnRun();
-                }
+
+                m_GoNextScene2.OnRun();
+                
                 break;
         }
     }

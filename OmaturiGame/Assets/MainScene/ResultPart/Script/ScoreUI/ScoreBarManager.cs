@@ -80,15 +80,28 @@ public class ScoreBarManager : MonoBehaviour
     {
         return m_IsDisplayEnd;
     }
-    public int OnGetWinnerNum(float champScore)
+    /// <summary>
+    /// 勝利に近い人を番号で教えます 2pに非対応
+    /// </summary>
+    /// <param name="champScore"></param>
+    /// <returns></returns>
+    public int OnGetCloseWinnerNum(float champScore)
     {
         if (m_PlayerScore1.GetTotalScore() > champScore)
         {
             return 1;
         }
-        else if (m_PlayerScore2.GetTotalScore() > champScore) 
+        else if (0 > champScore) 
         {
             return 2;
+        }
+        else if (m_PlayerScore1.GetTotalScore() > 0)
+        {
+            return 3;
+        }
+        else if (0 > m_PlayerScore1.GetTotalScore())
+        {
+            return 4;
         }
         return 0;
     }

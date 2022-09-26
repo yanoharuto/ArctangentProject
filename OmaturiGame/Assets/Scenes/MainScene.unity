@@ -157,10 +157,18 @@ PrefabInstance:
     - target: {fileID: 5185475234036123685, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
       propertyPath: m_PlayerScore1
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 684917328}
     - target: {fileID: 5185475234036123685, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
       propertyPath: m_PlayerScore2
       value: 
+      objectReference: {fileID: 684917328}
+    - target: {fileID: 5909674809564429678, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c456d01fbbb740c43a7c520990042ecb, type: 3}
+    - target: {fileID: 5909674809564429678, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9044693664563953489, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
       propertyPath: m_SortingOrder
@@ -370,6 +378,14 @@ PrefabInstance:
       propertyPath: m_ScoreBord
       value: 
       objectReference: {fileID: 1739066892}
+    - target: {fileID: 6591113335305615763, guid: 6d1db61cb9b1c7142a214897c5bf72d9, type: 3}
+      propertyPath: m_GoNextScene1
+      value: 
+      objectReference: {fileID: 648437711}
+    - target: {fileID: 6591113335305615763, guid: 6d1db61cb9b1c7142a214897c5bf72d9, type: 3}
+      propertyPath: m_GoNextScene2
+      value: 
+      objectReference: {fileID: 1780519925}
     - target: {fileID: 6591113335305615763, guid: 6d1db61cb9b1c7142a214897c5bf72d9, type: 3}
       propertyPath: m_ScoreBarMana
       value: 
@@ -715,6 +731,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6781635994801276063, guid: 0a4ef2d48132c064db89742bd29a224d, type: 3}
   m_PrefabInstance: {fileID: 6781635994742311108}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &648437711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7434192225978372153, guid: 6d1db61cb9b1c7142a214897c5bf72d9, type: 3}
+  m_PrefabInstance: {fileID: 331498051}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d644b8a89fde9914d88671889f198b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &684917325 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3635569633256162169, guid: 0ff331f679c13404bb4470c3093037fe, type: 3}
@@ -740,6 +767,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f96e6fe10afa7e4da01be0c0a307b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &684917328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 539280197430180997, guid: 0ff331f679c13404bb4470c3093037fe, type: 3}
+  m_PrefabInstance: {fileID: 992751467}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684917325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba930b6439727eb499968e0290e9fbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &684917329 stripped
@@ -1298,6 +1336,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6781635995134974307, guid: 0a4ef2d48132c064db89742bd29a224d, type: 3}
   m_PrefabInstance: {fileID: 6781635994742311108}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1780519925 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8827407270423273805, guid: 6d1db61cb9b1c7142a214897c5bf72d9, type: 3}
+  m_PrefabInstance: {fileID: 331498051}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d644b8a89fde9914d88671889f198b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1831845370 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9044693666335897130, guid: c55c75788ed3e5340941b6007f5cf2e1, type: 3}
@@ -1385,7 +1434,7 @@ PrefabInstance:
     - target: {fileID: 5700998320000355547, guid: 46525ea82ed9b18438dd0952e8fcd276, type: 3}
       propertyPath: m_GimmickSelectPart
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 331498053}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46525ea82ed9b18438dd0952e8fcd276, type: 3}
 --- !u!1 &1999822269
