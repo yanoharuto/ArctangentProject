@@ -10,7 +10,7 @@ public class RoundTextUpdater : MonoBehaviour
     private int m_NowRoundNum;
     private void Start()
     {
-        m_NowRoundNum = 0;
+        m_NowRoundNum = 1;
         m_MaxText.text = m_RoundMax.ToString();
     }
     public void CountRound()

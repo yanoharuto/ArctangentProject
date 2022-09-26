@@ -9,16 +9,21 @@ public class MoveScaffold : MonoBehaviour
 {
     [SerializeField] [Header("終着点で止まってから何秒経って動くか")] private float m_StopTime;
     [SerializeField] [Header("移動時間")] private float m_MoveTime;
+    [SerializeField] [Header("移動係数")] private float m_MoveCoefficient;
     [SerializeField] private MoveScaffoldState m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
     private float m_RemainingMoveTime = 0;
+    private bool m_IsStartCorutine = false;
+    private IEnumerator m_StopCoroutine;
     /// <summary>
     /// 停止状態になってからStopTimeまで待って戻るコルーチン
     /// </summary>
-    IEnumerator Stop(float _stopTime)
+    IEnumerator Stop()
     {
+        m_IsStartCorutine = true;
         m_MoveScaffoldState = MoveScaffoldState.Stop;
-        yield return new WaitForSeconds(_stopTime);
+        yield return new WaitForSeconds(m_StopTime);
         m_MoveScaffoldState = MoveScaffoldState.Return;
+        m_IsStartCorutine = false;
         yield break;
     }
     /// <summary>
@@ -26,27 +31,30 @@ public class MoveScaffold : MonoBehaviour
     /// </summary>
     private void Move(Vector3 moveVec)
     {
-        transform.position += moveVec;
-        m_RemainingMoveTime -= Time.deltaTime;
-        if (m_RemainingMoveTime < 0) 
+        if (m_MoveScaffoldState == MoveScaffoldState.Move ||
+            m_MoveScaffoldState == MoveScaffoldState.Return)
         {
-            switch(m_MoveScaffoldState)
-            {
-                case MoveScaffoldState.Move:
-                    m_MoveScaffoldState = MoveScaffoldState.Stop;
-                    break;
+            transform.position += moveVec * m_MoveCoefficient;
+            m_RemainingMoveTime -= Time.deltaTime;
 
-                case MoveScaffoldState.Return:
-                    m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
-                    break;
+            if (m_RemainingMoveTime < 0)
+            {
+                switch (m_MoveScaffoldState)
+                {
+                    case MoveScaffoldState.Move:
+                        m_MoveScaffoldState = MoveScaffoldState.Stop;
+                        break;
+
+                    case MoveScaffoldState.Return:
+                        m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
+                        break;
+                }
             }
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("atatta");
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "player")
         {
             if (m_MoveScaffoldState == MoveScaffoldState.PlayerWait)
             {
@@ -54,48 +62,52 @@ public class MoveScaffold : MonoBehaviour
             }
         }
     }
-    /// <summary>
-    /// 現在の移動床の状態
-    /// </summary>
-    /// <returns></returns>
-    public MoveScaffoldState GetMoveState()
-    {
-        return m_MoveScaffoldState;
-    }
+
     /// <summary>
     /// ラウンドが終わったら戻してね
     /// </summary>
     /// <param name="_startPos"></param>
-    public void Standby(Vector3 _startPos)
+    public void Played(Vector3 _startPos)
     {
+        Debug.Log("MoveStandby");
         transform.position = _startPos;
         m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
+        m_StopCoroutine = null;
+        m_RemainingMoveTime = m_MoveTime;
+    }
+    public void Standby()
+    {
+        m_StopCoroutine = Stop();
     }
     /// <summary>
     /// 足場の状態によってやることが変わる
     /// </summary>
-    /// <param name="destination">移動量</param>
-    /// <param name="stopTime">動いた後この時間分止まる</param>
-    /// <param name="moveTime">この時間分動く</param>
-    public void Run(Vector3 destination)
+    public void Run(Vector2 destination,Vector2 startPos)
     {
-        Vector3 moveVec = destination - transform.position;
-        moveVec = moveVec.normalized;
+        Vector2 moveVec;
         switch (m_MoveScaffoldState)
         {
             case MoveScaffoldState.PlayerWait:
                 m_RemainingMoveTime = m_MoveTime;
+                m_StopCoroutine = null;
                 break;
             case MoveScaffoldState.Move:
-                Move(moveVec);
+                moveVec = destination - startPos;
+                Move(moveVec.normalized);
                 break;
 
             case MoveScaffoldState.Stop:
-                StartCoroutine("Stop",m_StopTime);
-                m_RemainingMoveTime = m_MoveTime;
+                //コルーチンが連続して起動しないように
+                if (!m_IsStartCorutine)
+                {
+                    m_StopCoroutine = Stop();
+                    StartCoroutine(m_StopCoroutine);
+                    m_RemainingMoveTime = m_MoveTime;
+                }
                 break;
             case MoveScaffoldState.Return:
-                Move(moveVec);
+                moveVec = startPos - destination;
+                Move(moveVec.normalized);
                 break;
         }
     }

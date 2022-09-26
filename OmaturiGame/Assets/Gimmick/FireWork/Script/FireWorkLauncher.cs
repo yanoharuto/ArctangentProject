@@ -40,14 +40,9 @@ public class FireWorkLauncher : GimmickBase
     /// </summary>
     protected override void Standby()
     {
-
-    }
-    protected override void HammerRun()
-    {
-        m_Time = 0.0f;
-    }
-    protected override void SetUp()
-    {
-        PrepareFire();
+        if (!m_IsPut)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -6,7 +6,6 @@ public class PlayerStateManager : MonoBehaviour
 {
     [SerializeField] [Header("１P マウスポインター")] private GameObject m_mousePointer;
     [SerializeField] [Header("操作できるプレイヤー(生成済み非表示のもの)")] private GameObject m_player;
-    private GameObject m_selectGimmick;//選んだギミックの保持
     
     bool IsSelect;
     Pointer m_mouse;
@@ -27,25 +26,18 @@ public class PlayerStateManager : MonoBehaviour
     {
         
     }
+
     public bool IsSelectGimmick()
     {
         return IsSelect;
     }
-    public bool IsPutGimmick()
-    {
-        return m_mouse.IsPutGimmick();
-    }
-
-
     private void SelectUpdate()
     {
         m_mouse.gameObject.SetActive(true);
         m_mouse.SelectMove();
 
-        Debug.Log(IsSelect);
         if (m_mouse.GetSelectGimmick() != null &&!IsSelect)
         {
-            m_selectGimmick = m_mouse.GetSelectGimmick();
             IsSelect = true;
         }
         
@@ -53,12 +45,7 @@ public class PlayerStateManager : MonoBehaviour
     private void PutUpdate()
     {
         m_mouse.PutUpdate();
-        
     }
-
-
-
-
     private void PlayUpdate()
     {
         if(!PlayPartFirst)
@@ -66,13 +53,13 @@ public class PlayerStateManager : MonoBehaviour
             m_player.SetActive(true);
             PlayPartFirst = true;
             m_mouse.gameObject.SetActive(false);
-            Debug.Log("testtesteesttest");
-
         }
     }
     private void ResultUpdate()
     {
-
+        gameObject.SetActive(false);
+        PlayPartFirst = false;
+        IsSelect = false;
     }
     public void Run(MainState mainState)
     {

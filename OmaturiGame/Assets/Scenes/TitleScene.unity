@@ -511,6 +511,10 @@ PrefabInstance:
       propertyPath: m_ButtonTs.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7978287197727157991, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
+      propertyPath: m_Name
+      value: TitleCursor
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7172982932581417641, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}

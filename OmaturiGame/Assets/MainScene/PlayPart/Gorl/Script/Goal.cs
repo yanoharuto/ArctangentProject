@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
+    [SerializeField] AudioSource m_Audio;
     private int m_GoalPlayerNum = 0;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("player"))
         {
-            Debug.Log("Goal");
+            m_Audio.Play();
             m_GoalPlayerNum++;
         }
     }

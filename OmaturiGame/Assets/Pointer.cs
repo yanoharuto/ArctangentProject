@@ -21,8 +21,7 @@ public class Pointer : MonoBehaviour
 
     bool IsPut;
 
-    private GameObject m_gimmickObj;
-
+    [SerializeField] private GameObject m_gimmickObj;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +30,12 @@ public class Pointer : MonoBehaviour
         gameObject.transform.position = m_TruePointerPosition;
         IsPut = false;
     }
-     void Update()
+    private void OnEnable()
+    {
+        IsPut = false;
+        m_gimmickObj = null;
+    }
+    void Update()
     {
         //ポインタ操作
         var InputVec = new Vector3(Input.GetAxis(m_inputVecNameX) * 0.01f, Input.GetAxis(m_inputVecNameY) * 0.01f,0.0f);
@@ -71,7 +75,7 @@ public class Pointer : MonoBehaviour
                 {
                     //真なら取得
                     m_gimmickObj = GimmickBase.gameObject;
-                    m_GimmickSelectPart.RecieveGimmick(GimmickBase);
+                    GimmickBase.OnPut();
                 }
             }
 
@@ -97,10 +101,8 @@ public class Pointer : MonoBehaviour
 
             if (Input.GetButtonDown(m_InputButtonA))
             {
-                Debug.Log("左ポインターが押されました。");
-                IsPut = true;
+                m_GimmickSelectPart.RecieveGimmick(m_gimmickObj.GetComponent<GimmickBase>());
             }
-
         }
         if(!IsPut)
         {
@@ -118,8 +120,5 @@ public class Pointer : MonoBehaviour
     {
         return m_gimmickObj;
     }
-    public bool IsPutGimmick()
-    {
-        return IsPut;
-    }
+
 }

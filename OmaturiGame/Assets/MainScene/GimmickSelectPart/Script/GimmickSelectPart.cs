@@ -10,24 +10,17 @@ public class GimmickSelectPart : MonoBehaviour
     //ポジション
     [SerializeField] private GimmickElection m_GElection;
     [SerializeField] private GimmickManager m_GManager;
+    [SerializeField] private int m_PlayerNum;
     private int m_SelectGimmickNum = 0;
     private bool m_IsElection = false;
+
     /// <summary>
-    /// 設置するギミックをマネージャーのリストに追加
-    /// </summary>
-    /// <param name="addGimmick"></param>
-    public void RecieveGimmick(GimmickBase addGimmick)
-    {
-        m_SelectGimmickNum++;
-        m_GManager.SearchPutGimmick(addGimmick);
-    }
-    /// <summary>
-    /// ギミックを二つ設置したかどうか
+    /// ギミックを設置し終えたか
     /// </summary>
     /// <returns></returns>
-    public bool IsSelectGimmickEnd()
+    public bool PutedGimmickEnd()
     {
-        if (m_SelectGimmickNum == 2)
+        if (m_SelectGimmickNum == m_PlayerNum) 
         {
             m_SelectGimmickNum = 0;
             m_IsElection = false;
@@ -35,12 +28,27 @@ public class GimmickSelectPart : MonoBehaviour
         }
         return false;
     }
+    public void RecieveGimmick(GimmickBase GB)
+    {
+        m_GManager.AddPutedGimick(GB);
+        m_SelectGimmickNum++;
+    }
     /// <summary>
     /// 呼ぶたびにギミックの状態を遷移
     /// </summary>
-    public void ChangeGimmicksState()
+    public void ChangeGimmicksState(MainState mainState)
     {
-        m_GManager.ChangeProcess();
+        switch(mainState)
+        {
+            case MainState.SelectGimmickPart:
+                m_GManager.ChangeElectionGimmickState();
+                break;
+            case MainState.PutGimmickPart:
+                m_GManager.ChangeElectionGimmickState();
+                break;
+        }
+        m_GManager.HidePutedGimick(mainState);
+        m_GManager.ChangePutedGimmickState();
     }
     /// <summary>
     /// プレイヤーが選択するギミックを選出して実体化
@@ -53,5 +61,4 @@ public class GimmickSelectPart : MonoBehaviour
             m_IsElection = true;
         }
     }
-
 }

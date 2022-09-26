@@ -5,7 +5,7 @@ using UnityEngine;
 public class Title : MonoBehaviour
 {
     [SerializeField] [Header("タイトルのカーソルUI")] private Cursor m_Cursor;
-    [SerializeField] [Header("ゲームコントローラーの入力状況所得用")] private GetInputXBoxController m_GetInput;
+    [SerializeField] [Header("ゲームコントローラーの入力状況所得用")] private InputPlyer1 m_GetInput;
 
 
     // Update is called once per frame

@@ -11,7 +11,7 @@ public class player : MonoBehaviour
     [SerializeField]
     [Header("地面当たり判定")]
     public GameObject groundCollider;//playerData型のplayerStatusを入れる
-
+    [SerializeField] [Header("ReSporn用")] private ReSpornProcess m_reSpornProcess;
 
     GroundCheckPlayer flag;
     Rigidbody2D playerRigidbody; //Rigidbody2D型の変数
@@ -100,7 +100,7 @@ public class player : MonoBehaviour
         {
             jumpFlag = false;
         }
-        Debug.Log(jumpFlag);
+
         if (Input.GetButtonDown(m_InputJump))//ジャンプ
         {
             Jump();
@@ -152,7 +152,7 @@ public class player : MonoBehaviour
         //}
         ////--------------------------------------------------------------------
     }
-    public void OnCollisionEnter2D(Collision2D other) //コリジョンに当たったら
+    private void OnCollisionEnter2D(Collision2D other) //コリジョンに当たったら
     {
 
         //if (other.gameObject.CompareTag("scaffold"))
@@ -164,7 +164,7 @@ public class player : MonoBehaviour
         //    rightJampFlag = false;
         //}
     }
-    public void OnCollisionExit2D(Collision2D other) //コリジョンから離れたら
+    private void OnCollisionExit2D(Collision2D other) //コリジョンから離れたら
     {
         //if (other.gameObject.CompareTag("scaffold"))
         //{
@@ -178,7 +178,10 @@ public class player : MonoBehaviour
         //    rightJampFlag = false;
         //}
     }
-
+    private void OnEnable()
+    {
+        m_reSpornProcess.ReSporn();
+    }
     private void Move() //プレイヤーの動き
     {
 

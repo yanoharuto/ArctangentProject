@@ -39,32 +39,39 @@ public class ScoreBarManager : MonoBehaviour
         m_IsDisplayEnd = false;
         PlayerScoreStruct p1Struct = m_PlayerScore1.GetNowRoundScore();
         PlayerScoreStruct p2Struct = m_PlayerScore2.GetNowRoundScore();
-        if(m_PlayerScore1.GetTotalScore()<=0.1|| m_PlayerScore2.GetTotalScore() <= 0.1)
-        {
-            m_Audio.PlayOneShot(m_AudioList[3]);
-        }
-            yield return new WaitForSeconds(m_DisplayTime);
+
+        yield return new WaitForSeconds(m_DisplayTime);
         for (int i = 0; i < m_ScoreKind; i++)
         {
             switch (i)
             {
                 case 0:
-                    DisplayScore(p1Struct.m_GoalScore,p2Struct.m_GoalScore, i,m_AudioList[i]);
-                    
+                    if (p1Struct.m_GoalScore + p2Struct.m_GoalScore != 0)
+                    {
+                        DisplayScore(p1Struct.m_GoalScore, p2Struct.m_GoalScore, i, m_AudioList[i]);
+                        yield return new WaitForSeconds(m_DisplayTime);
+                    }
                     break;
                 case 1:
-                    DisplayScore(p1Struct.m_CoinScore,p2Struct.m_CoinScore, i, m_AudioList[i]);
+                    if (p1Struct.m_CoinScore + p2Struct.m_CoinScore != 0)
+                    {
+                        DisplayScore(p1Struct.m_CoinScore, p2Struct.m_CoinScore, i, m_AudioList[i]);
+                        yield return new WaitForSeconds(m_DisplayTime);
+                    }
                     break;
                 case 2:
-                    DisplayScore(p1Struct.m_PlayerKillScore,p2Struct.m_PlayerKillScore, i, m_AudioList[i]);
+                    if (p1Struct.m_PlayerKillScore + p2Struct.m_PlayerKillScore != 0)
+                    {
+                        DisplayScore(p1Struct.m_PlayerKillScore, p2Struct.m_PlayerKillScore, i, m_AudioList[i]);
+                    }
                     break;
             }
-            yield return new WaitForSeconds(m_DisplayTime);
         }
 
         m_IsDisplayEnd = true;
         yield break;
     }
+    
     /// <summary>
     /// 表示し終えたかどうか
     /// </summary>
@@ -72,5 +79,17 @@ public class ScoreBarManager : MonoBehaviour
     public bool IsDisplayEnd()
     {
         return m_IsDisplayEnd;
+    }
+    public int OnGetWinnerNum(float champScore)
+    {
+        if (m_PlayerScore1.GetTotalScore() > champScore)
+        {
+            return 1;
+        }
+        else if (m_PlayerScore2.GetTotalScore() > champScore) 
+        {
+            return 2;
+        }
+        return 0;
     }
 }

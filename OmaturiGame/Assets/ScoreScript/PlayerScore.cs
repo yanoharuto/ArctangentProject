@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerScore : MonoBehaviour
 {
-   [SerializeField] NowRoundPlayerScore m_ScoreStocker;
+   [SerializeField] NowRoundScore m_NowRoundScore;
     PlayerScoreStruct m_ScoreStruct;
 
     /// <summary>
@@ -16,7 +16,7 @@ public class PlayerScore : MonoBehaviour
     /// </summary>
     public PlayerScoreStruct GetNowRoundScore()
     {
-        PlayerScoreStruct getNowRoundScore = m_ScoreStocker.GetNowRoundScore();
+        PlayerScoreStruct getNowRoundScore = m_NowRoundScore.GetNowRoundScore();
         m_ScoreStruct.m_GoalScore += getNowRoundScore.m_GoalScore;
         m_ScoreStruct.m_PlayerKillScore += getNowRoundScore.m_PlayerKillScore;
         m_ScoreStruct.m_CoinScore += getNowRoundScore.m_CoinScore;

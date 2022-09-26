@@ -12,6 +12,10 @@ public class Scaffold : GimmickBase
     }
     protected override void Standby()
     {
+        if (!m_IsPut)
+        {
+            Destroy(this.gameObject);
+        }
     }
     protected override void Run()
     {

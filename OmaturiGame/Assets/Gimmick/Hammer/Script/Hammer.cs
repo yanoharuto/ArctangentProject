@@ -8,16 +8,19 @@ using UnityEngine;
 /// </summary>
 public class Hammer : GimmickBase
 {
+    [SerializeField] [Header("この有効範囲に入ったものを壊す")]BoxCollider2D m_TriggerCollider;
     protected override void SetUp()
-    { 
+    {
+        m_TriggerCollider.enabled = false;
     }
     protected override void Standby()
     {      
         m_IsDestroy = true;
-    }
-    protected override void HammerRun()
-    {
-        //後でアニメーションとか入れるかもね
+        m_TriggerCollider.enabled = true;
+        if (!m_IsPut)
+        {
+            Destroy(this.gameObject);
+        }
     }  
     protected override void Run()
     {

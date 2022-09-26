@@ -32,6 +32,7 @@ public class GimmickElection: MonoBehaviour
                     //数値内なら真、ギミックを生成してポジションに置く
                     GameObject Gimmick = Instantiate(gimmick.gameObject);
                     Gimmick.transform.position = pos.position;
+                    m_GimmickManager.AddElectionGimick(Gimmick.GetComponent<GimmickBase>());
                 }
             }
         }

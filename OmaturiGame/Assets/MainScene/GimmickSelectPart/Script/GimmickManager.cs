@@ -6,37 +6,75 @@ using UnityEngine;
 /// </summary>
 public class GimmickManager : MonoBehaviour
 {
-    private List<GimmickBase> m_GimmickBases = new List<GimmickBase>();
+    [SerializeField] private List<GimmickBase> m_ElectionGimmickList = new List<GimmickBase>();//選出したギミックリスト
+    [SerializeField] private List<GimmickBase> m_PutedGimmickList = new List<GimmickBase>();//選出したギミックリスト
     /// <summary>
     /// 呼ぶたびに設置したオブジェクトの状態を遷移
     /// </summary>
-    public void ChangeProcess()
+    public void ChangeElectionGimmickState()
+    {
+
+        foreach (GimmickBase EGB in m_ElectionGimmickList)
+        {
+            EGB.ChangeState();
+        }
+
+        //配置されなかった奴は消す
+        m_ElectionGimmickList.Clear();
+    }
+    public void ChangePutedGimmickState()
     {
         //破壊しないギミックのリスト
         List<GimmickBase> NonDestroyGimmick = new List<GimmickBase>();
-        foreach (GimmickBase GB in m_GimmickBases)
+        foreach (GimmickBase PGB in m_PutedGimmickList)
         {
-            GB.ChangeState();
-            if(!GB.IsDestroy())
+            if (!PGB.IsDestroy())
             {
                 //破壊しないギミックを登録
-                NonDestroyGimmick.Add(GB);
+                NonDestroyGimmick.Add(PGB);
             }
+            PGB.ChangeState();
         }
         //受け渡し。渡されなかったギミックは起動時に破壊される
-        m_GimmickBases = NonDestroyGimmick;
+        m_PutedGimmickList = NonDestroyGimmick;
     }
-    public void SearchPutGimmick(GimmickBase putGimmick)
+    public void HidePutedGimick(MainState mainState)
     {
-
+        foreach(GimmickBase PGB in m_PutedGimmickList)
+        {
+            switch(mainState)
+            {
+                case MainState.SelectGimmickPart:
+                    PGB.OnUpperOrHide(false);
+                    break;
+                case MainState.PutGimmickPart:
+                    PGB.OnUpperOrHide(true);
+                    break;
+                case MainState.PlayPart:
+                    PGB.OnUpperOrHide(true);
+                    break;
+                case MainState.ResultPart:
+                    PGB.OnUpperOrHide(false);
+                    break;
+            }
+        }
     }
     /// <summary>
-    /// ギミックを設置するときに呼んでもらう
+    /// ギミックを配置したときに使う
+    /// </summary>
+    /// <param name="gimmickBase"></param>
+    public void AddPutedGimick(GimmickBase gimmickBase)
+    {
+        m_PutedGimmickList.Add(gimmickBase);
+    }
+    /// <summary>
+    /// ギミックを選出させたときに使う
     /// ギミックのリストに追加するよ
     /// </summary>
     /// <param name="gimmickBase"></param>
-    public void AddGimmick(GimmickBase gimmickBase)
+    public void AddElectionGimick(GimmickBase gimmickBase)
     {
-        m_GimmickBases.Add(gimmickBase);
+        m_ElectionGimmickList.Add(gimmickBase);
     }
+
 }

@@ -34,7 +34,6 @@ public class GridLine : MonoBehaviour
             renderer.SetPosition(0,mainCamera.ScreenToWorldPoint(new Vector3(640, i*64, 1)));
             renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(1280, i * 64, 1)));
             objects.Add(obj);
-            Debug.Log(i);
         }
 
 
@@ -54,7 +53,6 @@ public class GridLine : MonoBehaviour
             renderer.SetPosition(0, mainCamera.ScreenToWorldPoint(new Vector3(i * 64　+　640   ,0   , 1)));
             renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(i * 64　+　640　,1080, 1)));
             objects.Add(obj);
-            Debug.Log(i);
         }
         UnSetAllActive();
     }
@@ -69,7 +67,6 @@ public class GridLine : MonoBehaviour
         foreach(var obj in objects)
         {
             obj.SetActive(false);
-            Debug.Log(obj);
         }
     }
     public void SetAllActive()
