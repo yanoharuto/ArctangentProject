@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayPart : MonoBehaviour
 {
-    [SerializeField] [Header("ƒS[ƒ‹")] private Goal m_Gorl;
+    [SerializeField] [Header("ã‚´ãƒ¼ãƒ«")] private Goal m_Gorl;
     [SerializeField] private int m_PlayersNum ;
 
     /// <summary>
-    /// ƒS[ƒ‹‚µ‚½”‚Æ€‚ñ‚¾l‚Ì”‚ªplayer‚Ì”‚Æ“¯‚¶‚È‚çƒŒ[ƒXI—¹
+    /// ã‚´ãƒ¼ãƒ«ã—ãŸæ•°ã¨æ­»ã‚“ã äººã®æ•°ãŒplayerã®æ•°ã¨åŒã˜ãªã‚‰ãƒ¬ãƒ¼ã‚¹çµ‚äº†
     /// </summary>
     /// <returns></returns>
     public bool IsEnd()

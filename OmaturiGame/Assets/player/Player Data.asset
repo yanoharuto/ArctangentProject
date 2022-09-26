@@ -15,7 +15,7 @@ MonoBehaviour:
   speed: 1
   maxSpeed: 3
   dashcount: 1
-  dashSpeed: 1
+  dashSpeed: 8
   maxdashSpeed: 6
   jumpPower: 50
   jumpMax: 7

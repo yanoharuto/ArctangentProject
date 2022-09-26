@@ -953,6 +953,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1755025831}
     - target: {fileID: 7575455336878655913, guid: 0ff331f679c13404bb4470c3093037fe, type: 3}
+      propertyPath: m_Input
+      value: 
+      objectReference: {fileID: 992751468}
+    - target: {fileID: 7575455336878655913, guid: 0ff331f679c13404bb4470c3093037fe, type: 3}
       propertyPath: m_reSpornProcess
       value: 
       objectReference: {fileID: 684917329}

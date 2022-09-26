@@ -12,7 +12,7 @@ public class player : MonoBehaviour
     [Header("地面当たり判定")]
     public GameObject groundCollider;//playerData型のplayerStatusを入れる
     [SerializeField] [Header("ReSporn用")] private ReSpornProcess m_reSpornProcess;
-
+    [SerializeField] [Header("入力情報")] private InputControllerBase m_Input;
     GroundCheckPlayer flag;
     Rigidbody2D playerRigidbody; //Rigidbody2D型の変数
     float playerSpeed; //プレイヤーの速度
@@ -32,11 +32,6 @@ public class player : MonoBehaviour
     float InputVecX;
     float InputVecY;
 
-    //ボタンの名前を検索しやすいよう定義-----------------------------------
-    const string m_inputVecNameX = "Horizontal";
-    const string m_inputVecNameY = "Vertical";
-    const string m_InputJump = "Xbox_A";
-    //-----------------------------------------------------
     Vector3 DefaultScale;
 
 
@@ -77,10 +72,11 @@ public class player : MonoBehaviour
 
         //animator.SetBool("follFlag", jampFlag);
         //animator.SetFloat("velocty.y", playerRigidbody.velocity.y);
+        InputParameter inputParam = m_Input.GetInputParam();
         //-----------------------------------------------------
         //プレイヤーの左右移動-----------------------------------------
-        InputVecX = Input.GetAxis(m_inputVecNameX);//-1~1の範囲で横軸のスティック入力を取得
-        InputVecY = Input.GetAxis(m_inputVecNameY);//-1~1の範囲で縦軸のスティック入力を取得
+        InputVecX = inputParam.m_LStickHValue;//-1~1の範囲で横軸のスティック入力を取得
+        InputVecY = inputParam.m_LStickVValue;//-1~1の範囲で縦軸のスティック入力を取得
 
         //Debug.Log(InputVecX);
         //Debug.Log(InputVecY);
@@ -101,7 +97,7 @@ public class player : MonoBehaviour
             jumpFlag = false;
         }
 
-        if (Input.GetButtonDown(m_InputJump))//ジャンプ
+        if (inputParam.m_BButton||inputParam.m_AButton)//ジャンプ
         {
             Jump();
             
@@ -185,7 +181,7 @@ public class player : MonoBehaviour
     private void Move() //プレイヤーの動き
     {
 
-        playerRigidbody.velocity = new Vector2(/*playerDashSpeed*/ 15 *InputVecX, playerRigidbody.velocity.y); //走る
+        playerRigidbody.velocity = new Vector2(playerDashSpeed *InputVecX, playerRigidbody.velocity.y); //走る
 
         //XMoveCount += 1 * Time.deltaTime;
         //playerRigidbody.velocity += new Vector2(playerSpeed * Time.deltaTime * InputVecX, 0); //歩行
@@ -200,11 +196,8 @@ public class player : MonoBehaviour
         if(!jumpFlag)
         {
             jumpFlag = true;
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 10);
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, playerJampMax);
         }
-
-
-
 
         if (InputVecX < 0 && playerRigidbody.velocity.x > -0.1f) //壁ジャンプ(左)
         {
