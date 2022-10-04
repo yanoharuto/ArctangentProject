@@ -16,8 +16,9 @@ public class GimmickBase : MonoBehaviour
     private ElectionData m_ElectionData;
     protected bool m_IsPut = false;
     protected bool m_IsDestroy = false;
+    protected bool m_IsOvarlap = false;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
-
+    
     IEnumerator DestroyForPlayer()
     {
         m_Collider.enabled = false;
@@ -58,6 +59,7 @@ public class GimmickBase : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (m_GimmickState == GimmickState.Playing &&
             collision.gameObject.CompareTag("hammer"))
         {
@@ -65,7 +67,23 @@ public class GimmickBase : MonoBehaviour
             m_IsDestroy = true;
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
 
+        Debug.Log("TriggerEnter->Hit");
+        if (collision.tag=="player")
+        {
+            Debug.Log("TriggerEnter->Hit->player");
+
+        }
+        if(collision.tag == "scoffold")
+        {
+
+            Debug.Log("TriggerEnter->Hit->Scoffold");
+        }
+        
+    }
+    
     /// <summary>
     /// プレイヤーが設置する前の最初の処理
     /// </summary>
@@ -168,5 +186,9 @@ public class GimmickBase : MonoBehaviour
     public bool IsPut()
     {
         return m_IsPut;
+    }
+    public bool IsOverLap()
+    {
+        return m_IsOvarlap;
     }
 }

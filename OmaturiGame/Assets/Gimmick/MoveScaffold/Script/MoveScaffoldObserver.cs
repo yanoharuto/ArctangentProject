@@ -7,7 +7,14 @@ public class MoveScaffoldObserver : GimmickBase
     [SerializeField] [Header("目的地")] private Transform m_Destination;
     [SerializeField] private MoveScaffold m_MoveScaffold;
     private Vector3 m_StartPos;
-    private bool m_FirstRun = false;
+    private bool m_FirstRun = false; private void OnCollisionEnter2D(Collision2D collision)
+    {
+        m_IsOvarlap = true;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        m_IsOvarlap = false;
+    }
     /// <summary>
     /// プレイヤーが乗ったらLastPositionに向かって移動し,し終わったら戻る
     /// </summary>

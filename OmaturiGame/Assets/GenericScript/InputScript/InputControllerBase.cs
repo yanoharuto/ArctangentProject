@@ -6,8 +6,7 @@ using UnityEngine;
 {
     protected InputParameter m_InputParam;
 
-    protected virtual void SetLStickValue() { }
-    protected virtual void SetButtonValue() { }
+    protected virtual void SetInputValue() { }
 
     /// <summary>
     ///　今のゲームコントローラーのボタン状況
@@ -15,8 +14,7 @@ using UnityEngine;
     /// <returns></returns>
     public InputParameter GetInputParam()
     {
-        SetLStickValue();
-        SetButtonValue();
+        SetInputValue();
 
         return m_InputParam;
     }
