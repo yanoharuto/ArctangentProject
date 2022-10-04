@@ -9,6 +9,7 @@ public class Pointer : MonoBehaviour
     const string m_inputVecNameY = "Vertical";
     const string m_InputButtonA = "Xbox_A";
     //-----------------------------------------------------
+    [SerializeField] [Header("入力情報ゲッター")] private InputControllerBase InputGetter;
     [SerializeField] [Header("移動限界")] private float LimmitX;
     [SerializeField] [Header("移動限界")] private float LimmitY;
     [SerializeField] [Header("gimmick管理場")] private GimmickSelectPart m_GimmickSelectPart;
@@ -37,8 +38,9 @@ public class Pointer : MonoBehaviour
     }
     void Update()
     {
+        InputParameter inputParam = InputGetter.GetInputParam();
         //ポインタ操作
-        var InputVec = new Vector3(Input.GetAxis(m_inputVecNameX) * 0.01f, Input.GetAxis(m_inputVecNameY) * 0.01f,0.0f);
+        var InputVec = new Vector3(inputParam.m_LStickHValue * 0.01f, inputParam.m_LStickVValue * 0.01f,0.0f);
         m_TruePointerPosition += InputVec;
         //transform.position = new Vector3(
         // //エリア指定して移動する
@@ -56,8 +58,8 @@ public class Pointer : MonoBehaviour
     /// </summary>
     public void SelectMove()
     {
+        InputParameter inputParam = InputGetter.GetInputParam();
 
-       
         //レイを飛ばしてギミック選択
         Ray ray = Camera.main.ScreenPointToRay(camera.WorldToScreenPoint(m_TruePointerPosition));
 
@@ -66,7 +68,7 @@ public class Pointer : MonoBehaviour
         if (hit2d)
         {
             
-            if (Input.GetButtonDown(m_InputButtonA))
+            if (inputParam.m_AButton)
             {
 
                 //ギミックベースかどうかの判定
@@ -84,8 +86,8 @@ public class Pointer : MonoBehaviour
     //置く状態
     public void PutUpdate()
     {
-        
 
+        InputParameter inputParam = InputGetter.GetInputParam();
 
         var TmpCursol = camera.WorldToScreenPoint(m_TruePointerPosition);
         m_PointerPosition = TmpCursol;
@@ -98,8 +100,16 @@ public class Pointer : MonoBehaviour
             m_PointerPosition.x -= over;
             over = TmpCursol.y % 64;
             m_PointerPosition.y -= over;
-
-            if (Input.GetButtonDown(m_InputButtonA))
+            //回転
+            if(inputParam.m_LButton)
+            {
+                m_gimmickObj.GetComponent<GimmickBase>().PitchRotate(true);
+            }
+            else if(inputParam.m_RButton)
+            {
+                m_gimmickObj.GetComponent<GimmickBase>().PitchRotate(false);
+            }
+            if (inputParam.m_AButton)
             {
                 m_GimmickSelectPart.RecieveGimmick(m_gimmickObj.GetComponent<GimmickBase>());
             }

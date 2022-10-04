@@ -5,29 +5,29 @@ using UnityEngine;
 
 public class playerData : ScriptableObject
 {
-    [Header("プレイヤーの速度(加速する速さ):(0.0 ~ 10.0)")]
+    [Header("プレイヤーの速度(加速する速さ):(0.0 ~ 50.0)")]
     [Header("--------------------------------")]
-    [Range(0, 10)]
+    [Range(0, 50)]
     public float speed;
-    [Range(0, 10)]
-    [Header("プレイヤーの最大速度:(0.0 ~ 10.0)")]
+    [Range(0, 50)]
+    [Header("プレイヤーの最大速度:(0.0 ~ 50.0)")]
     public float maxSpeed;
     [Header("プレイヤーがダッシュに変わるまでの時間:(0秒.0 ~ 10秒.0)")]
     [Header("--------------------------------")]
     [Range(0, 10)]
     public float dashcount;
-    [Header("プレイヤーのダッシュの速度(加速する速さ):(0.0 ~ 20.0)")]
-    [Range(0, 20)]
+    [Header("プレイヤーのダッシュの速度(加速する速さ):(0.0 ~ 100.0)")]
+    [Range(0, 100)]
     public float dashSpeed;
-    [Header("プレイヤーのダッシュの最大速度:(0.0 ~ 30.0)")]
+    [Header("プレイヤーのダッシュの最大速度:(0.0 ~ 100.0)")]
     [Range(0, 30)]
     public float maxdashSpeed;
-    [Header("プレイヤーのジャンプのエネルギー(加速する速さ):(50.0 ~ 200.0)")]
+    [Header("プレイヤーのジャンプのエネルギー(加速する速さ):(0.0 ~ 200.0)")]
     [Header("--------------------------------")]
-    [Range(50, 200)]
+    [Range(0, 200)]
     public float jumpPower;
-    [Header("プレイヤーのジャンプの最大:(1.0 ~ 10.0)")]
-    [Range(1, 10)]
+    [Header("プレイヤーのジャンプの最大:(1.0 ~ 100.0)")]
+    [Range(1, 100)]
     public float jumpMax;
 
 }
