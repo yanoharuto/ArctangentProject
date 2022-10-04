@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class InputPlyer1 : InputControllerBase
 {
-    protected override void SetLStickValue()
+   
+    protected override void SetInputValue()
     {
         m_InputParam.m_LStickHValue = Input.GetAxis("L_Stick_H");
         m_InputParam.m_LStickVValue = Input.GetAxis("L_Stick_V");
-    }
-    protected override void SetButtonValue()
-    {
         m_InputParam.m_AButton = Input.GetKeyDown("joystick button 0");
         m_InputParam.m_BButton = Input.GetKeyDown("joystick button 1");
         m_InputParam.m_XButton = Input.GetKeyDown("joystick button 2");
