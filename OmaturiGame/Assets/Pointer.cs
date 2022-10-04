@@ -99,9 +99,14 @@ public class Pointer : MonoBehaviour
             over = TmpCursol.y % 64;
             m_PointerPosition.y -= over;
 
-            if (Input.GetButtonDown(m_InputButtonA))
+            if (Input.GetButtonDown(m_InputButtonA)&&!m_gimmickObj.GetComponent<GimmickBase>().IsOverLap())
             {
+                
                 m_GimmickSelectPart.RecieveGimmick(m_gimmickObj.GetComponent<GimmickBase>());
+            }
+            if(m_gimmickObj.GetComponent<GimmickBase>().IsOverLap())
+            {
+                Debug.Log("置けません");
             }
         }
         if(!IsPut)

@@ -26,7 +26,7 @@ public class GroundCheckPlayer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isGroundEnter = true;
-        //Debug.Log("何かが判定に入りました");
+        Debug.Log("何かが判定に入りました");
     }
 
     private void OnTriggerStay2D(Collider2D collision)
