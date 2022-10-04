@@ -7,6 +7,16 @@ using UnityEngine;
 /// </summary>
 public class Scaffold : GimmickBase
 {
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        m_IsOvarlap = true;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        m_IsOvarlap = false;
+    }
+
+
     protected override void SetUp()
     {
     }
