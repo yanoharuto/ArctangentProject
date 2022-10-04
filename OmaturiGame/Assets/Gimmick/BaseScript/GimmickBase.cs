@@ -23,7 +23,9 @@ public class GimmickBase : MonoBehaviour
         m_Collider.enabled = false;
         m_Audio.Play();
         yield return new WaitWhile(() => m_Audio.isPlaying);
-        gameObject.SetActive(false);
+        Color hideColor = m_Sprite.color;
+        hideColor.a = 0;
+
         m_IsDestroy = true ;
         yield break;
     }
@@ -32,7 +34,7 @@ public class GimmickBase : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        
+   
         switch (m_GimmickState)
         {
             case GimmickState.BeforePlacement:
