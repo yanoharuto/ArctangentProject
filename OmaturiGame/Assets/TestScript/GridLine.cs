@@ -4,22 +4,24 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class GridLine : MonoBehaviour
 {
-
-    //縦のポイント数1080/64
-    private const int HightGridNumber = 17;
-    //横のポイント数1920/64
-    private const int WidthGridNumber =11;
-
+    [SerializeField] [Header("底辺,上辺")] Vector2 m_heightVec;
+    [SerializeField][Header("左辺,右辺")] Vector2 m_widthVec;
+    [SerializeField] [Header("マスの大きさ")] int m_gridSize;
     //座標データ
     List<GameObject> objects = new List<GameObject>();
 
     private Camera mainCamera;
     void Start()
     {
+        if(m_gridSize==0)
+        {
+            m_gridSize = 64;
+        }
         mainCamera = Camera.main;
         //Debug.Log(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)));
         //縦ライン
-        for (int i = 0; i < HightGridNumber; i++)
+        var widthnum = m_heightVec.y - m_heightVec.x;
+        for (int i = 0; i < (widthnum/m_gridSize); i++)
         {
             GameObject obj = new GameObject();
             obj.name = "LineY" + i;
@@ -31,14 +33,14 @@ public class GridLine : MonoBehaviour
 
             
             // 頂点を設定
-            renderer.SetPosition(0,mainCamera.ScreenToWorldPoint(new Vector3(640, i*64, 1)));
-            renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(1280, i * 64, 1)));
+            renderer.SetPosition(0,mainCamera.ScreenToWorldPoint(new Vector3(m_widthVec.x, i*m_gridSize, 1)));
+            renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(m_widthVec.y, i * m_gridSize, 1)));
             objects.Add(obj);
         }
 
-
+        var heightnum = m_widthVec.y - m_widthVec.x;
         //横ライン
-        for (int i = 0; i < WidthGridNumber; i++)
+        for (int i = 0; i < (heightnum/ m_gridSize); i++)
         {
             GameObject obj = new GameObject();
             obj.name = "LineX" + i;
@@ -50,11 +52,11 @@ public class GridLine : MonoBehaviour
 
 
             // 頂点を設定
-            renderer.SetPosition(0, mainCamera.ScreenToWorldPoint(new Vector3(i * 64　+　640   ,0   , 1)));
-            renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(i * 64　+　640　,1080, 1)));
+            renderer.SetPosition(0, mainCamera.ScreenToWorldPoint(new Vector3(i * m_gridSize　+　m_widthVec.x   ,m_heightVec.x   , 1)));
+            renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(i * m_gridSize　+ m_widthVec.x , m_heightVec.y, 1)));
             objects.Add(obj);
         }
-        UnSetAllActive();
+        //UnSetAllActive();
     }
 
 
