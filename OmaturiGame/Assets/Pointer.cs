@@ -103,11 +103,11 @@ public class Pointer : MonoBehaviour
             //回転
             if(inputParam.m_LButton)
             {
-                m_gimmickObj.GetComponent<GimmickBase>().PitchRotate();
+                m_gimmickObj.GetComponent<GimmickBase>().PitchRotate(true);
             }
             else if(inputParam.m_RButton)
             {
-                m_gimmickObj.GetComponent<GimmickBase>().PitchRotate();
+                m_gimmickObj.GetComponent<GimmickBase>().PitchRotate(false);
             }
             if (inputParam.m_AButton)
             {

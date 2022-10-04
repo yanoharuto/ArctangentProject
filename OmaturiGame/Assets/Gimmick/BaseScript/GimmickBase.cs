@@ -92,11 +92,19 @@ public class GimmickBase : MonoBehaviour
         Debug.Log("あたった");
     }
     /// <summary>
-    /// z軸で回転する
+    /// z軸回転する
     /// </summary>
-    public void PitchRotate()
+    /// <param name="_LRotate">反時計回りか</param>
+    public void PitchRotate(bool _LRotate)
     {
-       transform.Rotate(new Vector3(0, 0, m_RotateAngle));
+        if (_LRotate)
+        {
+            transform.Rotate(new Vector3(0, 0, m_RotateAngle));
+        }
+        else
+        {
+            transform.Rotate(new Vector3(0, 0, -m_RotateAngle));
+        }
     }
     public void OnUpperOrHide(bool upper)
     {
