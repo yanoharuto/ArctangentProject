@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5091259835604128268}
   - component: {fileID: 188536578516202651}
   - component: {fileID: 6241389346998377167}
-  - component: {fileID: 5549794005483544020}
+  - component: {fileID: -6385989444881811493}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: hammer
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2947704975639722158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d5ef55e692edcd94daa5b795ace807cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49cff6fb5c4b1294ca4512624b37e773, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,10 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ElectionMax: 101
   m_ElectionMin: 81
-  m_Audio: {fileID: 6241389346998377167}
   m_Collider: {fileID: 188536578516202651}
   m_Sprite: {fileID: 7564790022005629064}
-  m_TriggerCollider: {fileID: 5549794005483544020}
+  HammerAnim: {fileID: -6385989444881811493}
 --- !u!61 &188536578516202651
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -114,21 +113,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.24, y: 6.25}
+    oldSize: {x: 18.46, y: 14.53}
     newSize: {x: 6.24, y: 6.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 9, y: 8}
   m_EdgeRadius: 0
 --- !u!82 &6241389346998377167
 AudioSource:
@@ -226,29 +225,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!61 &5549794005483544020
-BoxCollider2D:
+--- !u!95 &-6385989444881811493
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2947704975639722158}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.24, y: 6.25}
-    newSize: {x: 6.24, y: 6.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 7, y: 7}
-  m_EdgeRadius: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 872c6ee8d3a0b6a49ab64e9689ece85d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

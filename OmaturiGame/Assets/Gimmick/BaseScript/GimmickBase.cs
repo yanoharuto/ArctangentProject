@@ -8,95 +8,79 @@ using UnityEngine;
 public class GimmickBase : MonoBehaviour
 {
     [SerializeField] [Header("表示するときにMinとMaxの間の数字が出ると表示")]private float m_ElectionMax, m_ElectionMin;
-    [SerializeField] protected AudioSource m_Audio;
-    [SerializeField] BoxCollider2D m_Collider;
+    [SerializeField] protected BoxCollider2D m_Collider;
     [SerializeField] SpriteRenderer m_Sprite;
-    protected GimmickState m_GimmickState = GimmickState.BeforePlacement;
+    protected GimmickPutState m_PutState = GimmickPutState.Select;
     private const float m_RotateAngle = 90.0f; //回転角
     private ElectionData m_ElectionData;
-    protected bool m_IsPut = false;
-    protected bool m_IsDestroy = false;
     protected bool m_IsOvarlap = false;
+    protected bool m_IsDestroy = false;
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
-    
-    IEnumerator DestroyForPlayer()
-    {
-        m_Collider.enabled = false;
-        m_Audio.Play();
-        yield return new WaitWhile(() => m_Audio.isPlaying);
-        Color hideColor = m_Sprite.color;
-        hideColor.a = 0;
-
-        m_IsDestroy = true ;
-        yield break;
-    }
-    /// <summary>
-    /// ギミックの状態によって更新内容変更
-    /// </summary>
-    private void Update()
-    {
-   
-        switch (m_GimmickState)
-        {
-            case GimmickState.BeforePlacement:
-                SetUp();
-                break;
-            case GimmickState.Standby:
-                Standby();
-                break;
-            case GimmickState.Playing:
-                Run();
-                break;
-            case GimmickState.Played:
-                Played();
-                break;
-        }
-    }
 
     /// <summary>
-    /// 設置時に重なってたら報告出来るようにする
+    /// 設置時にハンマー以外が重なってたら報告出来るようにする
     /// </summary>
     /// <param name="collision"></param>
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        if (m_GimmickState == GimmickState.Playing &&
-            collision.gameObject.CompareTag("hammer"))
+        if (!gameObject.CompareTag("hammer"))
         {
-            Debug.Log("hammer");
-            m_IsDestroy = true;
+            m_IsOvarlap = true;
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-
-        Debug.Log("TriggerEnter->Hit");
-        if (collision.tag=="player")
-        {
-            Debug.Log("TriggerEnter->Hit->player");
-
-        }
-        if(collision.tag == "scoffold")
-        {
-
-            Debug.Log("TriggerEnter->Hit->Scoffold");
-        }
-        
+        m_IsOvarlap = false;
     }
-    
+    /// ハンマーが置かれたら自滅準備
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("hammer"))
+        {
+            //設置後の自分自身が設置後のハンマーに当たっているなら自滅準備 
+            if (m_PutState == GimmickPutState.FinishPut &&
+                other.gameObject.GetComponent<Hammer>().GetPutState() == GimmickPutState.FinishPut) 
+            {
+                PreparingSelfDestruction();
+            }
+        }
+    }
     /// <summary>
-    /// プレイヤーが設置する前の最初の処理
+    /// 自滅準備
+    /// 画像のアルファを下げて隠す
+    /// 死ぬ予定フラグを立てる
     /// </summary>
-    protected virtual void SetUp() { }
+    /// <returns></returns>
+    protected void PreparingSelfDestruction()
+    {
+        m_Collider.enabled = false;
+        OnUpperOrHide(false);
+        m_IsDestroy = true;
+    }
     /// <summary>
     /// 子クラスはこの関数をoverrideして動作する
     /// </summary>
-    protected virtual void Run() { }
-    /// <summary>
-    /// アクションシーンが終了したら呼んで
-    /// </summary>
-    protected virtual void Standby() {  }
-    protected virtual void Played() { }
+    /// 設置前
+    protected virtual void SelectUpdate() { }
+    protected virtual void PutUpdate()
+    {
+        Debug.Log("PutUpdate");
+        if (m_PutState == GimmickPutState.Select)
+        {
+            PreparingSelfDestruction();
+        }
+    }
+    ///設置後　ハンマーが置いてあったら破壊
+    protected virtual void OtherSelectUpdate() 
+    {
+        if (m_IsDestroy)
+        {
+            PreparingSelfDestruction();
+        }
+    }
+    protected virtual void OtherPutUpdate() { }
+    protected virtual void PlayUpdate() {  }
+    protected virtual void ResultUpdate() { }
     /// <summary>
     /// 選出するときに参考にするデータ
     /// </summary>
@@ -106,10 +90,6 @@ public class GimmickBase : MonoBehaviour
         m_ElectionData.m_Max = m_ElectionMax;
         m_ElectionData.m_Min = m_ElectionMin;
         return m_ElectionData;
-    }
-    public void OnMouseEnter()
-    {
-        Debug.Log("あたった");
     }
     /// <summary>
     /// z軸回転する
@@ -126,6 +106,10 @@ public class GimmickBase : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, -m_RotateAngle));
         }
     }
+    /// <summary>
+    /// 見せたり隠したりする
+    /// </summary>
+    /// <param name="upper"></param>
     public void OnUpperOrHide(bool upper)
     {
         Color color = m_Sprite.color;
@@ -142,53 +126,85 @@ public class GimmickBase : MonoBehaviour
             m_Collider.enabled = false;
         }
     }
-
     /// <summary>
-    /// 呼ぶとギミックの状態が変わる
+    /// 設置状況の更新
     /// </summary>
-    public void ChangeState()
+    public void OnUpdatePutState()
     {
-        switch (m_GimmickState)
+        switch(m_PutState)
         {
-            case GimmickState.BeforePlacement:
-                //配置前の状態で呼ぶとスタンバイ
-                m_GimmickState = GimmickState.Standby;
-
+            case GimmickPutState.Select:
+                m_PutState = GimmickPutState.Put;
                 break;
-            case GimmickState.Standby:
-                //スタンバイ状態で呼ぶとハンマーに破壊されるかチェック
-                m_GimmickState = GimmickState.Playing;
-                break;
-            case GimmickState.Playing:
-                //動いてる状態で呼ぶとスタンバイ
-                m_GimmickState = GimmickState.Standby;
-                break;
-            case GimmickState.Played:
-                m_GimmickState = GimmickState.Played;
+            case GimmickPutState.Put:
+                m_PutState = GimmickPutState.FinishPut;
                 break;
         }
     }
     /// <summary>
-    /// ハンマーが起動する前に
-    /// このギミックが破壊されるかどうか所得
+    /// 設置状況の所得
     /// </summary>
-    public bool IsDestroy()
+    /// <returns></returns>
+    public GimmickPutState GetPutState()
     {
-        return m_IsDestroy;
+        return m_PutState;
+    }    /// <summary>
+    /// メインの進捗状況によって更新内容を変える
+    /// </summary>
+    public void GimmickUpdate(MainState _MainState)
+    {
+        switch (_MainState)
+        {
+            case MainState.SelectGimmickPart:
+                if (m_PutState == GimmickPutState.Select)
+                {
+                    //画面に表示されただけの状態
+                    SelectUpdate();
+                }
+                else
+                {
+                    OtherSelectUpdate();
+                }
+                break;
+            case MainState.PutGimmickPart:
+                if (m_PutState == GimmickPutState.Put)
+                {
+                    //設置後のアプデ
+                    OtherPutUpdate();
+                }
+                ///設置されることがないオブジェクトは破壊する
+                else if (m_PutState == GimmickPutState.Select) 
+                {
+                    PreparingSelfDestruction();
+                }
+                else
+                {
+                    PutUpdate();
+                }
+                break;
+            case MainState.PlayPart:
+                PlayUpdate();
+                break;
+            case MainState.ResultPart:
+                ResultUpdate();
+                break;
+        }
     }
     /// <summary>
-    /// 設置したときに呼んでね
+    /// ギミック同士が重なり合っているかどうか
     /// </summary>
-    public void OnPut()
-    {
-        m_IsPut = true;
-    }
-    public bool IsPut()
-    {
-        return m_IsPut;
-    }
-    public bool IsOverLap()
+    /// <returns></returns>
+    public bool GetOverLap()
     {
         return m_IsOvarlap;
     }
+    /// <summary>
+    /// 破壊されるかどうか渡す
+    /// </summary>
+    /// <returns></returns>
+    public bool GetDestroyFlag()
+    {
+        return m_IsDestroy;
+    }
+
 }

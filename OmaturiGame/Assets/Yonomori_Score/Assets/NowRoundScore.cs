@@ -8,19 +8,17 @@ using UnityEngine;
 public class NowRoundScore : MonoBehaviour
 {
     private PlayerScoreStruct m_Score;
-    [SerializeField] [Header("Debug用、本番時は0")] private float m_Coin, m_Kill, m_Goal;
-    private void Awake()
-    {
-        m_Score.m_CoinScore = m_Coin;
-        m_Score.m_GoalScore = m_Goal;
-        m_Score.m_PlayerKillScore = m_Kill;
-    }
+    private bool m_Die;
     /// <summary>
     /// このラウンド中に獲得したスコアの表示
     /// </summary>
     /// <returns>一回渡したら次のラウンドが来るまで0が返ってくるよ</returns>
     public PlayerScoreStruct GetNowRoundScore()
-    {
+    { 
+        if (m_Die)
+        {
+            ResetNowRoundScore();
+        }
         PlayerScoreStruct score = m_Score;
         ResetNowRoundScore();
         return score;
@@ -31,18 +29,25 @@ public class NowRoundScore : MonoBehaviour
         m_Score.m_GoalScore = 0;
         m_Score.m_CoinScore = 0;
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (collision.gameObject.tag)            //衝突したオブジェクトのタグによってスコアが増えたり減ったり
+        {
+            case "dangerousObject":
+                m_Die = true;
+                break;
+            case "goal":
+                Debug.Log("goal");
+                m_Score.m_GoalScore++;
+                break;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)               //衝突したオブジェクトのタグをcollisionに代入
     {
         switch (collision.tag)            //衝突したオブジェクトのタグによってスコアが増えたり減ったり
         {
             case "coin":
-            m_Score.m_CoinScore++;
-                break;
-            case "dangerousObject":
-                ResetNowRoundScore();
-                break;
-            case "goal":
-                m_Score.m_GoalScore++;
+                m_Score.m_CoinScore++;
                 break;
         }
     }

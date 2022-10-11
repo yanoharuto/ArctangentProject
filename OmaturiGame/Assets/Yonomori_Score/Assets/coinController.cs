@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,18 +17,14 @@ public class coinController : MonoBehaviour
     {
     }
 
-    void OnTriggerEnter2D(Collider2D collision)               //Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ğcollision‚É‘ã“ü
+    void OnTriggerEnter2D(Collider2D collision)               //è¡çªã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã‚’collisionã«ä»£å…¥
     {
-        Debug.Log(collision.gameObject.name);              //Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O‚ğ•\¦
+        Debug.Log(collision.gameObject.name);              //è¡çªã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰ã‚’è¡¨ç¤º
 
-        if (collision.CompareTag("coin"))            //Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ªcoin‚È‚ç
+        if (collision.CompareTag("coin"))            //è¡çªã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ãŒcoinãªã‚‰
         {
-            Debug.Log("ƒQƒbƒg");                       //ƒQƒbƒg‚Æ•\¦
-            Destroy(collision.gameObject);          //Õ“Ë‚µ‚½ƒRƒCƒ“‚ğÁ‚·
+            Debug.Log("ã‚²ãƒƒãƒˆ");                       //ã‚²ãƒƒãƒˆã¨è¡¨ç¤º
+            Destroy(collision.gameObject);          //è¡çªã—ãŸã‚³ã‚¤ãƒ³ã‚’æ¶ˆã™
         }
-
-
-
-
     }
 }

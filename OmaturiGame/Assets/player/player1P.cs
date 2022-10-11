@@ -8,6 +8,8 @@ public class player1P : MonoBehaviour
     public playerData playerStatus;//playerData型のplayerStatusを入れる
     [SerializeField]
     private InputControllerBase inputGetter;
+    [SerializeField]
+    private ReSpornProcess m_reSpornProcess;
     Rigidbody2D playerRigidbody; //Rigidbody2D型の変数
     float playerSpeed; //プレイヤーの速度
     float playerMaxSpeed; //プレイヤーの最大速度
@@ -23,6 +25,7 @@ public class player1P : MonoBehaviour
     bool leftJampFlag;　//左に壁ジャンプできるフラグ
     bool jampFlag; //ジャンプキーを押したかを判定
     bool jampEndFlag; //ジャンプ時の上昇が終了したかの判定
+    Vector3 scale;
     //アニメーション関係-----------------------------------
     Animator animator; //Animator型の変数
     bool walkFlag; //歩いているかどうかの判定
@@ -44,6 +47,7 @@ public class player1P : MonoBehaviour
         //------------------------------------
         playerRigidbody = GetComponent<Rigidbody2D>(); //Rigidbody2Dの読み込み
         firstGravityScale = playerRigidbody.gravityScale;
+        scale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -72,14 +76,17 @@ public class player1P : MonoBehaviour
             {
                 Move();
             }
+
             //振り向き---------------------------
-            if(Axisx > 0)
+            Vector3 nowScale = scale;
+            if (Axisx > 0)
             {
-                transform.localScale = new Vector3 (0.75f, 0.75f, 1); //Xの大きさを反転する。(振り向き)
+                transform.localScale = nowScale ; //Xの大きさを反転する。(振り向き)
             }
             else if(Axisx < 0)
             {
-                transform.localScale = new Vector3(-0.75f, 0.75f, 1); //Xの大きさを反転する。(振り向き)
+                nowScale.x = -scale.x;
+                transform.localScale = nowScale; //Xの大きさを反転する。(振り向き)
             }
             //-----------------------------
         }
@@ -168,13 +175,9 @@ public class player1P : MonoBehaviour
     {
         animator.SetTrigger("dieTrigger");
     }
-    private void AddScore() //スコア追加
+    private void OnEnable()
     {
-
-    }
-    private void Hide() //隠す
-    {
-
+        m_reSpornProcess.ReSporn();
     }
     void dieanimeend() //死ぬモーション終了用イベント
     {

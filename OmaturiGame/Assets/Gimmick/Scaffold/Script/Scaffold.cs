@@ -17,21 +17,7 @@ public class Scaffold : GimmickBase
     }
 
 
-    protected override void SetUp()
+    protected override void SelectUpdate()
     {
-    }
-    protected override void Standby()
-    {
-        if (!m_IsPut)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    protected override void Run()
-    {
-        if (m_IsDestroy)
-        {
-            Destroy(this.gameObject);
-        }
     }
 }

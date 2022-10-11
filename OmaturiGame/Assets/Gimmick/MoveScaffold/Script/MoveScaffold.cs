@@ -37,6 +37,7 @@ public class MoveScaffold : MonoBehaviour
             transform.position += moveVec * m_MoveCoefficient;
             m_RemainingMoveTime -= Time.deltaTime;
 
+            //時間経過したら
             if (m_RemainingMoveTime < 0)
             {
                 switch (m_MoveScaffoldState)
@@ -69,7 +70,6 @@ public class MoveScaffold : MonoBehaviour
     /// <param name="_startPos"></param>
     public void Played(Vector3 _startPos)
     {
-        Debug.Log("MoveStandby");
         transform.position = _startPos;
         m_MoveScaffoldState = MoveScaffoldState.PlayerWait;
         m_StopCoroutine = null;

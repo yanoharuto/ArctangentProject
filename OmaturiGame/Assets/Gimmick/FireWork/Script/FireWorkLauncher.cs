@@ -6,14 +6,8 @@ public class FireWorkLauncher : GimmickBase
 {
     [SerializeField] [Header("発射間隔")] private float m_FireSpan;
     [SerializeField] [Header("発射する弾")] private GameObject m_FireWork;
-    private float m_Time = 0.0f; private void OnCollisionEnter2D(Collision2D collision)
-    {
-        m_IsOvarlap = true;
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        m_IsOvarlap = false;
-    }
+    private float m_Time = 0.0f;
+    
     /// <summary>
     /// 花火発射
     /// </summary>
@@ -31,25 +25,9 @@ public class FireWorkLauncher : GimmickBase
             m_Time = 0.0f;
         }
     }
-    /// <summary>
-    /// スパン過ぎたら花火発射
-    /// </summary>
-    protected override void Run()
+
+    protected override void PlayUpdate()
     {
-        if(m_IsDestroy)
-        {
-            Destroy(this.gameObject);
-        }
         PrepareFire();
-    }
-    /// <summary>
-    /// 準備
-    /// </summary>
-    protected override void Standby()
-    {
-        if (!m_IsPut)
-        {
-            Destroy(this.gameObject);
-        }
     }
 }

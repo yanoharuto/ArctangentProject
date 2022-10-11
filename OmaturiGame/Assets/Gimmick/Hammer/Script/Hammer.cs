@@ -8,25 +8,19 @@ using UnityEngine;
 /// </summary>
 public class Hammer : GimmickBase
 {
-    [SerializeField] [Header("この有効範囲に入ったものを壊す")]BoxCollider2D m_TriggerCollider;
-    protected override void SetUp()
+    [SerializeField] Animator HammerAnim;
+    protected override void PlayUpdate()
     {
-        m_TriggerCollider.enabled = false;
-    }
-    protected override void Standby()
-    {      
-        m_IsDestroy = true;
-        m_TriggerCollider.enabled = true;
-        if (!m_IsPut)
-        {
-            Destroy(this.gameObject);
-        }
+        HammerAnim.SetBool("Run",true);
     }  
-    protected override void Run()
+    /// <summary>
+    /// アニメーションの終わりに呼ぶよ
+    /// </summary>
+    private void Finish()
     {
-        if(m_IsDestroy)
-        {
-            Destroy(this.gameObject);
-        }
+        m_IsDestroy = true;
+        m_Collider.enabled = true;
+        m_Collider.enabled = false;
+        PreparingSelfDestruction();
     }
 }

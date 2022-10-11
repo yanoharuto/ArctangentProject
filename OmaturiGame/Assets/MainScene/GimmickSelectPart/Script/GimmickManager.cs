@@ -9,56 +9,68 @@ public class GimmickManager : MonoBehaviour
     [SerializeField] private List<GimmickBase> m_ElectionGimmickList = new List<GimmickBase>();//選出したギミックリスト
     [SerializeField] private List<GimmickBase> m_PutedGimmickList = new List<GimmickBase>();//選出したギミックリスト
     /// <summary>
-    /// 呼ぶたびに設置したオブジェクトの状態を遷移
+    /// ギミックを隠したりする
     /// </summary>
-    public void ChangeElectionGimmickState()
+    /// <param name="mainState"></param>
+    private void DisplayPutGimick(GimmickBase _Gimmick,MainState mainState)
     {
-
+        switch (mainState)
+        {
+            case MainState.SelectGimmickPart:
+                _Gimmick.OnUpperOrHide(false);
+                break;
+            case MainState.PutGimmickPart:
+                _Gimmick.OnUpperOrHide(true);
+                break;
+            case MainState.PlayPart:
+                _Gimmick.OnUpperOrHide(true);
+                break;
+            case MainState.ResultPart:
+                _Gimmick.OnUpperOrHide(false);
+                break;
+        }
+    }
+    /// <summary>
+    /// 設置前の表示しただけのギミックの更新
+    /// </summary>
+    public void UpdateElectionGimmick(MainState _MainState)
+    {
+        //破壊しないギミックのリスト
+        List<GimmickBase> NonDestroyGimmick = new List<GimmickBase>();
         foreach (GimmickBase EGB in m_ElectionGimmickList)
         {
-            EGB.ChangeState();
+            if (!EGB.GetDestroyFlag())
+            {
+                //破壊しないギミックを登録
+                NonDestroyGimmick.Add(EGB);
+            }
+            EGB.GimmickUpdate(_MainState);
         }
-
-        //配置されなかった奴は消す
-        m_ElectionGimmickList.Clear();
+        //受け渡し。渡されなかったギミックは起動時に破壊される
+        m_ElectionGimmickList = NonDestroyGimmick;
     }
-    public void ChangePutedGimmickState()
+    /// <summary>
+    /// 設置後のギミックの更新
+    /// </summary>
+    public void UpdatePutGimmick(MainState _MainState)
     {
         //破壊しないギミックのリスト
         List<GimmickBase> NonDestroyGimmick = new List<GimmickBase>();
         foreach (GimmickBase PGB in m_PutedGimmickList)
         {
-            if (!PGB.IsDestroy())
+            if (!PGB.GetDestroyFlag())
             {
                 //破壊しないギミックを登録
                 NonDestroyGimmick.Add(PGB);
             }
-            PGB.ChangeState();
+            PGB.GimmickUpdate(_MainState);
+            //ギミックを隠すよ
+            DisplayPutGimick(PGB, _MainState);
         }
         //受け渡し。渡されなかったギミックは起動時に破壊される
         m_PutedGimmickList = NonDestroyGimmick;
     }
-    public void HidePutedGimick(MainState mainState)
-    {
-        foreach(GimmickBase PGB in m_PutedGimmickList)
-        {
-            switch(mainState)
-            {
-                case MainState.SelectGimmickPart:
-                    PGB.OnUpperOrHide(false);
-                    break;
-                case MainState.PutGimmickPart:
-                    PGB.OnUpperOrHide(true);
-                    break;
-                case MainState.PlayPart:
-                    PGB.OnUpperOrHide(true);
-                    break;
-                case MainState.ResultPart:
-                    PGB.OnUpperOrHide(false);
-                    break;
-            }
-        }
-    }
+
     /// <summary>
     /// ギミックを配置したときに使う
     /// </summary>
@@ -76,5 +88,4 @@ public class GimmickManager : MonoBehaviour
     {
         m_ElectionGimmickList.Add(gimmickBase);
     }
-
 }

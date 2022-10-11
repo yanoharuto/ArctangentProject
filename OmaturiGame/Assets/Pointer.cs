@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
-    //ボタンの名前を検索しやすいよう定義-----------------------------------
-    const string m_inputVecNameX = "Horizontal";
-    const string m_inputVecNameY = "Vertical";
-    const string m_InputButtonA = "Xbox_A";
-    //-----------------------------------------------------
     [SerializeField] [Header("移動限界")] private float LimmitX;
     [SerializeField] [Header("移動限界")] private float LimmitY;
     [SerializeField] [Header("gimmick管理場")] private GimmickSelectPart m_GimmickSelectPart;
     [SerializeField] [Header("カメラ")]　private Camera camera;
+    [SerializeField] [Header("入力情報ゲッター")] private InputControllerBase InputGetter;
     //操作用ポインタ
     Vector3 m_TruePointerPosition;
 
@@ -20,6 +16,7 @@ public class Pointer : MonoBehaviour
     Vector3 m_PointerPosition;
 
     bool IsPut;
+    InputParameter inputParam;
 
     [SerializeField] private GameObject m_gimmickObj;
 
@@ -37,8 +34,9 @@ public class Pointer : MonoBehaviour
     }
     void Update()
     {
+        inputParam = InputGetter.GetInputParam();
         //ポインタ操作
-        var InputVec = new Vector3(Input.GetAxis(m_inputVecNameX) * 0.01f, Input.GetAxis(m_inputVecNameY) * 0.01f,0.0f);
+        var InputVec = new Vector3(inputParam.m_LStickHValue * 0.01f, inputParam.m_LStickVValue * 0.01f,0.0f);
         m_TruePointerPosition += InputVec;
         //transform.position = new Vector3(
         // //エリア指定して移動する
@@ -57,7 +55,7 @@ public class Pointer : MonoBehaviour
     public void SelectMove()
     {
 
-       
+        inputParam = InputGetter.GetInputParam();
         //レイを飛ばしてギミック選択
         Ray ray = Camera.main.ScreenPointToRay(camera.WorldToScreenPoint(m_TruePointerPosition));
 
@@ -66,16 +64,17 @@ public class Pointer : MonoBehaviour
         if (hit2d)
         {
             
-            if (Input.GetButtonDown(m_InputButtonA))
+            if (inputParam.m_AButton)
             {
 
                 //ギミックベースかどうかの判定
                 var GimmickBase = hit2d.transform.gameObject.GetComponent<GimmickBase>();
                 if (GimmickBase)
                 {
+                    GimmickBase.OnUpdatePutState();
                     //真なら取得
                     m_gimmickObj = GimmickBase.gameObject;
-                    GimmickBase.OnPut();
+
                 }
             }
 
@@ -84,8 +83,8 @@ public class Pointer : MonoBehaviour
     //置く状態
     public void PutUpdate()
     {
-        
 
+        inputParam = InputGetter.GetInputParam();
 
         var TmpCursol = camera.WorldToScreenPoint(m_TruePointerPosition);
         m_PointerPosition = TmpCursol;
@@ -98,13 +97,25 @@ public class Pointer : MonoBehaviour
             m_PointerPosition.x -= over;
             over = TmpCursol.y % 64;
             m_PointerPosition.y -= over;
-
-            if (Input.GetButtonDown(m_InputButtonA)&&!m_gimmickObj.GetComponent<GimmickBase>().IsOverLap())
+            //ギミックの基本機能を所得
+            GimmickBase gimmick = m_gimmickObj.GetComponent<GimmickBase>();
+            //LRを押したら回転
+            if (inputParam.m_LButton)
             {
-                
-                m_GimmickSelectPart.RecieveGimmick(m_gimmickObj.GetComponent<GimmickBase>());
+
+                gimmick.PitchRotate(true);
             }
-            if(m_gimmickObj.GetComponent<GimmickBase>().IsOverLap())
+            if (inputParam.m_RButton)
+            {
+                gimmick.PitchRotate(false);
+            }
+            //Aボタンを押して何かとかぶっていないなら
+            if (inputParam.m_AButton&&!gimmick.GetOverLap())
+            {
+                gimmick.OnUpdatePutState();
+                m_GimmickSelectPart.OnRecieveGimmick(m_gimmickObj.GetComponent<GimmickBase>());
+            }
+            if(m_gimmickObj.GetComponent<GimmickBase>().GetOverLap())
             {
                 Debug.Log("置けません");
             }

@@ -173,6 +173,7 @@ MonoBehaviour:
   playerStatus: {fileID: 11400000, guid: 53faca78d2e9bc94887ccd7011feefb2, type: 2}
   groundCollider: {fileID: 7348410234789908285}
   m_reSpornProcess: {fileID: 6174530458565485382}
+  m_Input: {fileID: -5663091837555929872}
 --- !u!114 &8185284652686481168
 MonoBehaviour:
   m_ObjectHideFlags: 0
