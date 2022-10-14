@@ -25,6 +25,10 @@ public class player1P : MonoBehaviour
     bool leftJampFlag;　//左に壁ジャンプできるフラグ
     bool jampFlag; //ジャンプキーを押したかを判定
     bool jampEndFlag; //ジャンプ時の上昇が終了したかの判定
+
+    ///追加　 米盛
+    bool dieFlag; //死んだかどうか判定
+
     Vector3 scale;
     //アニメーション関係-----------------------------------
     Animator animator; //Animator型の変数
@@ -62,7 +66,9 @@ public class player1P : MonoBehaviour
         //プレイヤーの左右移動-----------------------------------------
         InputParameter inputParam = inputGetter.GetInputParam();
         Axisx = inputParam.m_LStickHValue;
-        if (Axisx != 0) //ゲームパットを動かしていると....
+
+        ///dieflag == false 追加　米盛
+        if (Axisx != 0 && dieFlag == false) //ゲームパットを動かしていると....
         {
             if (playerRigidbody.velocity.x < playerMaxSpeed && 
                 playerRigidbody.velocity.x > playerMaxSpeed * -1 && 
@@ -171,9 +177,23 @@ public class player1P : MonoBehaviour
 
         }
     }
-    private void Die() //プレイヤーの死亡判定
+
+    ///変更前
+   // public void Die() //プレイヤーの死亡判定
+    //{
+    //    animator.SetTrigger("dieTrigger");
+    //}
+
+    /// 変更後　 米盛
+    void OnTriggerEnter2D(Collider2D collision)               //衝突したオブジェクトのタグをcollisionに代入
     {
-        animator.SetTrigger("dieTrigger");
+        Debug.Log(collision.gameObject.name);              //衝突したオブジェクトの名前を表示
+        if (collision.CompareTag("dangerousObj"))            //衝突したオブジェクトのタグがdangerousObjなら
+        {
+            Debug.Log("死亡");   
+            animator.SetTrigger("dieTrigger");
+            dieFlag = true;
+        }
     }
     private void OnEnable()
     {
