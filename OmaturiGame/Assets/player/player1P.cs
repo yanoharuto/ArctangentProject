@@ -26,8 +26,11 @@ public class player1P : MonoBehaviour
     bool jampFlag; //ジャンプキーを押したかを判定
     bool jampEndFlag; //ジャンプ時の上昇が終了したかの判定
 
+    
+
     ///追加　 米盛
     bool dieFlag; //死んだかどうか判定
+    bool clearFlag;
 
     Vector3 scale;
     //アニメーション関係-----------------------------------
@@ -67,8 +70,12 @@ public class player1P : MonoBehaviour
         InputParameter inputParam = inputGetter.GetInputParam();
         Axisx = inputParam.m_LStickHValue;
 
-        ///dieflag == false 追加　米盛
-        if (Axisx != 0 && dieFlag == false) //ゲームパットを動かしていると....
+        //追加 米盛
+       clearFlag = animator.GetBool("clearFlag");
+       bool dieflag = animator.GetBool("dieflag");
+
+        ///dieflag == false  clearFlag == false 追加　米盛
+        if (Axisx != 0 && dieFlag == false&&clearFlag == false) //ゲームパットを動かしていると....
         {
             if (playerRigidbody.velocity.x < playerMaxSpeed && 
                 playerRigidbody.velocity.x > playerMaxSpeed * -1 && 
@@ -107,7 +114,8 @@ public class player1P : MonoBehaviour
         {
             jampFlag = true;
         }
-        if(jampFlag == true && jampEndFlag == false)
+        ///dieflag == false  clearFlag == false 追加　米盛
+        if (jampFlag == true && jampEndFlag == false&& dieflag == false && clearFlag == false )
         {
             Jump();
         }
@@ -192,8 +200,10 @@ public class player1P : MonoBehaviour
         {
             Debug.Log("死亡");   
             animator.SetTrigger("dieTrigger");
+            animator.SetBool("dieflag", true);
             dieFlag = true;
         }
+
     }
     private void OnEnable()
     {
