@@ -14,7 +14,8 @@ public class PlayPart : MonoBehaviour
     /// <returns></returns>
     public bool IsEnd()
     {
-        if (m_Gorl.ShowGorlNum() == (m_PlayersNum+setDeadObj.deadPlayerNum))
+        int num = m_Gorl.ShowGorlNum() + setDeadObj.deadPlayerNum;
+        if (num == (m_PlayersNum+setDeadObj.deadPlayerNum))
         {
             m_Gorl.Clear();
             setDeadObj.Clear();

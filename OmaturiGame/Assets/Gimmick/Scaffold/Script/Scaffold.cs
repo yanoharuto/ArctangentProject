@@ -15,9 +15,8 @@ public class Scaffold : GimmickBase
     {
         m_IsOvarlap = false;
     }
-
-
-    protected override void SelectUpdate()
+    private void OnTriggerStay2D(Collider2D collision)
     {
+        TriggerEvenet(collision.gameObject);
     }
 }

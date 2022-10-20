@@ -88,9 +88,8 @@ public class Pointer : MonoBehaviour
 
         var TmpCursol = camera.WorldToScreenPoint(m_TruePointerPosition);
         m_PointerPosition = TmpCursol;
-
         //グリッド線の範囲内にマウスポインタが存在している場合
-        if (640 < TmpCursol.x && 1280 > TmpCursol.x)
+        //if (640 < TmpCursol.x && 1280 > TmpCursol.x)
         {
 
             var over = TmpCursol.x % 64;
@@ -99,6 +98,7 @@ public class Pointer : MonoBehaviour
             m_PointerPosition.y -= over;
             //ギミックの基本機能を所得
             GimmickBase gimmick = m_gimmickObj.GetComponent<GimmickBase>();
+            
             //LRを押したら回転
             if (inputParam.m_LButton)
             {

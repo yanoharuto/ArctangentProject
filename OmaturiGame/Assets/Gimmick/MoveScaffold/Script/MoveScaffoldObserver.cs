@@ -7,13 +7,18 @@ public class MoveScaffoldObserver : GimmickBase
     [SerializeField] [Header("目的地")] private Transform m_Destination;
     [SerializeField] private MoveScaffold m_MoveScaffold;
     private Vector3 m_StartPos;
-    private bool m_FirstRun = false; private void OnCollisionEnter2D(Collision2D collision)
+    private bool m_FirstRun = false; 
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         m_IsOvarlap = true;
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         m_IsOvarlap = false;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        TriggerEvenet(collision.gameObject);
     }
     /// <summary>
     /// プレイヤーが乗ったらLastPositionに向かって移動し,し終わったら戻る
@@ -27,7 +32,7 @@ public class MoveScaffoldObserver : GimmickBase
     /// </summary>
     protected override void PlayUpdate()
     {
-        if (m_IsDestroy)
+        if (m_IsPrepareDestroy)
         {
             Destroy(this.gameObject);
         }

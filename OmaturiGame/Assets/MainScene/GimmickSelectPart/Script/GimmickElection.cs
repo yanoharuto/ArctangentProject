@@ -11,6 +11,7 @@ public class GimmickElection: MonoBehaviour
     private List<Transform> m_DisplayPositions = new List<Transform>();
     [SerializeField] [Header("実装するGimmick")]
     private List<GimmickBase> m_GimmickList = new List<GimmickBase>();
+    private List<GimmickBase> m_FirstGimmickList = new List<GimmickBase>();
     private GimmickManager m_GimmickManager;
     /// <summary>
     /// Gimmickを表示する

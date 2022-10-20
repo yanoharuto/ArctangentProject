@@ -9,18 +9,27 @@ using UnityEngine;
 public class Hammer : GimmickBase
 {
     [SerializeField] Animator HammerAnim;
-    protected override void PlayUpdate()
+    public override void OnUpdatePutState()
     {
-        HammerAnim.SetBool("Run",true);
-    }  
+        switch (m_PutState)
+        {
+            case GimmickPutState.Select:
+                m_PutState = GimmickPutState.Put;
+                break;
+            case GimmickPutState.Put:
+                m_PutState = GimmickPutState.FinishPut;
+                HammerAnim.SetBool("Run",true);
+                break;
+        }
+    }
     /// <summary>
     /// アニメーションの終わりに呼ぶよ
     /// </summary>
     private void Finish()
     {
-        m_IsDestroy = true;
-        m_Collider.enabled = true;
-        m_Collider.enabled = false;
+        Debug.Log("Finish");
+        m_IsPrepareDestroy = true;
+        OnUpperOrHide(false);
         PreparingSelfDestruction();
     }
 }

@@ -13,33 +13,30 @@ public class GimmickBase : MonoBehaviour
     protected GimmickPutState m_PutState = GimmickPutState.Select;
     private const float m_RotateAngle = 90.0f; //回転角
     private ElectionData m_ElectionData;
+    private MainState MainState;
     protected bool m_IsOvarlap = false;
-    protected bool m_IsDestroy = false;
+    protected bool m_IsSelfDestroy = false;
+    protected bool m_IsPrepareDestroy = false;//破壊準備
     /*to do どのプレイヤーの所有物か決める変数を設定する。*/
 
-    /// <summary>
-    /// 設置時にハンマー以外が重なってたら報告出来るようにする
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void LateUpdate()
     {
-        if (!gameObject.CompareTag("hammer"))
+        if (m_IsSelfDestroy)
         {
-            m_IsOvarlap = true;
+            Destroy(this.gameObject);
         }
     }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        m_IsOvarlap = false;
-    }
     /// ハンマーが置かれたら自滅準備
-    private void OnTriggerEnter(Collider other)
+    protected void TriggerEvenet(GameObject _Hammer)
     {
-        if (other.gameObject.CompareTag("hammer"))
+        Debug.Log(_Hammer);
+        if (_Hammer.CompareTag("hammer"))
         {
+            Debug.Log(m_PutState);
+            Debug.Log(_Hammer.GetComponent<Hammer>().GetPutState());
             //設置後の自分自身が設置後のハンマーに当たっているなら自滅準備 
             if (m_PutState == GimmickPutState.FinishPut &&
-                other.gameObject.GetComponent<Hammer>().GetPutState() == GimmickPutState.FinishPut) 
+                _Hammer.GetComponent<Hammer>().GetPutState() == GimmickPutState.FinishPut)
             {
                 PreparingSelfDestruction();
             }
@@ -52,10 +49,9 @@ public class GimmickBase : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     protected void PreparingSelfDestruction()
-    {
-        m_Collider.enabled = false;
+    { 
         OnUpperOrHide(false);
-        m_IsDestroy = true;
+        m_IsPrepareDestroy = true;
     }
     /// <summary>
     /// 子クラスはこの関数をoverrideして動作する
@@ -64,23 +60,24 @@ public class GimmickBase : MonoBehaviour
     protected virtual void SelectUpdate() { }
     protected virtual void PutUpdate()
     {
-        Debug.Log("PutUpdate");
         if (m_PutState == GimmickPutState.Select)
         {
             PreparingSelfDestruction();
         }
     }
-    ///設置後　ハンマーが置いてあったら破壊
     protected virtual void OtherSelectUpdate() 
     {
-        if (m_IsDestroy)
-        {
-            PreparingSelfDestruction();
-        }
     }
     protected virtual void OtherPutUpdate() { }
     protected virtual void PlayUpdate() {  }
     protected virtual void ResultUpdate() { }
+    /// <summary>
+    /// 自滅フラグを立たせる
+    /// </summary>
+    public void SetSelfDestroy()
+    {
+        m_IsSelfDestroy = true;
+    }
     /// <summary>
     /// 選出するときに参考にするデータ
     /// </summary>
@@ -107,13 +104,13 @@ public class GimmickBase : MonoBehaviour
         }
     }
     /// <summary>
-    /// 見せたり隠したりする
+    /// 見せたり隠したりする 隠しているときは当たり判定も消える
     /// </summary>
-    /// <param name="upper"></param>
-    public void OnUpperOrHide(bool upper)
+    /// <param name="_upper">出現フラグ</param>
+    public void OnUpperOrHide(bool _upper)
     {
         Color color = m_Sprite.color;
-        if (upper)
+        if (_upper)
         {
             color.a = 255;
             m_Sprite.color = color;
@@ -129,7 +126,7 @@ public class GimmickBase : MonoBehaviour
     /// <summary>
     /// 設置状況の更新
     /// </summary>
-    public void OnUpdatePutState()
+    public virtual void OnUpdatePutState()
     {
         switch(m_PutState)
         {
@@ -172,12 +169,12 @@ public class GimmickBase : MonoBehaviour
                     //設置後のアプデ
                     OtherPutUpdate();
                 }
-                ///設置されることがないオブジェクトは破壊する
+                ///設置されることがないオブジェクトは破壊準備
                 else if (m_PutState == GimmickPutState.Select) 
                 {
                     PreparingSelfDestruction();
                 }
-                else
+                else if(m_PutState==GimmickPutState.FinishPut)
                 {
                     PutUpdate();
                 }
@@ -189,6 +186,9 @@ public class GimmickBase : MonoBehaviour
                 ResultUpdate();
                 break;
         }
+
+
+        MainState = _MainState;
     }
     /// <summary>
     /// ギミック同士が重なり合っているかどうか
@@ -202,9 +202,8 @@ public class GimmickBase : MonoBehaviour
     /// 破壊されるかどうか渡す
     /// </summary>
     /// <returns></returns>
-    public bool GetDestroyFlag()
+    public bool GetPrepareDestroyFlag()
     {
-        return m_IsDestroy;
+        return m_IsPrepareDestroy;
     }
-
 }

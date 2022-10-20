@@ -8,6 +8,7 @@ public class GimmickManager : MonoBehaviour
 {
     [SerializeField] private List<GimmickBase> m_ElectionGimmickList = new List<GimmickBase>();//選出したギミックリスト
     [SerializeField] private List<GimmickBase> m_PutedGimmickList = new List<GimmickBase>();//選出したギミックリスト
+    [SerializeField] private List<GimmickBase> m_DestroyGimmickList = new List<GimmickBase>();
     /// <summary>
     /// ギミックを隠したりする
     /// </summary>
@@ -36,18 +37,22 @@ public class GimmickManager : MonoBehaviour
     public void UpdateElectionGimmick(MainState _MainState)
     {
         //破壊しないギミックのリスト
-        List<GimmickBase> NonDestroyGimmick = new List<GimmickBase>();
+        List<GimmickBase> nonDestroyGimmick = new List<GimmickBase>();
         foreach (GimmickBase EGB in m_ElectionGimmickList)
         {
-            if (!EGB.GetDestroyFlag())
+            if (!EGB.GetPrepareDestroyFlag())
             {
                 //破壊しないギミックを登録
-                NonDestroyGimmick.Add(EGB);
+                nonDestroyGimmick.Add(EGB);
+            }
+            else
+            {
+                m_DestroyGimmickList.Add(EGB);
             }
             EGB.GimmickUpdate(_MainState);
         }
         //受け渡し。渡されなかったギミックは起動時に破壊される
-        m_ElectionGimmickList = NonDestroyGimmick;
+        m_ElectionGimmickList = nonDestroyGimmick;
     }
     /// <summary>
     /// 設置後のギミックの更新
@@ -55,22 +60,36 @@ public class GimmickManager : MonoBehaviour
     public void UpdatePutGimmick(MainState _MainState)
     {
         //破壊しないギミックのリスト
-        List<GimmickBase> NonDestroyGimmick = new List<GimmickBase>();
+        List<GimmickBase> nonDestroyGimmick = new List<GimmickBase>();
         foreach (GimmickBase PGB in m_PutedGimmickList)
         {
-            if (!PGB.GetDestroyFlag())
+            if (!PGB.GetPrepareDestroyFlag())
             {
                 //破壊しないギミックを登録
-                NonDestroyGimmick.Add(PGB);
+                nonDestroyGimmick.Add(PGB);
+            }
+            else
+            {
+                m_DestroyGimmickList.Add(PGB);
             }
             PGB.GimmickUpdate(_MainState);
             //ギミックを隠すよ
             DisplayPutGimick(PGB, _MainState);
         }
         //受け渡し。渡されなかったギミックは起動時に破壊される
-        m_PutedGimmickList = NonDestroyGimmick;
+        m_PutedGimmickList = nonDestroyGimmick;
     }
-
+    /// <summary>
+    /// 破壊予定のギミックを破壊する
+    /// </summary>
+    public void DestroyGimmick()
+    {
+        foreach(GimmickBase gimmick in m_DestroyGimmickList)
+        {
+            gimmick.SetSelfDestroy();
+        }
+        m_DestroyGimmickList.Clear();
+    }
     /// <summary>
     /// ギミックを配置したときに使う
     /// </summary>

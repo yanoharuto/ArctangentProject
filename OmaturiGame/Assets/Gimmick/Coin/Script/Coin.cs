@@ -15,13 +15,13 @@ public class Coin : GimmickBase
         m_IsOvarlap = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
 
         if (collision.gameObject.CompareTag("player"))
         {
-
             PreparingSelfDestruction();
         }
+        TriggerEvenet(collision.gameObject);
     }
 }

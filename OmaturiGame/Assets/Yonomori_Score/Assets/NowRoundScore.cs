@@ -37,7 +37,6 @@ public class NowRoundScore : MonoBehaviour
                 m_Die = true;
                 break;
             case "goal":
-                Debug.Log("goal");
                 m_Score.m_GoalScore++;
                 break;
         }
