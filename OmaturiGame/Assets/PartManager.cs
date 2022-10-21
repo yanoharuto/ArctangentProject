@@ -7,6 +7,7 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("Playerのコントロールクラス")] private PlayerStateManager playerStateManager;
     [SerializeField] [Header("ギミックを更新したりするのに使う")]private GimmickManager m_GManager;
     [SerializeField] [Header("ギミックを表示する奴")] GimmickSelectPart m_gimmickSelect;
+    [SerializeField] [Header("ラウンドを更新するよう")] private RoundUpdater m_RoundUpdater;
     [SerializeField] [Header("Result")] private ResultPart m_resultPart;
     [SerializeField] [Header("Play")] private PlayPart m_playePart;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
@@ -14,20 +15,28 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("text")] private Text text;
     private MainState m_State = MainState.SelectGimmickPart;//操作できる部分を切り替えるために必要
     private const int m_PlayerNum = 2;//デバッグするときはいじって
-    private int m_WinnerNum;
     private bool m_MainEnd = false;
+    private bool m_FirstRound = true;
     GridLine gridLine;
     private void ResultUpdate()
     {
         m_resultPart.Run();
         if (m_resultPart.IsDisplayEnd())
-        {
-            m_WinnerNum = m_resultPart.OnGetWinnerNum();
+        {   
+            //ラウンド更新
+            m_RoundUpdater.OnCountRound();
 
-            if (m_WinnerNum == 0)
+            m_MainEnd = m_resultPart.GetWin() ;
+            //ラウンド終了していないなら
+            if (!m_RoundUpdater.IsMainEnd())
             {
                 m_State = MainState.SelectGimmickPart;
             }
+            else
+            {
+                m_MainEnd = true;
+            }
+            m_FirstRound = false;
         }
     }
     //遊び終わったら破壊予定のギミックを破壊する
@@ -36,13 +45,13 @@ public class PartManager : MonoBehaviour
         if (m_playePart.IsEnd())
         {
             //破壊予定のギミックを破壊する
-            m_GManager.DestroyGimmick();
+            m_GManager.OnDestroyGimmick();
             m_State = MainState.ResultPart;
         }
     }
     private void SelectUpdate()
     {
-        m_gimmickSelect.ElectionGimmick();
+        m_gimmickSelect.ElectionGimmick(m_FirstRound);
         m_GManager.UpdateElectionGimmick(m_State);
         //プレイヤーが選択したかの取得
         if (playerStateManager.IsSelectGimmick())
@@ -60,7 +69,6 @@ public class PartManager : MonoBehaviour
         {
             m_State = MainState.PlayPart;
             gridLine.UnSetAllActive();
-
         }
     }
     // Start is called before the first frame update
@@ -78,10 +86,9 @@ public class PartManager : MonoBehaviour
     void Update()
     {
         text.text = m_State.ToString();
-        if (m_WinnerNum != 0 && !m_MainEnd)
+        if (m_MainEnd)
         {
-            m_resultPart.OnNextSceneChange(m_WinnerNum);
-            m_MainEnd = true;
+            m_resultPart.OnNextSceneChange();
         }
         else if (!m_MainEnd) 
         {      

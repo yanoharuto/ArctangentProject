@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 /// <summary>
 /// ギミックを選出しUIに表示　
 /// </summary>
@@ -11,31 +11,24 @@ public class GimmickElection: MonoBehaviour
     private List<Transform> m_DisplayPositions = new List<Transform>();
     [SerializeField] [Header("実装するGimmick")]
     private List<GimmickBase> m_GimmickList = new List<GimmickBase>();
-    private List<GimmickBase> m_FirstGimmickList = new List<GimmickBase>();
+    [SerializeField] [Header("二ターン目から表示するギミック群")]
+    private List<GimmickBase> m_FirstIgnoreGimmickList = new List<GimmickBase>();
     private GimmickManager m_GimmickManager;
     /// <summary>
     /// Gimmickを表示する
     /// </summary>
-    public void Election()
+    public void Election(bool _First)
     {
+        var gimmickArray = _First ? m_GimmickList.ToArray() : m_GimmickList.Union<GimmickBase>(m_FirstIgnoreGimmickList);
+
         foreach (Transform pos in m_DisplayPositions)
         {
-            //ギミックに設定されたキーをランダムに生成
-            float num = Random.Range(1.0f, 101.0f);
-            //numに該当するオブジェクトを検索
-            foreach (GimmickBase gimmick in m_GimmickList)
-            {
-                //ギミックに設定された数値を参照
-                ElectionData Data = gimmick.ShowElectionData();
-           
-                if (Data.m_Min < num && Data.m_Max > num)
-                {
-                    //数値内なら真、ギミックを生成してポジションに置く
-                    GameObject Gimmick = Instantiate(gimmick.gameObject);
-                    Gimmick.transform.position = pos.position;
-                    m_GimmickManager.AddElectionGimick(Gimmick.GetComponent<GimmickBase>());
-                }
-            }
+            int num = Random.Range(0, gimmickArray.ToArray().Length);
+            //num番目にあったギミックを設置
+            GameObject Gimmick = Instantiate(gimmickArray.ToArray()[num].gameObject);
+            Gimmick.transform.position = pos.position;
+            m_GimmickManager.AddElectionGimick(Gimmick.GetComponent<GimmickBase>());
+
         }
     }
     public void OnSetGimmickManager(GimmickManager _GimmickManager)

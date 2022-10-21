@@ -7,12 +7,10 @@ using UnityEngine;
 /// </summary>
 public class GimmickBase : MonoBehaviour
 {
-    [SerializeField] [Header("表示するときにMinとMaxの間の数字が出ると表示")]private float m_ElectionMax, m_ElectionMin;
     [SerializeField] protected BoxCollider2D m_Collider;
     [SerializeField] SpriteRenderer m_Sprite;
     protected GimmickPutState m_PutState = GimmickPutState.Select;
     private const float m_RotateAngle = 90.0f; //回転角
-    private ElectionData m_ElectionData;
     private MainState MainState;
     protected bool m_IsOvarlap = false;
     protected bool m_IsSelfDestroy = false;
@@ -77,16 +75,6 @@ public class GimmickBase : MonoBehaviour
     public void SetSelfDestroy()
     {
         m_IsSelfDestroy = true;
-    }
-    /// <summary>
-    /// 選出するときに参考にするデータ
-    /// </summary>
-    /// <returns></returns>
-    public ElectionData ShowElectionData()
-    {
-        m_ElectionData.m_Max = m_ElectionMax;
-        m_ElectionData.m_Min = m_ElectionMin;
-        return m_ElectionData;
     }
     /// <summary>
     /// z軸回転する

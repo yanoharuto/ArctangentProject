@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreBarManager : MonoBehaviour
+public class ScoreBarDisplayer : MonoBehaviour
 {
-    [SerializeField] [Header("1pのスコア")] private PlayerScore m_PlayerScore1;
-    [SerializeField] [Header("2pのスコア")] private PlayerScore m_PlayerScore2;
+    [SerializeField] [Header("スコアを集計する奴")] private ScoreTotaling m_ScoreTotaling;
     [SerializeField] [Header("1pのスコアグラフ")] private ScoreBar m_ScoreBar1;
     [SerializeField] [Header("2pのスコアグラフ")] private ScoreBar m_ScoreBar2;
     [SerializeField] [Header("スコアを表示するときに鳴る音4つめはスコアが0のときに鳴る")] private List<AudioClip> m_AudioList = new List<AudioClip>();
@@ -37,29 +36,30 @@ public class ScoreBarManager : MonoBehaviour
     IEnumerator UpdateScoreBar()
     {
         m_IsDisplayEnd = false;
-        PlayerScoreStruct p1Struct = m_PlayerScore1.GetNowRoundScore();
-        PlayerScoreStruct p2Struct = m_PlayerScore2.GetNowRoundScore();
+        m_ScoreTotaling.UpdatePlayerScore();
+        PlayerScoreStruct p1Struct=m_ScoreTotaling.GetScoreP1();
+        PlayerScoreStruct p2Struct = m_ScoreTotaling.GetScoreP2() ;
 
         yield return new WaitForSeconds(m_DisplayTime);
         for (int i = 0; i < m_ScoreKind; i++)
         {
             switch (i)
             {
-                case 0:
+                case 0://ゴールスコアの表示
                     if (p1Struct.m_GoalScore + p2Struct.m_GoalScore != 0)
                     {
                         DisplayScore(p1Struct.m_GoalScore, p2Struct.m_GoalScore, i, m_AudioList[i]);
                         yield return new WaitForSeconds(m_DisplayTime);
                     }
                     break;
-                case 1:
+                case 1://コインスコアの表示
                     if (p1Struct.m_CoinScore + p2Struct.m_CoinScore != 0)
                     {
                         DisplayScore(p1Struct.m_CoinScore, p2Struct.m_CoinScore, i, m_AudioList[i]);
                         yield return new WaitForSeconds(m_DisplayTime);
                     }
                     break;
-                case 2:
+                case 2://プレイヤーキルスコアの表示
                     if (p1Struct.m_PlayerKillScore + p2Struct.m_PlayerKillScore != 0)
                     {
                         DisplayScore(p1Struct.m_PlayerKillScore, p2Struct.m_PlayerKillScore, i, m_AudioList[i]);
@@ -80,29 +80,5 @@ public class ScoreBarManager : MonoBehaviour
     {
         return m_IsDisplayEnd;
     }
-    /// <summary>
-    /// 勝利に近い人を番号で教えます 2pに非対応
-    /// </summary>
-    /// <param name="champScore"></param>
-    /// <returns></returns>
-    public int OnGetCloseWinnerNum(float champScore)
-    {
-        if (m_PlayerScore1.GetTotalScore() > champScore)
-        {
-            return 1;
-        }
-        else if (0 > champScore) 
-        {
-            return 2;
-        }
-        else if (m_PlayerScore1.GetTotalScore() > 0)
-        {
-            return 3;
-        }
-        else if (0 > m_PlayerScore1.GetTotalScore())
-        {
-            return 4;
-        }
-        return 0;
-    }
+
 }

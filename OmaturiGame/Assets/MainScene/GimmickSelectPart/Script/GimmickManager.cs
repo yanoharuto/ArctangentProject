@@ -82,7 +82,7 @@ public class GimmickManager : MonoBehaviour
     /// <summary>
     /// 破壊予定のギミックを破壊する
     /// </summary>
-    public void DestroyGimmick()
+    public void OnDestroyGimmick()
     {
         foreach(GimmickBase gimmick in m_DestroyGimmickList)
         {

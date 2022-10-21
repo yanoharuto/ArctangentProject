@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class ResultPart : MonoBehaviour
 {
 
-    [SerializeField] [Header("ScoreBarを表示するスクリプト")] private ScoreBarManager m_ScoreBarMana;
+    [SerializeField] [Header("ScoreBarを表示するスクリプト")] private ScoreBarDisplayer m_ScoreBarMana;
     [SerializeField] [Header("優勝するために必要なスコア")] private float m_ChampScore;
-    [SerializeField] private RoundUpdater m_RoundTextUpdater;
+    [SerializeField] private ScoreTotaling m_ScoreTotaling;
     [SerializeField] private InputPlyer1 m_Player1Controller;
     [SerializeField] private GameObject m_ScoreBord;
     [SerializeField] private GoNextScene m_GoNextScene1;
@@ -27,7 +27,6 @@ public class ResultPart : MonoBehaviour
         {
             m_IsResultFirst = true;
             m_ScoreBord.SetActive(true);
-            m_RoundTextUpdater.CountRound();
             m_ScoreBarMana.StartCoroutine("UpdateScoreBar");
         }
     }
@@ -49,36 +48,22 @@ public class ResultPart : MonoBehaviour
     /// どっちが勝ちましたか
     /// </summary>
     /// <returns></returns>
-    public int OnGetWinnerNum()
+    public bool GetWin()
     {
-        int winnerNum = m_ScoreBarMana.OnGetCloseWinnerNum(m_ChampScore);
-        if (m_RoundTextUpdater.IsMainEnd()) 
-        {
-            winnerNum /= 2;
-        }
-        else
-        {
-            winnerNum = 0;
-        }
-        return winnerNum;
+        return m_ScoreTotaling.GetIsExistWinner(m_ChampScore);
     }
     /// <summary>
     /// 勝った方のリザルト画面に行く
     /// </summary>
-    /// <param name="winnerNum"></param>
-    public void OnNextSceneChange(int winnerNum)
+    public void OnNextSceneChange()
     {
-        Debug.Log(winnerNum);
-        switch (winnerNum)
+        if(m_ScoreTotaling.GetIs1PWin())
         {
-            case 1:
-                m_GoNextScene1.OnRun();
-                break;
-            case 2:
-
-                m_GoNextScene2.OnRun();
-                
-                break;
+            m_GoNextScene1.OnRun();
+        }
+        else
+        {
+            m_GoNextScene2.OnRun();
         }
     }
 }

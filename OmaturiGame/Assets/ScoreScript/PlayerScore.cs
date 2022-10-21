@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerScore : MonoBehaviour
 {
    [SerializeField] NowRoundScore m_NowRoundScore;
-    PlayerScoreStruct m_ScoreStruct;
+   PlayerScoreStruct m_ScoreStruct;
 
     /// <summary>
     /// プレイヤーのスコアを見せる

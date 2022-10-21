@@ -41,11 +41,11 @@ public class GimmickSelectPart : MonoBehaviour
     /// <summary>
     /// プレイヤーが選択するギミックを選出して実体化
     /// </summary>
-    public void ElectionGimmick()
+    public void ElectionGimmick(bool _FirstRound)
     {
         if (!m_IsElection)
         {
-            m_GElection.Election();
+            m_GElection.Election(_FirstRound);
             m_IsElection = true;
         }
     }

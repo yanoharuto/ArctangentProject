@@ -12,11 +12,18 @@ public class RoundUpdater : MonoBehaviour
     {
         m_MaxText.text = m_RoundMax.ToString();
     }
-    public void CountRound()
+    /// <summary>
+    /// ラウンドの更新
+    /// </summary>
+    public void OnCountRound()
     {
         m_NowRoundNum++;
         m_NowText.text = m_NowRoundNum.ToString();
     }
+    /// <summary>
+    /// 最大ラウンドが終了したか
+    /// </summary>
+    /// <returns></returns>
     public bool IsMainEnd()
     {
         return m_NowRoundNum == m_RoundMax;

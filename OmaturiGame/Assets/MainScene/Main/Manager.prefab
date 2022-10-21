@@ -380,6 +380,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e10a9ab9e240a43af4b17b69a41e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_heightVec: {x: 0, y: 0}
+  m_widthVec: {x: 0, y: 0}
+  m_gridSize: 0
 --- !u!1 &7147264585278421724
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +396,7 @@ GameObject:
   - component: {fileID: 2907886522846519081}
   - component: {fileID: 1752295701029867549}
   - component: {fileID: 6591113335305615763}
+  - component: {fileID: 4937200797544236221}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -430,7 +434,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStateManager: {fileID: 0}
+  m_GManager: {fileID: 0}
   m_gimmickSelect: {fileID: 1752295701029867549}
+  m_RoundUpdater: {fileID: 0}
   m_resultPart: {fileID: 6591113335305615763}
   m_playePart: {fileID: 2907886522846519081}
   m_stage: {fileID: 0}
@@ -450,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Gorl: {fileID: 0}
   m_PlayersNum: 1
+  setDeadObj: {fileID: 0}
 --- !u!114 &1752295701029867549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,8 +470,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_GElection: {fileID: 0}
-  m_GManager: {fileID: 0}
-  m_PlayerNum: 1
 --- !u!114 &6591113335305615763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,8 +484,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ScoreBarMana: {fileID: 0}
   m_ChampScore: 10
-  m_RoundTextUpdater: {fileID: 0}
+  m_ScoreTotaling: {fileID: 4937200797544236221}
   m_Player1Controller: {fileID: 0}
   m_ScoreBord: {fileID: 0}
   m_GoNextScene1: {fileID: 7434192225978372153}
   m_GoNextScene2: {fileID: 8827407270423273805}
+--- !u!114 &4937200797544236221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147264585278421724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184694208f9ee764b8e834f5b9c491ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerScore1: {fileID: 0}
+  m_PlayerScore2: {fileID: 0}
+  m_GoalScoreCoefficient: 1
+  m_CoinScoreCoefficient: 0.5
+  m_PlayerKillScoreCoefficient: 2
