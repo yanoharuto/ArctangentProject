@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PartManager : MonoBehaviour
 {
-    [SerializeField] [Header("Playerのコントロールクラス")] private PlayerStateManager playerStateManager;
+    [SerializeField] [Header("Playerのコントロールクラス")] private PlayerStateManager m_1PStateManager;
+    [SerializeField] [Header("Playerのコントロールクラス")] private PlayerStateManager m_2PStateManager;
     [SerializeField] [Header("ギミックを更新したりするのに使う")]private GimmickManager m_GManager;
     [SerializeField] [Header("ギミックを表示する奴")] GimmickSelectPart m_gimmickSelect;
     [SerializeField] [Header("ラウンドを更新するよう")] private RoundUpdater m_RoundUpdater;
@@ -54,7 +55,7 @@ public class PartManager : MonoBehaviour
         m_gimmickSelect.ElectionGimmick(m_FirstRound);
         m_GManager.UpdateElectionGimmick(m_State);
         //プレイヤーが選択したかの取得
-        if (playerStateManager.IsSelectGimmick())
+        if (m_1PStateManager.IsSelectGimmick()&&m_2PStateManager.IsSelectGimmick())
         {
             m_State = MainState.PutGimmickPart;
             m_stage.SetActive(true);
@@ -79,7 +80,8 @@ public class PartManager : MonoBehaviour
         //m_grid.SetActive(false);
         gridLine=m_grid.GetComponent<GridLine>();
         //初期化
-        m_gimmickSelect.OnFirstInit(m_PlayerNum,m_GManager);
+        m_gimmickSelect.OnInit(m_PlayerNum,m_GManager);
+        m_playePart.OnInit(m_PlayerNum);
     }
 
     // Update is called once per frame
@@ -92,7 +94,8 @@ public class PartManager : MonoBehaviour
         }
         else if (!m_MainEnd) 
         {      
-            playerStateManager.Run(m_State);
+            m_1PStateManager.Run(m_State);
+            m_2PStateManager.Run(m_State);
             m_GManager.UpdatePutGimmick(m_State);
             switch (m_State)
             {

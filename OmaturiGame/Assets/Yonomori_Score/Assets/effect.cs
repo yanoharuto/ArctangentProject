@@ -34,4 +34,17 @@ public class effect : MonoBehaviour
             touchFlag = true;           //触ったふらぐをたてる
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+
+        if (collision.gameObject.CompareTag(tagname) && touchFlag == false)                                    //触ったオブジェクトのタグを取得
+        {
+            GameObject instance = Instantiate(effectObject, this.transform.position, Quaternion.identity);
+
+            instance.transform.position = target.position;                              //ターゲットの位置にエフェクトを出す
+
+            touchFlag = true;           //触ったふらぐをたてる
+        }
+    }
 }

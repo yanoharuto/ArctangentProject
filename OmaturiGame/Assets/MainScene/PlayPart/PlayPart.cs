@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayPart : MonoBehaviour
 {
     [SerializeField] [Header("ゴール")] private Goal m_Gorl;
-    [SerializeField] private int m_PlayersNum ;
+    private int m_PlayersNum ;
     [SerializeField] private SetDeadObj setDeadObj;
 
     /// <summary>
@@ -15,12 +15,16 @@ public class PlayPart : MonoBehaviour
     public bool IsEnd()
     {
         int num = m_Gorl.ShowGorlNum() + setDeadObj.deadPlayerNum;
-        if (num == (m_PlayersNum+setDeadObj.deadPlayerNum))
+        if (num == (m_PlayersNum + setDeadObj.deadPlayerNum)) 
         {
             m_Gorl.Clear();
             setDeadObj.Clear();
             return true;
         }
         return false;
+    }
+    public void OnInit(int _PlayerNum)
+    {
+        m_PlayersNum = _PlayerNum;
     }
 }

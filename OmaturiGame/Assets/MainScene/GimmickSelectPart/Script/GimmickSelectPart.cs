@@ -53,7 +53,7 @@ public class GimmickSelectPart : MonoBehaviour
     /// プレイヤーの数を教えてください
     /// </summary>
     /// <param name="_PlayerNum"></param>
-    public void OnFirstInit(int _PlayerNum,GimmickManager _GimmickManager)
+    public void OnInit(int _PlayerNum,GimmickManager _GimmickManager)
     {
         m_PlayerNum = _PlayerNum;
         m_GElection.OnSetGimmickManager(_GimmickManager);

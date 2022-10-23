@@ -38,7 +38,7 @@ public class player1P : MonoBehaviour
     bool walkFlag; //歩いているかどうかの判定
     //-----------------------------------------------------
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //アニメーション関係-----------------------------------
         animator = GetComponent<Animator>(); //animetor変数にAnimetorを読み込む
@@ -72,7 +72,7 @@ public class player1P : MonoBehaviour
 
         //追加 米盛
        clearFlag = animator.GetBool("clearFlag");
-       bool dieflag = animator.GetBool("dieflag");
+       bool dieflag = animator.GetBool("dieFlag");
 
         ///dieflag == false  clearFlag == false 追加　米盛
         if (Axisx != 0 && dieFlag == false&&clearFlag == false) //ゲームパットを動かしていると....
@@ -131,6 +131,10 @@ public class player1P : MonoBehaviour
             leftJampFlag = false;
             rightJampFlag = false;
         }
+        else if(other.gameObject.CompareTag("goal"))
+        {
+            clearFlag = true;
+        }
     }
     public void OnCollisionExit2D(Collision2D other) //コリジョンから離れたら
     {
@@ -150,10 +154,6 @@ public class player1P : MonoBehaviour
     {
         XMoveCount += 1 * Time.deltaTime;
         playerRigidbody.velocity += new Vector2(playerSpeed * Time.deltaTime * Axisx, 0); //歩行
-        if(XMoveCount >= dashChangeCount)
-        {
-            playerRigidbody.velocity += new Vector2(playerDashSpeed * Time.deltaTime * Axisx, 0); //走る
-        }
     }
     private void Jump() //プレイヤーのジャンプ
     {
@@ -186,12 +186,6 @@ public class player1P : MonoBehaviour
         }
     }
 
-    ///変更前
-   // public void Die() //プレイヤーの死亡判定
-    //{
-    //    animator.SetTrigger("dieTrigger");
-    //}
-
     /// 変更後　 米盛
     void OnTriggerEnter2D(Collider2D collision)               //衝突したオブジェクトのタグをcollisionに代入
     {
@@ -200,7 +194,6 @@ public class player1P : MonoBehaviour
         {
             Debug.Log("死亡");   
             animator.SetTrigger("dieTrigger");
-            animator.SetBool("dieflag", true);
             dieFlag = true;
         }
 
@@ -208,9 +201,11 @@ public class player1P : MonoBehaviour
     private void OnEnable()
     {
         m_reSpornProcess.ReSporn();
+        clearFlag = false;
+        animator.SetBool("dieflag", false);
     }
     void dieanimeend() //死ぬモーション終了用イベント
     {
-        animator.SetBool("dieflag",true);
+        animator.SetBool("dieFlag", true);
     }
 }
