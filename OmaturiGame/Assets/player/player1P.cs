@@ -26,10 +26,10 @@ public class player1P : MonoBehaviour
     bool jampFlag; //ジャンプキーを押したかを判定
     bool jampEndFlag; //ジャンプ時の上昇が終了したかの判定
 
-    
+    [SerializeField] private SetDeadObj setDeadObj;
 
     ///追加　 米盛
-    bool dieFlag; //死んだかどうか判定
+    public bool dieFlag; //死んだかどうか判定
     bool clearFlag;
 
     Vector3 scale;
@@ -195,6 +195,7 @@ public class player1P : MonoBehaviour
             Debug.Log("死亡");   
             animator.SetTrigger("dieTrigger");
             dieFlag = true;
+            setDeadObj.deadPlayerNum++;
         }
 
     }
