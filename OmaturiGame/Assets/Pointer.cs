@@ -18,7 +18,6 @@ public class Pointer : MonoBehaviour
 
     bool m_IsPut;
     InputParameter m_InputParam;
-    InputParameter m_PrevInputParam;
     SpriteRenderer m_Sprite;
 
     private GameObject m_gimmickObj;
@@ -89,7 +88,6 @@ public class Pointer : MonoBehaviour
                     m_gimmickObj = GimmickBase.gameObject;
                     GimmickBase.OnUpperOrHide(false);
                     Hide();
-                    m_PrevInputParam = m_InputParam;
                 }
             }
 
@@ -110,7 +108,6 @@ public class Pointer : MonoBehaviour
         //グリッド線の範囲内にマウスポインタが存在している場合
         //if (640 < TmpCursol.x && 1280 > TmpCursol.x)
         {
-
             var over = TmpCursol.x % 64;
             m_PointerPosition.x -= over;
             over = TmpCursol.y % 64;
@@ -129,7 +126,6 @@ public class Pointer : MonoBehaviour
             }
             //Aボタンを押して何かとかぶっていないなら
             if (m_InputParam.m_AButton &&
-                !m_PrevInputParam.m_AButton &&
                 !gimmick.GetOverLap()&&
                 gimmick.GetPutState()==GimmickPutState.Put) 
             {
@@ -149,7 +145,6 @@ public class Pointer : MonoBehaviour
             m_gimmickObj.transform.position = camera.ScreenToWorldPoint(m_PointerPosition);
         }
 
-        m_PrevInputParam = InputGetter.GetInputParam();
     }
 
 

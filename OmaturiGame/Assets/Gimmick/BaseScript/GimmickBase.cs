@@ -8,7 +8,7 @@ using UnityEngine;
 public class GimmickBase : MonoBehaviour
 {
     [SerializeField] protected BoxCollider2D m_Collider;
-    [SerializeField] SpriteRenderer m_Sprite;
+    [SerializeField] protected SpriteRenderer m_Sprite;
     protected GimmickPutState m_PutState = GimmickPutState.Select;
     private const float m_RotateAngle = 90.0f; //回転角
     private MainState MainState;
@@ -95,7 +95,7 @@ public class GimmickBase : MonoBehaviour
     /// 見せたり隠したりする 隠しているときは当たり判定も消える
     /// </summary>
     /// <param name="_upper">出現フラグ</param>
-    public void OnUpperOrHide(bool _upper)
+    public virtual void OnUpperOrHide(bool _upper)
     {
         Color color = m_Sprite.color;
         if (_upper)
