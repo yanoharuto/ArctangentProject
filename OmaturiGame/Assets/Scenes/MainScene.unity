@@ -1417,12 +1417,20 @@ PrefabInstance:
       objectReference: {fileID: 1291825087}
     - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
       propertyPath: m_GimmickList.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
       propertyPath: m_GimmickList.Array.data[0]
       value: 
       objectReference: {fileID: 5370782443480727278, guid: 01720c474b23e7e418653a04b346b8f8, type: 3}
+    - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
+      propertyPath: m_GimmickList.Array.data[1]
+      value: 
+      objectReference: {fileID: -7935815916984519774, guid: 8ffbbad524982a948b7845c146859e80, type: 3}
+    - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
+      propertyPath: m_GimmickList.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
       propertyPath: m_GimmickList.Array.data[3]
       value: 
@@ -1430,7 +1438,15 @@ PrefabInstance:
     - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
       propertyPath: m_GimmickList.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -6619997542377136551, guid: 77ad4792df02a2e40b52b296213c035e, type: 3}
+    - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
+      propertyPath: m_GimmickList.Array.data[5]
+      value: 
+      objectReference: {fileID: -6619997542377136551, guid: 77ad4792df02a2e40b52b296213c035e, type: 3}
+    - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
+      propertyPath: m_GimmickList.Array.data[6]
+      value: 
+      objectReference: {fileID: -6619997542377136551, guid: 77ad4792df02a2e40b52b296213c035e, type: 3}
     - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
       propertyPath: m_DisplayPositions.Array.data[0]
       value: 
@@ -1449,7 +1465,7 @@ PrefabInstance:
       objectReference: {fileID: 1836635833}
     - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
       propertyPath: m_FirstIgnoreGimmickList.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
       propertyPath: m_FirstIgnoreGimmickList.Array.data[0]
@@ -1459,6 +1475,14 @@ PrefabInstance:
       propertyPath: m_FirstIgnoreGimmickList.Array.data[1]
       value: 
       objectReference: {fileID: 5091259835604128268, guid: 2a127b4f76c736843b4fb680587373c8, type: 3}
+    - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
+      propertyPath: m_FirstIgnoreGimmickList.Array.data[2]
+      value: 
+      objectReference: {fileID: -6619997542377136551, guid: 77ad4792df02a2e40b52b296213c035e, type: 3}
+    - target: {fileID: 8788947837921400557, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
+      propertyPath: m_FirstIgnoreGimmickList.Array.data[3]
+      value: 
+      objectReference: {fileID: 1046447098521726891, guid: 162d62a302ebc2d4eac79bd1dcca1f0d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 272a52bd963dca548a5cd2ff363e721c, type: 3}
 --- !u!1 &1739066892 stripped

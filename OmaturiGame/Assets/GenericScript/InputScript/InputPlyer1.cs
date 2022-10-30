@@ -9,12 +9,12 @@ public class InputPlyer1 : InputControllerBase
     {
         m_InputParam.m_LStickHValue = Input.GetAxis("L_Stick_H_1");
         m_InputParam.m_LStickVValue = Input.GetAxis("L_Stick_V_1");
-        m_InputParam.m_AButton = Input.GetButton("A1");
-        m_InputParam.m_BButton = Input.GetButton("B1");
-        m_InputParam.m_XButton = Input.GetButton("X1");
-        m_InputParam.m_YButton = Input.GetButton("Y1");
-        m_InputParam.m_RButton = Input.GetButton("RB1");
-        m_InputParam.m_LButton = Input.GetButton("LB1");
+        m_InputParam.m_AButton = Input.GetButtonDown("A1");
+        m_InputParam.m_BButton = Input.GetButtonDown("B1");
+        m_InputParam.m_XButton = Input.GetButtonDown("X1");
+        m_InputParam.m_YButton = Input.GetButtonDown("Y1");
+        m_InputParam.m_RButton = Input.GetButtonDown("RB1");
+        m_InputParam.m_LButton = Input.GetButtonDown("LB1");
 
     }
 
