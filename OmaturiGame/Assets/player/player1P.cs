@@ -60,66 +60,68 @@ public class player1P : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //アニメーション関係-----------------------------------
-        animator.SetBool("walkFlag", walkFlag);
-        animator.SetBool("jampFlag", jampFlag);
-        animator.SetBool("follFlag", jampFlag);
-        animator.SetFloat("velocty.y", playerRigidbody.velocity.y);
-        //-----------------------------------------------------
-        //プレイヤーの左右移動-----------------------------------------
-        InputParameter inputParam = inputGetter.GetInputParam();
-        Axisx = inputParam.m_LStickHValue;
+        if (!dieFlag)
+        {//アニメーション関係-----------------------------------
+            animator.SetBool("walkFlag", walkFlag);
+            animator.SetBool("jampFlag", jampFlag);
+            animator.SetBool("follFlag", jampFlag);
+            animator.SetFloat("velocty.y", playerRigidbody.velocity.y);
+            //-----------------------------------------------------
+            //プレイヤーの左右移動-----------------------------------------
+            InputParameter inputParam = inputGetter.GetInputParam();
+            Axisx = inputParam.m_LStickHValue;
 
-        //追加 米盛
-       clearFlag = animator.GetBool("clearFlag");
-       bool dieflag = animator.GetBool("dieFlag");
+            //追加 米盛
+            clearFlag = animator.GetBool("clearFlag");
+            bool dieflag = animator.GetBool("dieFlag");
 
-        ///dieflag == false  clearFlag == false 追加　米盛
-        if (Axisx != 0 && dieFlag == false&&clearFlag == false) //ゲームパットを動かしていると....
-        {
-            if (playerRigidbody.velocity.x < playerMaxSpeed && 
-                playerRigidbody.velocity.x > playerMaxSpeed * -1 && 
-                XMoveCount <= dashChangeCount) //速度が最大速度以下で動かした時間が一定以下だと...
+            ///dieflag == false  clearFlag == false 追加　米盛
+            if (Axisx != 0 && dieFlag == false && clearFlag == false) //ゲームパットを動かしていると....
             {
-                Move();
-                walkFlag = true; //歩いているフラグ
-            }
-            else if (playerRigidbody.velocity.x < playerMaxDashSpeed && 
-                playerRigidbody.velocity.x > playerMaxDashSpeed * -1) //動かした時間が一定以上だと...
-            {
-                Move();
-            }
+                if (playerRigidbody.velocity.x < playerMaxSpeed &&
+                    playerRigidbody.velocity.x > playerMaxSpeed * -1 &&
+                    XMoveCount <= dashChangeCount) //速度が最大速度以下で動かした時間が一定以下だと...
+                {
+                    Move();
+                    walkFlag = true; //歩いているフラグ
+                }
+                else if (playerRigidbody.velocity.x < playerMaxDashSpeed &&
+                    playerRigidbody.velocity.x > playerMaxDashSpeed * -1) //動かした時間が一定以上だと...
+                {
+                    Move();
+                }
 
-            //振り向き---------------------------
-            Vector3 nowScale = scale;
-            if (Axisx > 0)
-            {
-                transform.localScale = nowScale ; //Xの大きさを反転する。(振り向き)
+                //振り向き---------------------------
+                Vector3 nowScale = scale;
+                if (Axisx > 0)
+                {
+                    transform.localScale = nowScale; //Xの大きさを反転する。(振り向き)
+                }
+                else if (Axisx < 0)
+                {
+                    nowScale.x = -scale.x;
+                    transform.localScale = nowScale; //Xの大きさを反転する。(振り向き)
+                }
+                //-----------------------------
             }
-            else if(Axisx < 0)
+            else //ゲームパットを動かしていないと...
             {
-                nowScale.x = -scale.x;
-                transform.localScale = nowScale; //Xの大きさを反転する。(振り向き)
+                walkFlag = false; //歩かない
+                XMoveCount = 0; //ダッシュに変化させるカウントをリセットする
             }
-            //-----------------------------
+            //-----------------------------------------------------------------------------------
+            //プレイヤーのジャンプ------------------------------------------------
+            if (inputParam.m_AButton || inputParam.m_BButton)
+            {
+                jampFlag = true;
+            }
+            ///dieflag == false  clearFlag == false 追加　米盛
+            if (jampFlag == true && jampEndFlag == false && dieflag == false && clearFlag == false)
+            {
+                Jump();
+            }
+            //--------------------------------------------------------------------
         }
-        else //ゲームパットを動かしていないと...
-        {
-            walkFlag = false; //歩かない
-            XMoveCount = 0; //ダッシュに変化させるカウントをリセットする
-        }
-        //-----------------------------------------------------------------------------------
-        //プレイヤーのジャンプ------------------------------------------------
-        if(inputParam.m_AButton||inputParam.m_BButton)
-        {
-            jampFlag = true;
-        }
-        ///dieflag == false  clearFlag == false 追加　米盛
-        if (jampFlag == true && jampEndFlag == false&& dieflag == false && clearFlag == false )
-        {
-            Jump();
-        }
-        //--------------------------------------------------------------------
     }
     public void OnCollisionEnter2D(Collision2D other) //コリジョンに当たったら
     {
@@ -154,6 +156,24 @@ public class player1P : MonoBehaviour
     {
         XMoveCount += 1 * Time.deltaTime;
         playerRigidbody.velocity += new Vector2(playerSpeed * Time.deltaTime * Axisx, 0); //歩行
+        //絶対値計算
+        //ひとまずの制限値が５
+        if (Mathf.Abs(playerRigidbody.velocity.x) >= 5)
+        {
+            float velocityLimmit;
+            if (playerRigidbody.velocity.x >= 0)
+            {
+                velocityLimmit = 5;
+            }
+            else
+            {
+                velocityLimmit = -5;
+            }
+            playerRigidbody.velocity = new Vector2(velocityLimmit, playerRigidbody.velocity.y);
+
+
+
+        }
     }
     private void Jump() //プレイヤーのジャンプ
     {
@@ -189,10 +209,8 @@ public class player1P : MonoBehaviour
     /// 変更後　 米盛
     void OnTriggerEnter2D(Collider2D collision)               //衝突したオブジェクトのタグをcollisionに代入
     {
-        Debug.Log(collision.gameObject.name);              //衝突したオブジェクトの名前を表示
-        if (collision.CompareTag("dangerousObj"))            //衝突したオブジェクトのタグがdangerousObjなら
+        if (collision.CompareTag("dangerousObj")&&!dieFlag)            //衝突したオブジェクトのタグがdangerousObjなら
         {
-            Debug.Log("死亡");   
             animator.SetTrigger("dieTrigger");
             dieFlag = true;
             setDeadObj.deadPlayerNum++;
@@ -204,6 +222,9 @@ public class player1P : MonoBehaviour
         m_reSpornProcess.ReSporn();
         clearFlag = false;
         animator.SetBool("dieflag", false);
+        dieFlag = false;
+        jampEndFlag = true;
+        jampFlag = false;
     }
     void dieanimeend() //死ぬモーション終了用イベント
     {

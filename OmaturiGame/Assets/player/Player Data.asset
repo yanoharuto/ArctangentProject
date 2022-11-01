@@ -17,5 +17,5 @@ MonoBehaviour:
   dashcount: 0.48
   dashSpeed: 5
   maxdashSpeed: 12
-  jumpPower: 80
-  jumpMax: 7
+  jumpPower: 65
+  jumpMax: 6

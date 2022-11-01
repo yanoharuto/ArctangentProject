@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7824679369560424611}
   - component: {fileID: 7962549996194123400}
   - component: {fileID: -4139918039329117427}
+  - component: {fileID: 2101432118879800897}
   m_Layer: 0
   m_Name: MoveScaffold
   m_TagString: scaffold
@@ -79,8 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StopTime: 3
-  m_MoveTime: 0.4
-  m_MoveCoefficient: 0.03
+  m_MoveTime: 1
+  m_MoveCoefficient: 5
   m_MoveScaffoldState: 1
 --- !u!114 &5370782443480727278
 MonoBehaviour:
@@ -94,8 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21c7e571245e3a4aa004afb6d32a60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ElectionMax: 41
-  m_ElectionMin: 21
   m_Collider: {fileID: 7824679369560424611}
   m_Sprite: {fileID: 7962549996194123400}
   m_Destination: {fileID: 668333460859591209}
@@ -273,3 +272,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!50 &2101432118879800897
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668333461111463293}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

@@ -24,14 +24,15 @@ public class GimmickBase : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    /// <summary>
     /// ハンマーが置かれたら自滅準備
+    /// </summary>
+    /// <param name="_Hammer"></param>
     protected void TriggerEvenet(GameObject _Hammer)
     {
-        Debug.Log(_Hammer);
         if (_Hammer.CompareTag("hammer"))
         {
-            Debug.Log(m_PutState);
-            Debug.Log(_Hammer.GetComponent<Hammer>().GetPutState());
+            Debug.Log(gameObject.name);
             //設置後の自分自身が設置後のハンマーに当たっているなら自滅準備 
             if (m_PutState == GimmickPutState.FinishPut &&
                 _Hammer.GetComponent<Hammer>().GetPutState() == GimmickPutState.FinishPut)

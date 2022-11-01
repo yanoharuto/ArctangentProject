@@ -34,7 +34,7 @@ public class MoveScaffold : MonoBehaviour
         if (m_MoveScaffoldState == MoveScaffoldState.Move ||
             m_MoveScaffoldState == MoveScaffoldState.Return)
         {
-            transform.position += moveVec * m_MoveCoefficient;
+            transform.position += moveVec * m_MoveCoefficient * Time.deltaTime;
             m_RemainingMoveTime -= Time.deltaTime;
 
             //時間経過したら

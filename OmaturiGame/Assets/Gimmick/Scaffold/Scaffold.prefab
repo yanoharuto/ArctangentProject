@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1395648123757822032}
   - component: {fileID: -543626182937556821}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Scaffold
   m_TagString: scaffold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,8 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5168b42b7c08e8340b04c3580d47ef49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ElectionMax: 81
-  m_ElectionMin: 61
   m_Collider: {fileID: -1395648123757822032}
   m_Sprite: {fileID: 6513199446973900436}
 --- !u!50 &-1623204614075547401

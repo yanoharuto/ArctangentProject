@@ -27,7 +27,6 @@ public class Hammer : GimmickBase
     /// </summary>
     private void Finish()
     {
-        Debug.Log("Finish");
         m_IsPrepareDestroy = true;
         OnUpperOrHide(false);
         PreparingSelfDestruction();

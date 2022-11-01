@@ -10,6 +10,7 @@ public class Pointer : MonoBehaviour
     [SerializeField] [Header("カメラ")]　private Camera camera;
     [SerializeField] [Header("入力情報ゲッター")] private InputControllerBase InputGetter;
     [SerializeField] [Header("エフェクト")] private GameObject m_ClickEffect;
+    [SerializeField] [Header("移動速度")] [Range(0.5f,200.0f)] private float MoveSpeed;
     //操作用ポインタ
     Vector3 m_TruePointerPosition;
     AudioSource m_Audio;
@@ -41,7 +42,7 @@ public class Pointer : MonoBehaviour
         m_InputParam = InputGetter.GetInputParam();
         //ポインタ操作
         var InputVec = new Vector3(m_InputParam.m_LStickHValue * 0.01f, m_InputParam.m_LStickVValue * 0.01f,0.0f);
-        m_TruePointerPosition += InputVec;
+        m_TruePointerPosition += InputVec * MoveSpeed * Time.deltaTime ;
         //transform.position = new Vector3(
         // //エリア指定して移動する
         // Mathf.Clamp(transform.position.x+InputVec.x, -1*LimmitX, LimmitX),

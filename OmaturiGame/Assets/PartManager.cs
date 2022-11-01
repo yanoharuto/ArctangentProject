@@ -13,10 +13,10 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("Play")] private PlayPart m_playePart;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
     [SerializeField] [Header("Grid")] private GameObject m_grid;
-    [SerializeField] [Header("text")] private Text text;
     private MainState m_State = MainState.SelectGimmickPart;//操作できる部分を切り替えるために必要
     private const int m_PlayerNum = 2;//デバッグするときはいじって
     private bool m_MainEnd = false;
+    private bool m_StartGameEndScene = false;
     private bool m_FirstRound = true;
     GridLine gridLine;
     private void ResultUpdate()
@@ -87,10 +87,10 @@ public class PartManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = m_State.ToString();
-        if (m_MainEnd)
+        if (m_MainEnd && !m_StartGameEndScene) 
         {
             m_resultPart.OnNextSceneChange();
+            m_StartGameEndScene = true;
         }
         else if (!m_MainEnd) 
         {      
