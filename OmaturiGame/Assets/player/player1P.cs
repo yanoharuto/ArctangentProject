@@ -73,7 +73,7 @@ public class player1P : MonoBehaviour
 
             //追加 米盛
             clearFlag = animator.GetBool("clearFlag");
-            bool dieflag = animator.GetBool("dieFlag");
+            bool dieflag = animator.GetBool("dieflag");
 
             ///dieflag == false  clearFlag == false 追加　米盛
             if (Axisx != 0 && dieFlag == false && clearFlag == false) //ゲームパットを動かしていると....
@@ -228,6 +228,6 @@ public class player1P : MonoBehaviour
     }
     void dieanimeend() //死ぬモーション終了用イベント
     {
-        animator.SetBool("dieFlag", true);
+        animator.SetBool("dieflag", true);
     }
 }
