@@ -1055,8 +1055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8da838022186e47a7e33aa19e6957c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerScore1: {fileID: 0}
-  m_PlayerScore2: {fileID: 0}
+  m_ScoreTotaling: {fileID: 0}
   m_ScoreBar1: {fileID: 6685533445316972371}
   m_ScoreBar2: {fileID: 5820767171062118728}
   m_AudioList:
@@ -1272,6 +1271,7 @@ GameObject:
   - component: {fileID: 9044693666335897131}
   - component: {fileID: 9044693666335897129}
   - component: {fileID: 9044693666335897128}
+  - component: {fileID: 7840250542148262091}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1342,6 +1342,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: /
+--- !u!114 &7840250542148262091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044693666335897130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eab2f098805c7c49b3fe6009f1c1275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NowText: {fileID: 0}
+  m_MaxText: {fileID: 0}
 --- !u!1001 &9044693665459019751
 PrefabInstance:
   m_ObjectHideFlags: 0

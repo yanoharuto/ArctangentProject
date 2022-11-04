@@ -18,14 +18,14 @@ public class ResultScene : MonoBehaviour
     }
     private void Update()
     {
-        //if(onePObj == null) <----- ここでどちらが勝利したかどうかを調べる
-        //{
-        //    onePObj.SetActive(true); //1Pのゲームクリアのグラフィックのオブジェクトを表示
-        //}
-        //else
-        //{
-        //    twoPObj.SetActive(true); //2Pのゲームクリアのグラフィックのオブジェクトを表示
-        //}
+        if (ResultData.m_Player1Win)// < -----ここでどちらが勝利したかどうかを調べる
+        {
+            onePObj.SetActive(true); //1Pのゲームクリアのグラフィックのオブジェクトを表示
+        }
+        else
+        {
+            twoPObj.SetActive(true); //2Pのゲームクリアのグラフィックのオブジェクトを表示
+        }
         InputParameter player1 = m_IPlayer1.GetInputParam();
         if (player1.m_BButton||player1.m_AButton)
         {

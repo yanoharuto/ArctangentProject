@@ -228,6 +228,6 @@ public class player1P : MonoBehaviour
     }
     void dieanimeend() //死ぬモーション終了用イベント
     {
-        animator.SetBool("dieFlag", true);
+        animator.SetBool("dieflag", true);
     }
 }

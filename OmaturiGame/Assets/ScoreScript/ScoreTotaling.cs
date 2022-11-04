@@ -67,7 +67,7 @@ public class ScoreTotaling : MonoBehaviour
             return true;
         }
         //以下、後で変える必要あり
-        else if (0 > champScore)
+        else if (m_PlayerScore2.GetTotalScore() > champScore)
         {
             return true;
         }
@@ -79,7 +79,7 @@ public class ScoreTotaling : MonoBehaviour
     /// <returns></returns>
     public bool GetIs1PWin()
     {
-        if(m_PlayerScore1.GetTotalScore()>m_PlayerScore2.GetTotalScore())
+        if (m_PlayerScore1.GetTotalScore() > m_PlayerScore2.GetTotalScore()) 
         {
             return true;
         }

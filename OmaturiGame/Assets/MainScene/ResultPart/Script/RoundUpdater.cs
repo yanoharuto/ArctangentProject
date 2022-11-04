@@ -6,12 +6,8 @@ public class RoundUpdater : MonoBehaviour
 {
     [SerializeField] [Header("現在のroundの表記してあるテキスト")] private Text m_NowText;
     [SerializeField] [Header("最大のroundの表記してあるテキスト")] private Text m_MaxText;
-    [SerializeField] private int m_RoundMax;
+    private int m_RoundMax;
     private int m_NowRoundNum = 1;
-    private void Start()
-    {
-        m_MaxText.text = m_RoundMax.ToString();
-    }
     /// <summary>
     /// ラウンドの更新
     /// </summary>
@@ -27,5 +23,15 @@ public class RoundUpdater : MonoBehaviour
     public bool IsMainEnd()
     {
         return m_NowRoundNum == m_RoundMax;
+    }
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    /// <param name="_RoundMax"></param>
+    public void OnInit(int _RoundMax)
+    {
+        m_NowText.text = m_NowRoundNum.ToString();
+        m_RoundMax = _RoundMax;
+        m_MaxText.text = m_RoundMax.ToString();
     }
 }

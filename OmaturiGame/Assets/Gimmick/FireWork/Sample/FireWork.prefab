@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5403353736261146071}
   - component: {fileID: 1833310888787990568}
   - component: {fileID: 2168557312789996548}
+  - component: {fileID: 8243339363882513124}
   m_Layer: 0
   m_Name: FireWork
   m_TagString: dangerousObj
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b134748b30a65e4ebab40b883bee767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveSpeed: 0.06
+  m_MoveSpeed: 1
 --- !u!95 &1833310888787990568
 Animator:
   serializedVersion: 3
@@ -143,3 +144,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 2.5}
   m_EdgeRadius: 0
+--- !u!114 &8243339363882513124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525795898984801424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257b5e68f42ad4c4f82314657f44eb15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectObject: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  effectPos: {fileID: 1124928070775076438}
+  tagname: player

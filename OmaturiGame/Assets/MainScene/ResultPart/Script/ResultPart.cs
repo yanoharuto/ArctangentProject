@@ -11,7 +11,6 @@ public class ResultPart : MonoBehaviour
     [SerializeField] private InputPlyer1 m_Player1Controller;
     [SerializeField] private GameObject m_ScoreBord;
     [SerializeField] private GoNextScene m_GoNextScene1;
-    [SerializeField] private GoNextScene m_GoNextScene2;
     private bool m_IsResultFirst = false;
     private void Start()
     {
@@ -45,7 +44,7 @@ public class ResultPart : MonoBehaviour
         return false;
     }
     /// <summary>
-    /// どっちが勝ちましたか
+    /// どっちかが勝ちましたか
     /// </summary>
     /// <returns></returns>
     public bool GetWin()
@@ -57,13 +56,7 @@ public class ResultPart : MonoBehaviour
     /// </summary>
     public void OnNextSceneChange()
     {
-        if(m_ScoreTotaling.GetIs1PWin())
-        {
-            m_GoNextScene1.OnRun();
-        }
-        else
-        {
-            m_GoNextScene2.OnRun();
-        }
+        ResultData.m_Player1Win = m_ScoreTotaling.GetIs1PWin();
+        m_GoNextScene1.OnRun();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class effect : MonoBehaviour
 {
     [SerializeField] GameObject effectObject;
-    [SerializeField] Transform target;
+    [SerializeField] Transform effectPos;
     [SerializeField] string tagname;
     private bool touchFlag = false;
     
@@ -29,7 +29,7 @@ public class effect : MonoBehaviour
         {
             GameObject instance = Instantiate(effectObject, this.transform.position, Quaternion.identity);
 
-            instance.transform.position = target.position;                              //ターゲットの位置にエフェクトを出す
+            instance.transform.position = effectPos.position;                              //ターゲットの位置にエフェクトを出す
 
             touchFlag = true;           //触ったふらぐをたてる
         }
@@ -41,7 +41,7 @@ public class effect : MonoBehaviour
         {
             GameObject instance = Instantiate(effectObject, this.transform.position, Quaternion.identity);
 
-            instance.transform.position = target.position;                              //ターゲットの位置にエフェクトを出す
+            instance.transform.position = effectPos.position;                              //ターゲットの位置にエフェクトを出す
 
             touchFlag = true;           //触ったふらぐをたてる
         }

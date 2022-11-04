@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -8925218721227480057}
   - component: {fileID: 1360501354863370698}
   - component: {fileID: -7614228045962005084}
+  - component: {fileID: 1187090642409680350}
   m_Layer: 0
   m_Name: Coin
   m_TagString: coin
@@ -263,3 +264,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1187090642409680350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7354232896664607487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257b5e68f42ad4c4f82314657f44eb15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectObject: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
+  effectPos: {fileID: 1933123172917762593}
+  tagname: player
