@@ -8,7 +8,7 @@ using UnityEngine;
 public class FireWork : MonoBehaviour
 {
     [SerializeField] [Header("移動速度")][Range(1.0f,100.0f)] private float m_MoveSpeed;
-    
+    private bool m_MoveFlag;
     public void SetRotateAndPosition(Vector3 _Position,Vector3 _Rotation)
     {
         transform.Rotate(_Rotation);
@@ -18,10 +18,16 @@ public class FireWork : MonoBehaviour
     {
         transform.position += transform.up * m_MoveSpeed * Time.deltaTime;
     }
-
+    private void SetMove()
+    {
+        m_MoveFlag = true;
+    }
     private void Update()
     {
-        Move();
+        if (m_MoveFlag)
+        {
+            Move();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

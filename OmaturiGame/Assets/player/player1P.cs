@@ -60,7 +60,7 @@ public class player1P : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dieFlag)
+        if (!dieFlag && !clearFlag) 
         {//アニメーション関係-----------------------------------
             animator.SetBool("walkFlag", walkFlag);
             animator.SetBool("jampFlag", jampFlag);
@@ -170,9 +170,6 @@ public class player1P : MonoBehaviour
                 velocityLimmit = -5;
             }
             playerRigidbody.velocity = new Vector2(velocityLimmit, playerRigidbody.velocity.y);
-
-
-
         }
     }
     private void Jump() //プレイヤーのジャンプ
@@ -215,7 +212,10 @@ public class player1P : MonoBehaviour
             dieFlag = true;
             setDeadObj.deadPlayerNum++;
         }
-
+        else if(collision.CompareTag("goal")&&!dieFlag)
+        {
+            clearFlag = true;
+        }
     }
     private void OnEnable()
     {

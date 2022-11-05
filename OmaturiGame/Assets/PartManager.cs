@@ -25,9 +25,6 @@ public class PartManager : MonoBehaviour
         m_resultPart.Run();
         if (m_resultPart.IsDisplayEnd())
         {   
-            //ラウンド更新
-            m_RoundUpdater.OnCountRound();
-
             m_MainEnd = m_resultPart.GetWin() ;
             //ラウンド終了していないなら
             if (!m_RoundUpdater.IsMainEnd())
@@ -39,6 +36,8 @@ public class PartManager : MonoBehaviour
                 m_MainEnd = true;
             }
             m_FirstRound = false;
+            //ラウンド更新
+            m_RoundUpdater.OnCountRound();
         }
     }
     //遊び終わったら破壊予定のギミックを破壊する

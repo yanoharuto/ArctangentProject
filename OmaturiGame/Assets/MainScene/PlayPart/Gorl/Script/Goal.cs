@@ -10,8 +10,19 @@ public class Goal : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("player"))
+        Debug.Log(collision.gameObject);
+        if (collision.gameObject.CompareTag("player"))
         {
+            
+            m_Audio.Play();
+            m_GoalPlayerNum++;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("player"))
+        {
+
             m_Audio.Play();
             m_GoalPlayerNum++;
         }

@@ -6,6 +6,7 @@ public class MoveScaffoldObserver : GimmickBase
 {
     [SerializeField] [Header("目的地")] private Transform m_Destination;
     [SerializeField] private MoveScaffold m_MoveScaffold;
+    [SerializeField] private SpriteRenderer m_AllowSprite;
     private Vector3 m_StartPos;
     private bool m_FirstRun = false; 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -20,6 +21,22 @@ public class MoveScaffoldObserver : GimmickBase
     {
         Debug.Log(collision.gameObject);
         TriggerEvenet(collision.gameObject);
+    }
+    public override void OnUpperOrHide(bool _upper)
+    {
+        Color color = m_Sprite.color;
+        if (_upper)
+        {
+            color.a = 255;
+            m_Collider.enabled = true;
+        }
+        else
+        {
+            color.a = 0;
+            m_Collider.enabled = false;
+        }
+        m_Sprite.color = color;
+        m_AllowSprite.color = color;
     }
     /// <summary>
     /// プレイヤーが乗ったらLastPositionに向かって移動し,し終わったら戻る

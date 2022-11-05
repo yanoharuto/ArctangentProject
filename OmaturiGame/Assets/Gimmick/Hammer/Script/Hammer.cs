@@ -9,6 +9,7 @@ using UnityEngine;
 public class Hammer : GimmickBase
 {
     [SerializeField] Animator HammerAnim;
+    private bool m_Finish;
     public override void OnUpdatePutState()
     {
         switch (m_PutState)
@@ -27,8 +28,15 @@ public class Hammer : GimmickBase
     /// </summary>
     private void Finish()
     {
-        m_IsPrepareDestroy = true;
+        m_Finish = true;
+    }
+    private void Update()
+    {
+        if (m_Finish)
+        {
+            m_IsPrepareDestroy = true;
         OnUpperOrHide(false);
-        PreparingSelfDestruction();
+        PreparingSelfDestruction(); 
+        }
     }
 }
