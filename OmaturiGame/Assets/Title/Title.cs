@@ -21,6 +21,7 @@ public class Title : MonoBehaviour
         {
             m_Cursor.OnUIMove(0);
         }
+
         if (iParam.m_BButton || iParam.m_AButton) 
         {
             m_Cursor.OnRunButton();
