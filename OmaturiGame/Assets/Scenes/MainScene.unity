@@ -2079,6 +2079,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1254851027}
     - target: {fileID: 5700998320000355547, guid: 46525ea82ed9b18438dd0952e8fcd276, type: 3}
+      propertyPath: LimmitX
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700998320000355547, guid: 46525ea82ed9b18438dd0952e8fcd276, type: 3}
       propertyPath: MoveSpeed
       value: 200
       objectReference: {fileID: 0}
@@ -2320,6 +2324,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1254851027}
+    - target: {fileID: 5700998320000355547, guid: 46525ea82ed9b18438dd0952e8fcd276, type: 3}
+      propertyPath: LimmitX
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5700998320000355547, guid: 46525ea82ed9b18438dd0952e8fcd276, type: 3}
       propertyPath: MoveSpeed
       value: 200
