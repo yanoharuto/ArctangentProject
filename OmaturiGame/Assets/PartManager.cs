@@ -13,6 +13,7 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("Play")] private PlayPart m_playePart;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
     [SerializeField] [Header("Grid")] private GameObject m_grid;
+    [SerializeField] private int m_RoundMax;
     private MainState m_State = MainState.SelectGimmickPart;//操作できる部分を切り替えるために必要
     private const int m_PlayerNum = 2;//デバッグするときはいじって
     private bool m_MainEnd = false;
@@ -82,6 +83,7 @@ public class PartManager : MonoBehaviour
         //初期化
         m_gimmickSelect.OnInit(m_PlayerNum,m_GManager);
         m_playePart.OnInit(m_PlayerNum);
+        m_RoundUpdater.OnInit(m_RoundMax);
     }
 
     // Update is called once per frame

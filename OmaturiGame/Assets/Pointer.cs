@@ -43,12 +43,9 @@ public class Pointer : MonoBehaviour
         //ポインタ操作
         var InputVec = new Vector3(m_InputParam.m_LStickHValue * 0.01f, m_InputParam.m_LStickVValue * 0.01f,0.0f);
         m_TruePointerPosition += InputVec * MoveSpeed * Time.deltaTime ;
-        //transform.position = new Vector3(
-        // //エリア指定して移動する
-        // Mathf.Clamp(transform.position.x+InputVec.x, -1*LimmitX, LimmitX),
-        // Mathf.Clamp(transform.position.y + InputVec.y, -1 * LimmitY, LimmitY)
-        // ,0);
 
+        // //エリア指定して移動する
+        m_TruePointerPosition = new Vector3(Mathf.Clamp(m_TruePointerPosition.x, -LimmitX, LimmitX), Mathf.Clamp(m_TruePointerPosition.y, -LimmitY, LimmitY), 0);
         transform.position = m_TruePointerPosition;
         //Debug.Log(m_TruePointerPosition);
     }

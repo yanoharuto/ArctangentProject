@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 0eb3b6e3bb08f4949b2c307e521fce20
   - enabled: 1
-    path: Assets/Scenes/P1ChampScene.unity
-    guid: a65a057903cda7a48844a4cc8142e06b
-  - enabled: 1
-    path: Assets/Scenes/P2ChampScene.unity
-    guid: d6be7cc1f09cc1f4398180aeb0154fbb
+    path: Assets/Scenes/ChampScene.unity
+    guid: 232161484bbbec74ba3c23ba06a5e0c7
   m_configObjects: {}
