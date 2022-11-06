@@ -13,72 +13,27 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("Play")] private PlayPart m_playePart;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
     [SerializeField] [Header("Grid")] private GameObject m_grid;
+    [SerializeField] [Header("セレクト操作説明")] private GameObject m_selectUI;
+    [SerializeField] [Header("Put操作説明")] private GameObject m_putUI;
+    [SerializeField] [Header("プレイ操作説明")] private GameObject m_playUI;
     [SerializeField] private int m_RoundMax;
     private MainState m_State = MainState.SelectGimmickPart;//操作できる部分を切り替えるために必要
-    private const int m_PlayerNum = 2;//デバッグするときはいじって
+    private const int m_PlayerNum = 1;//デバッグするときはいじって
     private bool m_MainEnd = false;
     private bool m_StartGameEndScene = false;
     private bool m_FirstRound = true;
     GridLine gridLine;
-    private void ResultUpdate()
-    {
-        m_resultPart.Run();
-        if (m_resultPart.IsDisplayEnd())
-        {   
-            m_MainEnd = m_resultPart.GetWin() ;
-            //ラウンド終了していないなら
-            if (!m_RoundUpdater.IsMainEnd())
-            {
-                m_State = MainState.SelectGimmickPart;
-            }
-            else
-            {
-                m_MainEnd = true;
-            }
-            m_FirstRound = false;
-            //ラウンド更新
-            m_RoundUpdater.OnCountRound();
-        }
-    }
-    //遊び終わったら破壊予定のギミックを破壊する
-    private void PlayUpdate()
-    {
-        if (m_playePart.IsEnd())
-        {
-            //破壊予定のギミックを破壊する
-            m_GManager.OnDestroyGimmick();
-            m_State = MainState.ResultPart;
-        }
-    }
-    private void SelectUpdate()
-    {
-        m_gimmickSelect.ElectionGimmick(m_FirstRound);
-        m_GManager.UpdateElectionGimmick(m_State);
-        //プレイヤーが選択したかの取得
-        if (m_1PStateManager.IsSelectGimmick()&&m_2PStateManager.IsSelectGimmick())
-        {
-            m_State = MainState.PutGimmickPart;
-            m_stage.SetActive(true);
-            gridLine.SetAllActive();
-
-        }
-    }
-    private void PutUpdate()
-    {
-        m_GManager.UpdateElectionGimmick(m_State);
-        if (m_gimmickSelect.PutedGimmickEnd())
-        {
-            m_State = MainState.PlayPart;
-            gridLine.UnSetAllActive();
-        }
-    }
+   
     // Start is called before the first frame update
     void Start()
     {
         //PutPartから描画
         m_stage.SetActive(false);
+        m_selectUI.SetActive(true);
+        m_putUI.SetActive(false);
+        m_playUI.SetActive(false);
         //m_grid.SetActive(false);
-        gridLine=m_grid.GetComponent<GridLine>();
+        gridLine =m_grid.GetComponent<GridLine>();
         //初期化
         m_gimmickSelect.OnInit(m_PlayerNum,m_GManager);
         m_playePart.OnInit(m_PlayerNum);
@@ -116,6 +71,65 @@ public class PartManager : MonoBehaviour
 
         }
     }
+    private void SelectUpdate()
+    {
+        m_gimmickSelect.ElectionGimmick(m_FirstRound);
+        m_GManager.UpdateElectionGimmick(m_State);
+        //プレイヤーが選択したかの取得
+        if (m_1PStateManager.IsSelectGimmick() && m_2PStateManager.IsSelectGimmick())
+        {
+            m_selectUI.SetActive(false);
+            m_putUI.SetActive(true);
 
-  
+            m_State = MainState.PutGimmickPart;
+            m_stage.SetActive(true);
+            gridLine.SetAllActive();
+
+        }
+    }
+    private void PutUpdate()
+    {
+        m_GManager.UpdateElectionGimmick(m_State);
+        if (m_gimmickSelect.PutedGimmickEnd())
+        {
+            m_putUI.SetActive(false);
+            m_playUI.SetActive(true);
+            m_State = MainState.PlayPart;
+            gridLine.UnSetAllActive();
+        }
+    }
+    //遊び終わったら破壊予定のギミックを破壊する
+    private void PlayUpdate()
+    {
+        if (m_playePart.IsEnd())
+        {
+            m_playUI.SetActive(false);
+            //破壊予定のギミックを破壊する
+            m_GManager.OnDestroyGimmick();
+            m_State = MainState.ResultPart;
+        }
+    }
+
+    private void ResultUpdate()
+    {
+        m_resultPart.Run();
+        if (m_resultPart.IsDisplayEnd())
+        {
+            m_MainEnd = m_resultPart.GetWin();
+            //ラウンド終了していないなら
+            if (!m_RoundUpdater.IsMainEnd())
+            {
+                m_State = MainState.SelectGimmickPart;
+                m_selectUI.SetActive(true);
+            }
+            else
+            {
+                m_MainEnd = true;
+            }
+            m_FirstRound = false;
+            //ラウンド更新
+            m_RoundUpdater.OnCountRound();
+        }
+    }
+   
 }
