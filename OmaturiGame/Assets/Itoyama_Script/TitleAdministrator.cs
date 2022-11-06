@@ -6,10 +6,14 @@ public class TitleAdministrator : MonoBehaviour
 {
     Rigidbody2D rigit=new Rigidbody2D();
     [SerializeField]float force=10.0f;
+    public bool titleButtonTrriger;
+    GameObject titleBox;
 
     private void Start()
     {
         rigit = GetComponent<Rigidbody2D>();
+        titleButtonTrriger = false;
+        titleBox = GameObject.Find("TitleBox");
     }
     private void Update()
     {
@@ -17,5 +21,10 @@ public class TitleAdministrator : MonoBehaviour
         {
             rigit.AddForce(transform.right * force);
         }
+    }
+
+    public void SetTriggerTrue()
+    {
+        titleButtonTrriger = true;
     }
 }
