@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TitleAdministrator : MonoBehaviour
 {
+    public static TitleAdministrator instance;
+
     Rigidbody2D rigit=new Rigidbody2D();
     [SerializeField]float force=10.0f;
     public bool titleButtonTrriger;
@@ -21,6 +23,12 @@ public class TitleAdministrator : MonoBehaviour
         {
             rigit.AddForce(transform.right * force);
         }
+        if(this.transform.position.x<-20.0f)
+        {
+            SetTriggerTrue();
+            Debug.Log("Exit");
+        }
+        //Debug.Log(this.transform.position.x);
     }
 
     public void SetTriggerTrue()
