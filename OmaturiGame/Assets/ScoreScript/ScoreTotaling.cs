@@ -1,25 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 各プレイヤーの合計値を出したりスコアの倍率を反映
+/// </summary>
 public class ScoreTotaling : MonoBehaviour
 {
     [SerializeField] [Header("1pのスコア")] private PlayerScore m_PlayerScore1;
     [SerializeField] [Header("2pのスコア")] private PlayerScore m_PlayerScore2;
-    [SerializeField] [Header("ゴールスコアの倍率")] private float m_GoalScoreCoefficient;
-    [SerializeField] [Header("コインスコアの倍率")] private float m_CoinScoreCoefficient;
-    [SerializeField] [Header("プレイヤーキルスコアの倍率")] private float m_PlayerKillScoreCoefficient;
+    [SerializeField] private ScoreScale m_ScoreScale;
     PlayerScoreStruct p1Struct;
     PlayerScoreStruct p2Struct;
     /// <summary>
     /// 係数かけてスコアを増やす
     /// </summary>
     /// <param name="_PlayerScore"></param>
-    private void UpdateScoreProcess(PlayerScoreStruct _PlayerScore)
+    private void UpdatePlayerScore(ref PlayerScoreStruct _PlayerScore)
     {
-        _PlayerScore.m_GoalScore *= m_GoalScoreCoefficient;
-        _PlayerScore.m_CoinScore *= m_CoinScoreCoefficient;
-        _PlayerScore.m_PlayerKillScore *= m_PlayerKillScoreCoefficient;
+        _PlayerScore.m_GoalScore *= m_ScoreScale.m_GoalScore;
+        _PlayerScore.m_CoinScore *= m_ScoreScale.m_CoinScore;
+        _PlayerScore.m_PlayerKillScore *= m_ScoreScale.m_PlayerKillScore;
     }
     /// <summary>
     /// 1pの現ラウンドのスコアをゲット
@@ -40,10 +40,11 @@ public class ScoreTotaling : MonoBehaviour
     /// <summary>
     /// スコアの更新
     /// </summary>
-    public void UpdatePlayerScore()
+    public void UpdateScore()
     {
         p1Struct = m_PlayerScore1.GetNowRoundScore();
         p2Struct = m_PlayerScore2.GetNowRoundScore();
+        //相手のプレイヤーが死んでたらキルスコアが入るようにする
         if (!p1Struct.m_Die && p2Struct.m_Die) 
         {
             p1Struct.m_PlayerKillScore++;
@@ -52,8 +53,8 @@ public class ScoreTotaling : MonoBehaviour
         {
             p2Struct.m_PlayerKillScore++;
         }
-        UpdateScoreProcess(p1Struct);
-        UpdateScoreProcess(p2Struct);
+        UpdatePlayerScore(ref p1Struct);
+        UpdatePlayerScore(ref p2Struct);
     }
     /// <summary>
     /// ゲームを終わらせた人がいるか

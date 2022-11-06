@@ -10,7 +10,7 @@ public class Pointer : MonoBehaviour
     [SerializeField] [Header("カメラ")]　private Camera camera;
     [SerializeField] [Header("入力情報ゲッター")] private InputControllerBase InputGetter;
     [SerializeField] [Header("エフェクト")] private GameObject m_ClickEffect;
-    [SerializeField] [Header("移動速度")] [Range(0.5f,200.0f)] private float MoveSpeed;
+    [SerializeField] [Header("移動速度")] [Range(0.5f,1000.0f)] private float MoveSpeed;
     //操作用ポインタ
     Vector3 m_TruePointerPosition;
     AudioSource m_Audio;
@@ -19,7 +19,8 @@ public class Pointer : MonoBehaviour
 
     bool m_IsPut;
     InputParameter m_InputParam;
-    SpriteRenderer m_Sprite;
+    [SerializeField] SpriteRenderer m_Sprite;
+    [SerializeField] SpriteRenderer m_FaiceSprite;
 
     private GameObject m_gimmickObj;
 
@@ -30,7 +31,6 @@ public class Pointer : MonoBehaviour
         gameObject.transform.position = m_TruePointerPosition;
         m_IsPut = false;
         m_Audio = GetComponent<AudioSource>();
-        m_Sprite = GetComponent<SpriteRenderer>();
     }
     private void OnEnable()
     {
@@ -54,6 +54,7 @@ public class Pointer : MonoBehaviour
         Color color = m_Sprite.color;
         color.a = 0;
         m_Sprite.color = color;
+        m_FaiceSprite.color = color;
         m_Audio.Play();
         Instantiate(m_ClickEffect, transform.position,m_ClickEffect.transform.rotation);
     }
@@ -66,6 +67,7 @@ public class Pointer : MonoBehaviour
         Color color = m_Sprite.color;
         color.a = 255;
         m_Sprite.color = color;
+        m_FaiceSprite.color = color;
         m_InputParam = InputGetter.GetInputParam();
         //レイを飛ばしてギミック選択
         Ray ray = Camera.main.ScreenPointToRay(camera.WorldToScreenPoint(m_TruePointerPosition));
@@ -99,6 +101,7 @@ public class Pointer : MonoBehaviour
         Color color = m_Sprite.color;
         color.a = 255;
         m_Sprite.color = color;
+        m_FaiceSprite.color = color;
 
 
         var TmpCursol = camera.WorldToScreenPoint(m_TruePointerPosition);

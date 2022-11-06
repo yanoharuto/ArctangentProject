@@ -36,7 +36,7 @@ public class ScoreBarDisplayer : MonoBehaviour
     IEnumerator UpdateScoreBar()
     {
         m_IsDisplayEnd = false;
-        m_ScoreTotaling.UpdatePlayerScore();
+        m_ScoreTotaling.UpdateScore();
         PlayerScoreStruct p1Struct=m_ScoreTotaling.GetScoreP1();
         PlayerScoreStruct p2Struct = m_ScoreTotaling.GetScoreP2() ;
 
@@ -63,6 +63,7 @@ public class ScoreBarDisplayer : MonoBehaviour
                     if (p1Struct.m_PlayerKillScore + p2Struct.m_PlayerKillScore != 0)
                     {
                         DisplayScore(p1Struct.m_PlayerKillScore, p2Struct.m_PlayerKillScore, i, m_AudioList[i]);
+                        yield return new WaitForSeconds(m_DisplayTime);
                     }
                     break;
             }

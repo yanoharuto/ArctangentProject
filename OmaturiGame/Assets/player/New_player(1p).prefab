@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: -173824818572515186}
   - component: {fileID: -4403895483405359376}
   - component: {fileID: -6924914192917705722}
+  - component: {fileID: 8608905394810329494}
   m_Layer: 3
   m_Name: New_player(1p)
   m_TagString: player
@@ -173,6 +174,8 @@ MonoBehaviour:
   inputGetter: {fileID: -5422672620389313446}
   m_reSpornProcess: {fileID: -4403895483405359376}
   Axisx: 0
+  setDeadObj: {fileID: 0}
+  dieFlag: 0
 --- !u!114 &-5422672620389313446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,3 +240,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mousePointer: {fileID: 0}
   m_player: {fileID: 0}
+--- !u!114 &8608905394810329494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8735769019288384176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257b5e68f42ad4c4f82314657f44eb15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectObject: {fileID: 100006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
+  effectPos: {fileID: 8735769019288384172}
+  tagname: dangerousObj

@@ -9,7 +9,7 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("ギミックを更新したりするのに使う")]private GimmickManager m_GManager;
     [SerializeField] [Header("ギミックを表示する奴")] GimmickSelectPart m_gimmickSelect;
     [SerializeField] [Header("ラウンドを更新するよう")] private RoundUpdater m_RoundUpdater;
-    [SerializeField] [Header("Result")] private ResultPart m_resultPart;
+    [SerializeField] [Header("Result")] private ScoreDisplayPart m_ScoreDisplayPart;
     [SerializeField] [Header("Play")] private PlayPart m_playePart;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
     [SerializeField] [Header("Grid")] private GameObject m_grid;
@@ -22,10 +22,10 @@ public class PartManager : MonoBehaviour
     GridLine gridLine;
     private void ResultUpdate()
     {
-        m_resultPart.Run();
-        if (m_resultPart.IsDisplayEnd())
+        m_ScoreDisplayPart.Run();
+        if (m_ScoreDisplayPart.IsDisplayEnd())
         {   
-            m_MainEnd = m_resultPart.GetWin() ;
+            m_MainEnd = m_ScoreDisplayPart.GetWin() ;
             //ラウンド終了していないなら
             if (!m_RoundUpdater.IsMainEnd())
             {
@@ -90,7 +90,7 @@ public class PartManager : MonoBehaviour
     {
         if (m_MainEnd && !m_StartGameEndScene) 
         {
-            m_resultPart.OnNextSceneChange();
+            m_ScoreDisplayPart.OnNextSceneChange();
             m_StartGameEndScene = true;
         }
         else if (!m_MainEnd) 

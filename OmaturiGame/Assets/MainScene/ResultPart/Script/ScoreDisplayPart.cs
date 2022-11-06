@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ResultPart : MonoBehaviour
+/// <summary>
+/// スコア表示のパート
+/// </summary>
+public class ScoreDisplayPart : MonoBehaviour
 {
 
     [SerializeField] [Header("ScoreBarを表示するスクリプト")] private ScoreBarDisplayer m_ScoreBarMana;
