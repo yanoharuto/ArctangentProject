@@ -10,10 +10,10 @@ public class ScoreDisplayPart : MonoBehaviour
 
     [SerializeField] [Header("ScoreBarを表示するスクリプト")] private ScoreBarDisplayer m_ScoreBarMana;
     [SerializeField] [Header("優勝するために必要なスコア")] private float m_ChampScore;
-    [SerializeField] private ScoreTotaling m_ScoreTotaling;
+    [SerializeField] [Header("スコアを足し合わせる")] private ScoreTotaling m_ScoreTotaling;
     [SerializeField] private InputPlyer1 m_Player1Controller;
-    [SerializeField] private GameObject m_ScoreBord;
-    [SerializeField] private GoNextScene m_GoNextScene1;
+    [SerializeField] private GameObject m_ScoreBord;///スコアの棒グラフボード
+    [SerializeField] private GoNextScene m_GoNextScene1;//次のシーン
     private bool m_IsResultFirst = false;
     private void Start()
     {

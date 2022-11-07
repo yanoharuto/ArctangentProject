@@ -25,6 +25,7 @@ public class ScoreTotaling : MonoBehaviour
     /// <returns></returns>
     public bool GetIsExistWinner(float champScore)
     {
+        Debug.Log(m_PlayerScore2.GetTotalScore());
         if (m_PlayerScore1.GetTotalScore() > champScore)
         {
             return true;
