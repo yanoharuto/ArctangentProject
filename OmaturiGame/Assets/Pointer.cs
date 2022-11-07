@@ -138,7 +138,6 @@ public class Pointer : MonoBehaviour
             }
             if(m_gimmickObj.GetComponent<GimmickBase>().GetOverLap())
             {
-                Debug.Log("置けません");
             }
         }
         if(!m_IsPut)

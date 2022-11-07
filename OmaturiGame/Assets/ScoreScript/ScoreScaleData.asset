@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ScoreScaleData
   m_EditorClassIdentifier: 
   m_SetGoalScore: 2
-  m_SetCoinScore: 2.5
-  m_SetPlayerKillScore: 3
+  m_SetCoinScore: 1.5
+  m_SetPlayerKillScore: 2.5

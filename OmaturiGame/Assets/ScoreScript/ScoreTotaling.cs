@@ -8,53 +8,15 @@ public class ScoreTotaling : MonoBehaviour
 {
     [SerializeField] [Header("1pのスコア")] private PlayerScore m_PlayerScore1;
     [SerializeField] [Header("2pのスコア")] private PlayerScore m_PlayerScore2;
-    [SerializeField] private ScoreScale m_ScoreScale;
-    PlayerScoreStruct p1Struct;
-    PlayerScoreStruct p2Struct;
     /// <summary>
-    /// 係数かけてスコアを増やす
+    /// 1p2pのスコアを更新
     /// </summary>
-    /// <param name="_PlayerScore"></param>
-    private void UpdatePlayerScore(ref PlayerScoreStruct _PlayerScore)
+    /// <param name="_P1Score">このラウンドで得た1pのスコア</param>
+    /// <param name="_P2Score">このラウンドで得た2pのスコア</param>
+    public void UpdatePlayersScore(PlayerScoreStruct _P1Score,PlayerScoreStruct _P2Score)
     {
-        _PlayerScore.m_GoalScore *= m_ScoreScale.m_GoalScore;
-        _PlayerScore.m_CoinScore *= m_ScoreScale.m_CoinScore;
-        _PlayerScore.m_PlayerKillScore *= m_ScoreScale.m_PlayerKillScore;
-    }
-    /// <summary>
-    /// 1pの現ラウンドのスコアをゲット
-    /// </summary>
-    /// <returns></returns>
-    public PlayerScoreStruct GetScoreP1()
-    {
-        return p1Struct;
-    }
-    /// <summary>
-    /// 2pの現ラウンドのスコアをゲット
-    /// </summary>
-    /// <returns></returns>
-    public PlayerScoreStruct GetScoreP2()
-    {
-        return p2Struct;
-    }
-    /// <summary>
-    /// スコアの更新
-    /// </summary>
-    public void UpdateScore()
-    {
-        p1Struct = m_PlayerScore1.GetNowRoundScore();
-        p2Struct = m_PlayerScore2.GetNowRoundScore();
-        //相手のプレイヤーが死んでたらキルスコアが入るようにする
-        if (!p1Struct.m_Die && p2Struct.m_Die) 
-        {
-            p1Struct.m_PlayerKillScore++;
-        }
-        if (p1Struct.m_Die && !p2Struct.m_Die)
-        {
-            p2Struct.m_PlayerKillScore++;
-        }
-        UpdatePlayerScore(ref p1Struct);
-        UpdatePlayerScore(ref p2Struct);
+        m_PlayerScore1.UpdateScore(_P1Score);
+        m_PlayerScore2.UpdateScore(_P2Score);
     }
     /// <summary>
     /// ゲームを終わらせた人がいるか

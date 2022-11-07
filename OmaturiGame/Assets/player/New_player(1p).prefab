@@ -200,7 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba930b6439727eb499968e0290e9fbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NowRoundScore: {fileID: -173824818572515186}
 --- !u!114 &-173824818572515186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3613547ddb0c33045bad134b0c1e121b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ScoreScale: {fileID: 11400000, guid: f4fbacd86bd2a8c409d8e091f1853b9a, type: 2}
 --- !u!114 &-4403895483405359376
 MonoBehaviour:
   m_ObjectHideFlags: 0
