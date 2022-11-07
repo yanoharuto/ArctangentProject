@@ -256,20 +256,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7978287197727157991, guid: 0cc1cb97ab615e7409bd3c4bea0b7f8c, type: 3}
   m_PrefabInstance: {fileID: 1874647177294705758}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &359800379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359800377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d96c220df4a6fc84ba342cb821798f8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: 10
-  titleButtonTrriger: 0
 --- !u!225 &359800380
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -515,6 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96c220df4a6fc84ba342cb821798f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigit: {fileID: 1764543070}
   force: -1000
   titleButtonTrriger: 0
 --- !u!1 &1938143316 stripped

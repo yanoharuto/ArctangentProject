@@ -6,20 +6,20 @@ public class TitleAdministrator : MonoBehaviour
 {
     public static TitleAdministrator instance;
 
-    Rigidbody2D rigit=new Rigidbody2D();
-    [SerializeField]float force=10.0f;
+    [SerializeField] Rigidbody2D rigit;
+    [SerializeField] float force;
     public bool titleButtonTrriger;
     GameObject titleBox;
 
     private void Start()
     {
-        rigit = GetComponent<Rigidbody2D>();
+        Debug.Log(rigit);
         titleButtonTrriger = false;
         titleBox = GameObject.Find("TitleBox");
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("A1"))
         {
             rigit.AddForce(transform.right * force);
         }

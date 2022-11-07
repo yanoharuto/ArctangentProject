@@ -24,6 +24,5 @@ public class ChangeAlpha : MonoBehaviour
             timer += Time.deltaTime;
             this.gameObject.GetComponent<CanvasGroup>().alpha = timer / fadeTime;
         }
-        Debug.Log(titleAdministrator.titleButtonTrriger);
     }
 }
