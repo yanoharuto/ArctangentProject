@@ -1,59 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 各プレイヤーの合計値を出したりスコアの倍率を反映
+/// </summary>
 public class ScoreTotaling : MonoBehaviour
 {
     [SerializeField] [Header("1pのスコア")] private PlayerScore m_PlayerScore1;
     [SerializeField] [Header("2pのスコア")] private PlayerScore m_PlayerScore2;
-    [SerializeField] [Header("ゴールスコアの倍率")] private float m_GoalScoreCoefficient;
-    [SerializeField] [Header("コインスコアの倍率")] private float m_CoinScoreCoefficient;
-    [SerializeField] [Header("プレイヤーキルスコアの倍率")] private float m_PlayerKillScoreCoefficient;
-    PlayerScoreStruct p1Struct;
-    PlayerScoreStruct p2Struct;
     /// <summary>
-    /// 係数かけてスコアを増やす
+    /// 1p2pのスコアを更新
     /// </summary>
-    /// <param name="_PlayerScore"></param>
-    private void UpdateScoreProcess(PlayerScoreStruct _PlayerScore)
+    /// <param name="_P1Score">このラウンドで得た1pのスコア</param>
+    /// <param name="_P2Score">このラウンドで得た2pのスコア</param>
+    public void UpdatePlayersScore(PlayerScoreStruct _P1Score,PlayerScoreStruct _P2Score)
     {
-        _PlayerScore.m_GoalScore *= m_GoalScoreCoefficient;
-        _PlayerScore.m_CoinScore *= m_CoinScoreCoefficient;
-        _PlayerScore.m_PlayerKillScore *= m_PlayerKillScoreCoefficient;
-    }
-    /// <summary>
-    /// 1pの現ラウンドのスコアをゲット
-    /// </summary>
-    /// <returns></returns>
-    public PlayerScoreStruct GetScoreP1()
-    {
-        return p1Struct;
-    }
-    /// <summary>
-    /// 2pの現ラウンドのスコアをゲット
-    /// </summary>
-    /// <returns></returns>
-    public PlayerScoreStruct GetScoreP2()
-    {
-        return p2Struct;
-    }
-    /// <summary>
-    /// スコアの更新
-    /// </summary>
-    public void UpdatePlayerScore()
-    {
-        p1Struct = m_PlayerScore1.GetNowRoundScore();
-        p2Struct = m_PlayerScore2.GetNowRoundScore();
-        if (!p1Struct.m_Die && p2Struct.m_Die) 
-        {
-            p1Struct.m_PlayerKillScore++;
-        }
-        if (p1Struct.m_Die && !p2Struct.m_Die)
-        {
-            p2Struct.m_PlayerKillScore++;
-        }
-        UpdateScoreProcess(p1Struct);
-        UpdateScoreProcess(p2Struct);
+        m_PlayerScore1.UpdateScore(_P1Score);
+        m_PlayerScore2.UpdateScore(_P2Score);
     }
     /// <summary>
     /// ゲームを終わらせた人がいるか
@@ -62,6 +25,7 @@ public class ScoreTotaling : MonoBehaviour
     /// <returns></returns>
     public bool GetIsExistWinner(float champScore)
     {
+        Debug.Log(m_PlayerScore2.GetTotalScore());
         if (m_PlayerScore1.GetTotalScore() > champScore)
         {
             return true;

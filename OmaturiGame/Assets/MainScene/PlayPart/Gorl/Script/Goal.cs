@@ -22,7 +22,6 @@ public class Goal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("player"))
         {
-
             m_Audio.Play();
             m_GoalPlayerNum++;
         }

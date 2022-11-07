@@ -19,7 +19,6 @@ public class MoveScaffoldObserver : GimmickBase
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject);
         TriggerEvenet(collision.gameObject);
     }
     public override void OnUpperOrHide(bool _upper)

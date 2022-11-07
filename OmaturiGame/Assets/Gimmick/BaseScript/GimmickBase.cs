@@ -32,7 +32,6 @@ public class GimmickBase : MonoBehaviour
     {
         if (_Hammer.CompareTag("hammer"))
         {
-            Debug.Log(gameObject.name);
             //設置後の自分自身が設置後のハンマーに当たっているなら自滅準備 
             if (m_PutState == GimmickPutState.FinishPut &&
                 _Hammer.GetComponent<Hammer>().GetPutState() == GimmickPutState.FinishPut)
@@ -51,6 +50,7 @@ public class GimmickBase : MonoBehaviour
     { 
         OnUpperOrHide(false);
         m_IsPrepareDestroy = true;
+        m_Sprite.enabled = false;
     }
     /// <summary>
     /// 子クラスはこの関数をoverrideして動作する
@@ -101,7 +101,7 @@ public class GimmickBase : MonoBehaviour
         Color color = m_Sprite.color;
         if (_upper)
         {
-            color.a = 255;
+            color.a = 100;
             m_Sprite.color = color;
             m_Collider.enabled = true;
         }

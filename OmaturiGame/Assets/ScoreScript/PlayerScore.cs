@@ -8,19 +8,17 @@ using UnityEngine;
 /// </summary>
 public class PlayerScore : MonoBehaviour
 {
-   [SerializeField] NowRoundScore m_NowRoundScore;
-   PlayerScoreStruct m_ScoreStruct;
+    PlayerScoreStruct m_ScoreStruct;
 
     /// <summary>
-    /// プレイヤーのスコアを見せる
+    /// スコアの更新
     /// </summary>
-    public PlayerScoreStruct GetNowRoundScore()
+    /// <param name="getNowRoundScore"></param>
+    public void UpdateScore(PlayerScoreStruct getNowRoundScore)
     {
-        PlayerScoreStruct getNowRoundScore = m_NowRoundScore.GetNowRoundScore();
         m_ScoreStruct.m_GoalScore += getNowRoundScore.m_GoalScore;
-        m_ScoreStruct.m_PlayerKillScore += getNowRoundScore.m_PlayerKillScore;
         m_ScoreStruct.m_CoinScore += getNowRoundScore.m_CoinScore;
-        return getNowRoundScore;
+        m_ScoreStruct.m_PlayerKillScore += getNowRoundScore.m_PlayerKillScore;
     }
     /// <summary>
     /// スコアの合計値を出す

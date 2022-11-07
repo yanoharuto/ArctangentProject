@@ -7,6 +7,8 @@ public class ScoreBarDisplayer : MonoBehaviour
     [SerializeField] [Header("スコアを集計する奴")] private ScoreTotaling m_ScoreTotaling;
     [SerializeField] [Header("1pのスコアグラフ")] private ScoreBar m_ScoreBar1;
     [SerializeField] [Header("2pのスコアグラフ")] private ScoreBar m_ScoreBar2;
+    [SerializeField] private NowRoundScore m_NowRoundScoreP1;
+    [SerializeField] private NowRoundScore m_NowRoundScoreP2;
     [SerializeField] [Header("スコアを表示するときに鳴る音4つめはスコアが0のときに鳴る")] private List<AudioClip> m_AudioList = new List<AudioClip>();
     [SerializeField] private float m_DisplayTime;
     private AudioSource m_Audio;// 音が複数なると危険なのでここに実装
@@ -36,9 +38,11 @@ public class ScoreBarDisplayer : MonoBehaviour
     IEnumerator UpdateScoreBar()
     {
         m_IsDisplayEnd = false;
-        m_ScoreTotaling.UpdatePlayerScore();
-        PlayerScoreStruct p1Struct=m_ScoreTotaling.GetScoreP1();
-        PlayerScoreStruct p2Struct = m_ScoreTotaling.GetScoreP2() ;
+        m_NowRoundScoreP1.SetPlaeyerKillScore(m_NowRoundScoreP2.NowRoundDie());
+        m_NowRoundScoreP2.SetPlaeyerKillScore(m_NowRoundScoreP1.NowRoundDie());
+        PlayerScoreStruct p1Struct = m_NowRoundScoreP1.GetNowRoundScore();
+        PlayerScoreStruct p2Struct = m_NowRoundScoreP2.GetNowRoundScore();
+        m_ScoreTotaling.UpdatePlayersScore(p1Struct, p2Struct);
 
         yield return new WaitForSeconds(m_DisplayTime);
         for (int i = 0; i < m_ScoreKind; i++)
@@ -63,6 +67,7 @@ public class ScoreBarDisplayer : MonoBehaviour
                     if (p1Struct.m_PlayerKillScore + p2Struct.m_PlayerKillScore != 0)
                     {
                         DisplayScore(p1Struct.m_PlayerKillScore, p2Struct.m_PlayerKillScore, i, m_AudioList[i]);
+                        yield return new WaitForSeconds(m_DisplayTime);
                     }
                     break;
             }

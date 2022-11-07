@@ -9,7 +9,7 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("ギミックを更新したりするのに使う")]private GimmickManager m_GManager;
     [SerializeField] [Header("ギミックを表示する奴")] GimmickSelectPart m_gimmickSelect;
     [SerializeField] [Header("ラウンドを更新するよう")] private RoundUpdater m_RoundUpdater;
-    [SerializeField] [Header("Result")] private ResultPart m_resultPart;
+    [SerializeField] [Header("Result")] private ScoreDisplayPart m_resultPart;
     [SerializeField] [Header("Play")] private PlayPart m_playePart;
     [SerializeField] [Header("Stage")] private GameObject m_stage;
     [SerializeField] [Header("Grid")] private GameObject m_grid;
@@ -18,7 +18,7 @@ public class PartManager : MonoBehaviour
     [SerializeField] [Header("プレイ操作説明")] private GameObject m_playUI;
     [SerializeField] private int m_RoundMax;
     private MainState m_State = MainState.SelectGimmickPart;//操作できる部分を切り替えるために必要
-    private const int m_PlayerNum = 1;//デバッグするときはいじって
+    private const int m_PlayerNum = 2;//デバッグするときはいじって
     private bool m_MainEnd = false;
     private bool m_StartGameEndScene = false;
     private bool m_FirstRound = true;
@@ -115,9 +115,12 @@ public class PartManager : MonoBehaviour
         m_resultPart.Run();
         if (m_resultPart.IsDisplayEnd())
         {
-            m_MainEnd = m_resultPart.GetWin();
+            if( m_resultPart.GetWin())
+            {
+                m_MainEnd = true;
+            }
             //ラウンド終了していないなら
-            if (!m_RoundUpdater.IsMainEnd())
+            else if (!m_RoundUpdater.IsMainEnd())
             {
                 m_State = MainState.SelectGimmickPart;
                 m_selectUI.SetActive(true);
