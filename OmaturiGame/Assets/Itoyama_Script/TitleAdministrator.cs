@@ -26,9 +26,9 @@ public class TitleAdministrator : MonoBehaviour
         if(this.transform.position.x<-20.0f)
         {
             SetTriggerTrue();
-            Debug.Log("Exit");
+            //Debug.Log("Exit");
         }
-        //Debug.Log(this.transform.position.x);
+        //Debug.Log(titleButtonTrriger);
     }
 
     public void SetTriggerTrue()
