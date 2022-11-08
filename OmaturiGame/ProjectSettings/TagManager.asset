@@ -10,6 +10,8 @@ TagManager:
   - dangerousObj
   - player
   - goal
+  - FxTemporaire
+  - EndPos
   layers:
   - Default
   - TransparentFX
