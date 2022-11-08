@@ -32,11 +32,11 @@ public class GimmickBase : MonoBehaviour
     {
         if (_Hammer.CompareTag("hammer"))
         {
-            //設置後の自分自身が設置後のハンマーに当たっているなら自滅準備 
+            //設置後の自分自身が設置後のハンマーに当たっているなら
             if (m_PutState == GimmickPutState.FinishPut &&
                 _Hammer.GetComponent<Hammer>().GetPutState() == GimmickPutState.FinishPut)
             {
-                PreparingSelfDestruction();
+                PreparingSelfDestruction();//自滅準備 
             }
         }
     }
@@ -52,11 +52,9 @@ public class GimmickBase : MonoBehaviour
         m_IsPrepareDestroy = true;
         m_Sprite.enabled = false;
     }
-    /// <summary>
-    /// 子クラスはこの関数をoverrideして動作する
-    /// </summary>
     /// 設置前
     protected virtual void SelectUpdate() { }
+    //設置中。そもそも選ばれなかったら削除
     protected virtual void PutUpdate()
     {
         if (m_PutState == GimmickPutState.Select)
@@ -64,14 +62,12 @@ public class GimmickBase : MonoBehaviour
             PreparingSelfDestruction();
         }
     }
-    protected virtual void OtherSelectUpdate() 
-    {
-    }
+    protected virtual void OtherSelectUpdate() {}
     protected virtual void OtherPutUpdate() { }
     protected virtual void PlayUpdate() {  }
     protected virtual void ResultUpdate() { }
     /// <summary>
-    /// 自滅フラグを立たせる
+    /// 自滅フラグを立たせる。
     /// </summary>
     public void SetSelfDestroy()
     {

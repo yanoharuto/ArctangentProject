@@ -1058,6 +1058,8 @@ MonoBehaviour:
   m_ScoreTotaling: {fileID: 0}
   m_ScoreBar1: {fileID: 6685533445316972371}
   m_ScoreBar2: {fileID: 5820767171062118728}
+  m_NowRoundScoreP1: {fileID: 0}
+  m_NowRoundScoreP2: {fileID: 0}
   m_AudioList:
   - {fileID: 8300000, guid: 1b92d1a802decf94ab182e89fd0c5ce7, type: 3}
   - {fileID: 8300000, guid: 38a8c3d3b0d84c84eaa5ddce93e4505b, type: 3}
@@ -1367,6 +1369,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: BarImage
       objectReference: {fileID: 0}
+    - target: {fileID: 3520164082287262133, guid: 42d9ebb47e527644ea93cf1b1b2f0035, type: 3}
+      propertyPath: m_Text
+      value: 'G
+
+        o
+
+        a
+
+        l'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3520164082287262133, guid: 42d9ebb47e527644ea93cf1b1b2f0035, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5626819305447648363, guid: 42d9ebb47e527644ea93cf1b1b2f0035, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -1478,6 +1494,14 @@ PrefabInstance:
     - target: {fileID: 7279213501357436548, guid: 42d9ebb47e527644ea93cf1b1b2f0035, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924463137320048261, guid: 42d9ebb47e527644ea93cf1b1b2f0035, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924463137320048261, guid: 42d9ebb47e527644ea93cf1b1b2f0035, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -21843881615419754, guid: 42d9ebb47e527644ea93cf1b1b2f0035, type: 3}
