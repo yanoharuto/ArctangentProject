@@ -17,7 +17,7 @@ public class TitleAdministrator : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetButtonDown("A1")/*|| Input.GetKeyDown(KeyCode.Space)*/)
+        if(Input.GetButtonDown("A1") || Input.GetKeyDown(KeyCode.Space))
         {
             rigit.AddForce(transform.right * force);
         }
