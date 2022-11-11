@@ -9,17 +9,15 @@ public class TitleAdministrator : MonoBehaviour
     [SerializeField] Rigidbody2D rigit;
     [SerializeField] float force;
     public bool titleButtonTrriger;
-    GameObject titleBox;
 
     private void Start()
     {
         Debug.Log(rigit);
         titleButtonTrriger = false;
-        titleBox = GameObject.Find("TitleBox");
     }
     private void Update()
     {
-        if(Input.GetButtonDown("A1"))
+        if(Input.GetButtonDown("A1")/*|| Input.GetKeyDown(KeyCode.Space)*/)
         {
             rigit.AddForce(transform.right * force);
         }
