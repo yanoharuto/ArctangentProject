@@ -34,6 +34,7 @@ public class PartManager : MonoBehaviour
         m_playUI.SetActive(false);
         //m_grid.SetActive(false);
         gridLine =m_grid.GetComponent<GridLine>();
+        gridLine.UnSetAllActive();
         //初期化
         m_gimmickSelect.OnInit(m_PlayerNum,m_GManager);
         m_playePart.OnInit(m_PlayerNum);
@@ -106,12 +107,14 @@ public class PartManager : MonoBehaviour
             m_playUI.SetActive(false);
             //破壊予定のギミックを破壊する
             m_GManager.OnDestroyGimmick();
-            m_State = MainState.ResultPart;
+            StartCoroutine(WaitNextPart( MainState.ResultPart));
+
         }
     }
 
     private void ResultUpdate()
     {
+        m_stage.SetActive(false);
         m_resultPart.Run();
         if (m_resultPart.IsDisplayEnd())
         {
@@ -135,4 +138,10 @@ public class PartManager : MonoBehaviour
         }
     }
    
+    IEnumerator WaitNextPart(MainState _state)
+    {
+        yield return new WaitForSeconds(2.0f);
+        m_State = _state;
+        yield break;
+    }
 }

@@ -95,7 +95,7 @@ public class GimmickBase : MonoBehaviour
     public virtual void OnUpperOrHide(bool _upper)
     {
         Color color = m_Sprite.color;
-        if (_upper)
+        if (_upper && !m_IsPrepareDestroy) 
         {
             color.a = 100;
             m_Sprite.color = color;
