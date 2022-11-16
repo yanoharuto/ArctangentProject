@@ -25,7 +25,15 @@ public class player1P : MonoBehaviour
     bool leftJampFlag;　//左に壁ジャンプできるフラグ
     bool jampFlag; //ジャンプキーを押したかを判定
     bool jampEndFlag; //ジャンプ時の上昇が終了したかの判定
-
+    [SerializeField][Header("ジャンプ用SE")] private AudioClip jampSE; //ジャンプの効果音
+    [SerializeField][Header("歩き用SE")] private AudioClip DashSE; //ジャンプの効果音
+    [SerializeField][Header("歩き用SE頻度")] private float DashSEFrequency;
+    [SerializeField][Header("壁キック用エフェクト")] private GameObject wallKickEffect; //壁キックエフェクトのゲームオブジェクト」
+    AudioSource audioSource; //AudoSourceを読み込むための変数
+    [SerializeField][Header("壁キック用SE")] private AudioClip wallKickSE; //壁キックの効果音
+    [Header("=========================-")]
+    float wallKickEffectAng; //壁きっくエフェクトの角度
+    bool wallKickEffectOutputFlag; //壁キックのエフェクトが出たかどうかのフラグ
     [SerializeField] private SetDeadObj setDeadObj;
 
     ///追加　 米盛
@@ -40,6 +48,8 @@ public class player1P : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();//AudoSourceを読み込む
+        wallKickEffectAng = wallKickEffect.transform.eulerAngles.y; //角度の変数をエフェクトの角度にする
         //アニメーション関係-----------------------------------
         animator = GetComponent<Animator>(); //animetor変数にAnimetorを読み込む
         //------------------------------------
@@ -113,6 +123,7 @@ public class player1P : MonoBehaviour
             //プレイヤーのジャンプ------------------------------------------------
             if (inputParam.m_AButton || inputParam.m_BButton)
             {
+                audioSource.PlayOneShot(jampSE);
                 jampFlag = true;
             }
             ///dieflag == false  clearFlag == false 追加　米盛
@@ -128,6 +139,7 @@ public class player1P : MonoBehaviour
         if(other.gameObject.CompareTag("scaffold"))
         {
             playerRigidbody.gravityScale = firstGravityScale / 1.25f; //壁に当たると落下速度が遅くなる
+            wallKickEffectOutputFlag = false;
             jampFlag = false;
             jampEndFlag = false;
             leftJampFlag = false;
@@ -154,6 +166,10 @@ public class player1P : MonoBehaviour
     }
     private void Move() //プレイヤーの動き
     {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(DashSE,DashSEFrequency);
+        }
         XMoveCount += 1 * Time.deltaTime;
         playerRigidbody.velocity += new Vector2(playerSpeed * Time.deltaTime * Axisx, 0); //歩行
         //絶対値計算
@@ -189,10 +205,22 @@ public class player1P : MonoBehaviour
             playerRigidbody.velocity += new Vector2(0, playerJampPower * Time.deltaTime); //普通のジャンプ
             if(leftJampFlag == true && Axisx != 0)
             {
+                if (wallKickEffectOutputFlag == false) //壁キックのエフェクトが出てくるフラグ
+                {
+                    audioSource.PlayOneShot(wallKickSE); //効果音を鳴らす
+                    Instantiate(wallKickEffect,transform.position, new Quaternion(0, wallKickEffectAng + 180, 0,0)); //エフェクトを出す
+                    wallKickEffectOutputFlag = true;
+                }
                 playerRigidbody.velocity += new Vector2(playerDashSpeed * Time.deltaTime * 9, 0); //壁ジャンプ(左)
             }
             if (rightJampFlag == true && Axisx != 0)
             {
+                if (wallKickEffectOutputFlag == false)  //壁キックのエフェクトが出てくるフラグ
+                {
+                    audioSource.PlayOneShot(wallKickSE); //効果音を鳴らす
+                    Instantiate(wallKickEffect, transform.position, new Quaternion(0, wallKickEffectAng + 180, 0, 0)); //エフェクトを出す
+                    wallKickEffectOutputFlag = true;
+                }
                 playerRigidbody.velocity += new Vector2(-1 * playerDashSpeed * Time.deltaTime * 9, 0); //壁ジャンプ(右)
             }
             if (playerRigidbody.velocity.y > playerJampMax)

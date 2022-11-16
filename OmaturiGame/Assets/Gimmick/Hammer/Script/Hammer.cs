@@ -9,16 +9,12 @@ using UnityEngine;
 public class Hammer : GimmickBase
 {
     [SerializeField] Animator HammerAnim;
-    private bool m_Finish;
-
     /// <summary>
     /// アニメーションの終わりに呼ぶよ
     /// </summary>
     private void OnFinish()
     {
-        m_Finish = true;
         PreparingSelfDestruction();
-
     }
     public override void OnUpdatePutState()
     {

@@ -26,6 +26,7 @@ public class GridLine : MonoBehaviour
             GameObject obj = new GameObject();
             obj.name = "LineY" + i;
             LineRenderer renderer = obj.AddComponent<LineRenderer>();
+            renderer.endColor = Color.white;
             // 線の幅
             renderer.SetWidth(0.02f, 0.02f);
             // 頂点の数
@@ -36,6 +37,7 @@ public class GridLine : MonoBehaviour
             renderer.SetPosition(0,mainCamera.ScreenToWorldPoint(new Vector3(m_widthVec.x, i*m_gridSize, 1)));
             renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(m_widthVec.y, i * m_gridSize, 1)));
             objects.Add(obj);
+            Debug.Log(obj);
         }
 
         var heightnum = m_widthVec.y - m_widthVec.x;
@@ -45,6 +47,7 @@ public class GridLine : MonoBehaviour
             GameObject obj = new GameObject();
             obj.name = "LineX" + i;
             LineRenderer renderer = obj.AddComponent<LineRenderer>();
+            renderer.endColor = Color.white;
             // 線の幅
             renderer.SetWidth(0.02f, 0.02f);
             // 頂点の数
@@ -52,10 +55,13 @@ public class GridLine : MonoBehaviour
 
 
             // 頂点を設定
-            renderer.SetPosition(0, mainCamera.ScreenToWorldPoint(new Vector3(i * m_gridSize　+　m_widthVec.x   ,m_heightVec.x   , 1)));
+            renderer.SetPosition(0, mainCamera.ScreenToWorldPoint(new Vector3(i * m_gridSize　+　m_widthVec.x   ,m_heightVec.x , 1)));
             renderer.SetPosition(1, mainCamera.ScreenToWorldPoint(new Vector3(i * m_gridSize　+ m_widthVec.x , m_heightVec.y, 1)));
             objects.Add(obj);
+            Debug.Log(obj);
         }
+        Debug.Log(objects.Count);
+
         //UnSetAllActive();
     }
 
