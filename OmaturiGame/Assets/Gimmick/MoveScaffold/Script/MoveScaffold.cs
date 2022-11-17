@@ -24,6 +24,7 @@ public class MoveScaffold : MonoBehaviour
         yield return new WaitForSeconds(m_StopTime);
         m_MoveScaffoldState = MoveScaffoldState.Return;
         m_IsStartCorutine = false;
+        m_RemainingMoveTime = 0;
         yield break;
     }
     /// <summary>
